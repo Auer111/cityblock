@@ -33,6 +33,8 @@ export class Isometric{
                 cell.appendChild(overlay);
                 cell.appendChild(this.items[i].img);
                 row.appendChild(cell);
+
+                this.items[i].el = cell;
                 i++;
             }
             grid.prepend(row);

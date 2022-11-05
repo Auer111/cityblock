@@ -1,0 +1,128 @@
+#cats-wrapper{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    padding: 1em;
+    display: flex;
+    flex-direction: column-reverse;
+    pointer-events: none;
+    width: 4.5em;
+}
+
+#cats{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    width: fit-content;
+    padding: 0.2em 0.1em;
+    margin-top: 1em;
+    pointer-events: all;
+}
+#cats > *{
+    margin: .1em;
+}
+#current-cat{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    pointer-events: all;
+}
+
+#current-cat img{
+    width: 5vw;
+}
+
+#current-cat .selected{
+    background-color: white;
+    border-radius: 100%;
+}
+
+/* CSS */
+.button-19 {
+  appearance: button;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100%;
+  background-color: #575757;
+}
+.button-19.blue{
+    background-color: #1899D6;
+}
+.button-19.yellow{
+    background-color: #aeb110;
+}
+.button-19.green{
+    background-color: #09840d;
+}
+.button-19.red{
+    background-color: #d61818;
+}
+
+.button-19:after {
+  background-clip: padding-box;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  background-color: #323232;
+}
+.button-19.blue:after{
+    background-color: #1CB0F6;
+}
+.button-19.yellow:after{
+    background-color: #bac000;
+}
+.button-19.green:after{
+    background-color: #33cf10;
+}
+.button-19.red:after{
+    background-color: #f61c1c;
+}
+
+.button-19:main,
+.button-19:focus {
+  user-select: auto;
+}
+
+.button-19:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.button-19:disabled {
+  cursor: auto;
+}
+
+button{
+    background: transparent;
+    border: none;
+}

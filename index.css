@@ -1,5 +1,5 @@
 body{
-    background: black;
+    background: #1d4014;
 }
 
 #hero{
@@ -18,4 +18,8 @@ body{
 
 *{
     font-family: 'IBM Plex Mono', monospace;
+}
+
+.cant-place::after{
+    content: '';
 }

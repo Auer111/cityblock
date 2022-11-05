@@ -1,0 +1,69 @@
+{
+    "tiles": [
+        {
+            "id": 0,
+            "name": "Grass",
+            "img": "Grass1.png",
+            "category":"0"
+        },
+        {
+            "id": 1,
+            "name": "Wheat",
+            "img": "Wheat.png",
+            "category":3,
+            "buildon":["0"]
+        },
+        {
+            "id": 2,
+            "name": "Forest",
+            "img": "Forest1.png",
+            "category":3,
+            "buildon":["0"]
+        },
+        {
+            "id": 20,
+            "name": "Barn",
+            "img": "Barn.png",
+            "category":3,
+            "buildon":["0"]
+        },
+        {
+            "id": 30,
+            "name": "Farmhouse",
+            "img": "Farmhouse.png",
+            "category":2,
+            "buildon":["0"]
+        },
+        {
+            "id": 50,
+            "name": "Pumpjack",
+            "img": "pumpjack/PJ.png",
+            "category":1,
+            "buildon":["0"]
+        }
+    ],
+    "cats": [
+        {
+            "id":0,
+            "name":""
+        },
+        {
+            "id":1,
+            "name":"Power",
+            "icon":"bolt-lightning",
+            "color":"yellow"
+        },
+        {
+            "id":2,
+            "name":"Housing",
+            "icon":"house",
+            "color":"green"
+        },
+        {
+            "id":3,
+            "name":"Food",
+            "icon":"burger",
+            "color":"red"
+        }
+    ]
+}

@@ -11,9 +11,9 @@
     display: flex;
 }
 #grid .cell{
-    margin-right: -77px;
-    transform: skewY(27deg);
-    margin-bottom: -77px;
+    margin-right: -76px;
+    transform: skewY(26.5deg);
+    margin-bottom: -76px;
     position: relative;
 }
 
