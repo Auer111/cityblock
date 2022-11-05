@@ -1,0 +1,79 @@
+#grid *{
+    pointer-events: none;
+}
+
+#grid{
+    transform: skewY(333deg);
+    width: fit-content;
+}
+
+#grid .row{
+    display: flex;
+}
+#grid .cell{
+    margin-right: -77px;
+    transform: skewY(27deg);
+    margin-bottom: -80px;
+    position: relative;
+}
+
+
+#grid img{
+    width: 153px;
+}
+
+#grid .overlay{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.overlay > div > div {
+    pointer-events: all !important;
+    padding: 50px;
+    float: left;
+    transform: rotate(45deg);
+}
+.overlay > div{
+    transform:scale(1, .5) translateY(150px) translateX(25px);
+}
+
+#grid img{
+    transform: translateY(0px);
+}
+/* todo */
+#grid .hover {
+    -webkit-animation-name: hover;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+}
+
+#grid .unhover {
+    -webkit-animation-name: unhover;
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+}
+  
+  @-webkit-keyframes hover {
+    from {
+        margin-top: 0;
+    }
+    to {
+        margin-top: -20px;
+    }
+  }
+  
+  @-webkit-keyframes unhover {
+    from {
+        margin-top: -20px;
+    }
+    to {
+        margin-top: 0;
+    }
+  }
