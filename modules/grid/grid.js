@@ -28,7 +28,7 @@ export class Isometric{
 
                 cell.style.zIndex = 1000 - x - y;
 
-                let overlay = this.overlay(`.cell${x}-${y} > img`, this.items[i].click);
+                let overlay = this.overlay(`.cell${x}-${y} > .img-wrapper`, this.items[i].click);
 
                 cell.appendChild(overlay);
                 cell.appendChild(this.items[i].img);

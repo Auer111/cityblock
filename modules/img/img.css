@@ -1,0 +1,16 @@
+.pumpjack-animation{ 
+    animation: pumpjack-animation 1s infinite alternate; 
+}
+
+@keyframes pumpjack-animation{
+    0% {background-image: url("/modules/img/pumpjack/PJ-d4.png");}
+    20% {background-image: url("/modules/img/pumpjack/PJ-d3.png");}
+    30% {background-image: url("/modules/img/pumpjack/PJ-d2.png");}
+    40% {background-image: url("/modules/img/pumpjack/PJ-d1.png");}
+    50% {background-image: url("/modules/img/pumpjack/PJ.png");}
+    60% {background-image: url("/modules/img/pumpjack/PJ-u1.png");}
+    70% {background-image: url("/modules/img/pumpjack/PJ-u2.png");}
+    80% {background-image: url("/modules/img/pumpjack/PJ-u3.png");}
+    90% {background-image: url("/modules/img/pumpjack/PJ-u4.png");}
+    100% {background-image: url("/modules/img/pumpjack/PJ-u5.png");}
+ }

@@ -9,8 +9,6 @@ body{
 }
 
 #hero > .bg{
-    background: #232323;
-    border-radius: 100%;
     height: 600px;
 }
 
