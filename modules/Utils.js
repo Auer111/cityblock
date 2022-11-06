@@ -2,6 +2,7 @@
 export class Utils{
   constructor(){
     this.createExtensions();
+    window.UTILS = this;
   }
   
   loadCss = function(pathname){

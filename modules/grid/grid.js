@@ -3,10 +3,16 @@ import Utils from "/modules/Utils.js"
 export class Isometric{
     constructor(rows, cols, items){
         new Utils().loadCss(import.meta.url);
+        window.GRID = this;
 
         this.rows = rows;
         this.cols = cols;
         this.items = items;
+        this.Init();
+    }
+
+    Init(){
+        document.getElementById("hero").children[0].appendChild(this.render());
     }
 
     render(){

@@ -4,6 +4,7 @@ export class Img {
     
     constructor(){
         new Utils().loadCss(import.meta.url);
+        window.IMG = this;
 
         this.Blank = 'blank.png';
         this.Tile = 'tile.png';
@@ -13,6 +14,9 @@ export class Img {
         return `/modules/img/${name}`;
     }
 
+    raw(img){
+        return `<img src="/modules/img/${img}" />`;
+    }
     render(img, name){
         img = img ?? this.Blank;
         
