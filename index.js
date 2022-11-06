@@ -78,7 +78,7 @@ window.ClickGridTile = function ClickGridTile(id){
     console.log(item.el);
     if(item.el.classList.contains("can-place")){
         item.tileId = SelectedTile.id;
-        item.img = img.render(SelectedTile.img);
+        item.img = img.render(SelectedTile.img, SelectedTile.name);
         item.el.querySelector(".img-wrapper").replaceWith(item.img);
     }
 }

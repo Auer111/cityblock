@@ -13,16 +13,16 @@ export class Img {
         return `/modules/img/${name}`;
     }
 
-    render(name, animation){
-        name = name ?? this.Blank;
+    render(img, name){
+        img = img ?? this.Blank;
         
-        let img = document.createElement('div');
-        img.style.backgroundImage = `url('/modules/img/${name}')`;
-        img.classList = "img " + animation;
+        let el = document.createElement('div');
+        el.style.backgroundImage = `url('/modules/img/${img}')`;
+        el.classList = `img ${name?.toLowerCase()}-animation`;
 
         let wrapper = document.createElement('div');
         wrapper.classList = "img-wrapper"
-        wrapper.prepend(img);
+        wrapper.prepend(el);
         return wrapper;
     }
     
