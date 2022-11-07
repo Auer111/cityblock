@@ -46,7 +46,7 @@
     transform: translateY(0px);
 }
 /* todo */
-#grid .cell:not(.invalid) .hover {
+#grid .cell.valid .hover {
     -webkit-animation-name: hover;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-iteration-count: 1;
@@ -54,13 +54,13 @@
     -webkit-animation-fill-mode: forwards;
 }
 
-#grid .cell:not(.invalid) .unhover {
+/* #grid .cell.valid.animate .unhover {
     -webkit-animation-name: unhover;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-timing-function: ease;
     -webkit-animation-fill-mode: forwards;
-}
+} */
   
   @-webkit-keyframes hover {
     from {
@@ -71,14 +71,14 @@
     }
   }
   
-  @-webkit-keyframes unhover {
+  /* @-webkit-keyframes unhover {
     from {
         margin-top: -20px;
     }
     to {
         margin-top: 0;
     }
-  }
+  } */
 
 .cell.invalid {
     filter: grayscale(1);
