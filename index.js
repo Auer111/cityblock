@@ -16,9 +16,15 @@ function Init(data){
     new UI(data);
 
     const startTile = data.tiles[0];
-
     var items = new Array(25).fill()
-    .map((item,index) => ({ gridId:index, tileId: startTile.id, img: window.IMG.render(startTile.img), click: ()=>{window.UI.ClickGridTile(index)}}));
+    .map((item,index) => ({ 
+        gridId: index, 
+        tileId: startTile.id, 
+        img: window.IMG.render(startTile.img), 
+        click: ()=>{window.UI.ClickCell(index)},
+        drag: ()=>{window.UI.ClickCell(index)}
+    }));
 
     new Isometric(5,5, items);
+
 }

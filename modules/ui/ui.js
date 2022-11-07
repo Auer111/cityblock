@@ -4,7 +4,8 @@ export class UI{
     constructor(data){
         new Utils().loadCss(import.meta.url);
         window.UI = this;
-
+        this.isMouseDown = false;
+        this.isDragging = false;
         this.Init(data);
     }
 
@@ -12,8 +13,6 @@ export class UI{
         const catsWrapperEl = window.document.getElementById("cats");
         data.cats.forEach(cat => {
             if(!cat.name){return;}
-
-            console.log("data cat:"+cat.name);
             var el = document.createElement('div');
             el.innerHTML = `
             <button class="button-19 ${cat.color}" role="button" onClick='window.UI.SelectCat(${cat.id})'>
@@ -21,6 +20,25 @@ export class UI{
             </button>`;
             catsWrapperEl.appendChild(el);
         });
+
+        document.addEventListener('mousedown', function (event) {
+            window.UI.mouseDown = true;
+        });
+        document.addEventListener('mouseup', function (event) {
+            window.UI.mouseDown = false;
+            window.UI.isDragging = false;
+            window.UI.SelectTile(null,null);
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            if(window.UI.mouseDown){
+                window.UI.isDragging = true;
+            }
+        });
+    }
+
+    mouseAction(){
+        
     }
 
     renderCardDeck(){
@@ -28,12 +46,9 @@ export class UI{
     }
 
     renderCard(tile){
-        if(!tile){
-            console.warn("No Card Found!");
-            return;
-        }
+        if(!tile){return;}
 
-        const cat = window.data.cats.find(x => x.id == tile.category);
+        const cat = window.data.cats.find(x => x.id == tile.catId);
         return `
         <figure class="card card--${cat.color}">
             ${window.IMG.raw(tile.img)}
@@ -44,33 +59,13 @@ export class UI{
                 </div>
                 <h1 class="card__name">${tile.name}</h1>
                 <table class="card__stats">
-                <tbody><tr>
-                    <th>HP</th>
-                    <td>130</td>
-                </tr>
-                <tr>
-                    <th>Attack</th>
-                    <td>65</td>
-                </tr>
-                
-                <tr>
-                    <th>Defense</th>
-                    <td>60</td>
-                </tr>
-            
-                <tr>
-                    <th>Special Attack</th>
-                    <td>110</td>
-                </tr>
-                <tr>
-                    <th>Special Defense</th>
-                    <td>95</td>
-                </tr>
-                <tr>
-                    <th>Speed</th>  
-                    <td>65</td>
-                </tr>
-                </tbody></table>
+                    <tbody>
+                    <tr>
+                        <th>Defense</th>
+                        <td>60</td>
+                    </tr>
+                    </tbody>
+                </table>
                 
                 <div class="card__abilities">
                 <h4 class="card__ability">
@@ -90,7 +85,7 @@ export class UI{
         var container = window.document.getElementById("current-cat");
         container.innerHTML = "";
         data.tiles.forEach(t => {
-            if(t.category == id){
+            if(t.catId == id){
                 let el = document.createElement('div');
                 el.innerHTML = `
                 <button onClick="window.UI.SelectTile(this,${t.id})">
@@ -103,32 +98,40 @@ export class UI{
 
     SelectTile(that,id){
         window.document.querySelectorAll('button.selected').forEach(i => i.classList.remove('selected'));
-        that.classList.add('selected');
+        that?.classList.add('selected');
     
-        const tile = data.tiles.find(x => x.id == id);
-        window.GRID.items.forEach(t => {
-            if(true){
-                t.el.classList.add("can-place");
-                t.el.classList.remove("cant-place");
-            }
-            else{
-                t.el.classList.add("cant-place");
-                t.el.classList.remove("can-place");
-            }
+        let tile = id ? data.tiles.find(x => x.id == id) : null;
+        window.GRID.items.forEach(cell => {
+            this.SetTileValidity(cell, id ? tile.buildon.includes(String(cell.tileId)) : true);
         });
-    
+
         window.SelectedTile = tile;
-        window.document.getElementById("cards").innerHTML = window.UI.renderCard(tile);
+        let cards = window.document.getElementById("cards");
+        let card = window.UI.renderCard(tile);
+        cards.innerHTML = card ?? "";
     }
     
-    ClickGridTile(id){  
-        if(!window.GRID || window.SelectedTile == null){return;}
-        
-        const item = window.GRID.items.find(x => x.gridId == id);
-        if(item.el.classList.contains("can-place")){
-            item.tileId = SelectedTile.id;
-            item.img = window.IMG.render(SelectedTile.img, SelectedTile.name);
-            item.el.querySelector(".img-wrapper").replaceWith(item.img);
+    ClickCell(id){  
+        if(!window.GRID || !window.SelectedTile){return;}
+        const cell = window.GRID.items.find(x => x.gridId == id);
+        if(cell.el.classList.contains("valid")){
+            cell.tileId = SelectedTile.id;
+            cell.img = window.IMG.render(SelectedTile.img, SelectedTile.name);
+            cell.el.querySelector(".img-wrapper").replaceWith(cell.img);
+        }
+        if(window.SelectedTile){
+            this.SetTileValidity(cell, SelectedTile.buildon.includes(String(cell.tileId)));
+        }
+    }
+
+    SetTileValidity(cell, isValid){
+        if(isValid){
+            cell.el.classList.add("valid");
+            cell.el.classList.remove("invalid");
+        }
+        else{
+            cell.el.classList.add("invalid");
+            cell.el.classList.remove("valid");
         }
     }
 }

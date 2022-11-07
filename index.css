@@ -1,5 +1,7 @@
 body{
     background: #1d4014;
+    margin: 0;
+    draggable: false;
 }
 
 #hero{

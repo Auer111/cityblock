@@ -34,19 +34,19 @@
 
 .overlay > div > div {
     pointer-events: all !important;
-    padding: 50px;
+    padding: 53px;
     float: left;
     transform: rotate(45deg);
 }
 .overlay > div{
-    transform:scale(1, .5) translateY(150px) translateX(25px);
+    transform:scale(1, .5) translateY(175px) translateX(25px);
 }
 
 #grid .img{
     transform: translateY(0px);
 }
 /* todo */
-#grid .hover {
+#grid .cell:not(.invalid) .hover {
     -webkit-animation-name: hover;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-iteration-count: 1;
@@ -54,7 +54,7 @@
     -webkit-animation-fill-mode: forwards;
 }
 
-#grid .unhover {
+#grid .cell:not(.invalid) .unhover {
     -webkit-animation-name: unhover;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-iteration-count: 1;
@@ -79,3 +79,7 @@
         margin-top: 0;
     }
   }
+
+.cell.invalid {
+    filter: grayscale(1);
+}
