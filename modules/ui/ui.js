@@ -21,20 +21,26 @@ export class UI{
             catsWrapperEl.appendChild(el);
         });
 
-        document.addEventListener('mousedown', function (event) {
-            window.UI.mouseDown = true;
+        ['mousedown', 'touchstart'].forEach(e => {
+            document.addEventListener(e, function (event) {
+                window.UI.mouseDown = true;
+            });
         });
-        document.addEventListener('mouseup', function (event) {
-            window.UI.mouseDown = false;
-            window.UI.isDragging = false;
-            window.UI.SelectTile(null,null);
+        ['mouseup', 'touchend'].forEach(e => {
+            document.addEventListener(e, function (event) {
+                window.UI.mouseDown = false;
+                window.UI.isDragging = false;
+                window.UI.SelectTile(null,null);
+            });
         });
-
-        document.addEventListener('mousemove', (event) => {
-            if(window.UI.mouseDown){
-                window.UI.isDragging = true;
-            }
+        ['mousemove', 'touchmove'].forEach(e => {
+            document.addEventListener(e, (event) => {
+                if(window.UI.mouseDown){
+                    window.UI.isDragging = true;
+                }
+            });
         });
+        
     }
 
     mouseAction(){

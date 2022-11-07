@@ -52,21 +52,30 @@ export class Isometric{
     overlay(target, cell){
         let inner = document.createElement('div');
 
-        inner.addEventListener('mouseover', ()=> {
-            let el = document.querySelector(target);
-            el.classList.remove('unhover');
-            el.classList.add('hover');
-            if(window.UI.isDragging){
-                cell.drag();
-            }
-        });
         inner.addEventListener('mousedown', cell.click);
-        inner.addEventListener('mouseout', ()=> {
-            let el = document.querySelector(target);
-            el.classList.remove('hover');
-            el.classList.add('unhover');
+        inner.addEventListener('pointerdown', e => {
+            cell.click();
+            inner.releasePointerCapture(e.pointerId);
         });
 
+        ['mouseover', 'pointerenter'].forEach(e => {
+            inner.addEventListener(e, ()=> {
+                let el = document.querySelector(target);
+                el.classList.remove('unhover');
+                el.classList.add('hover');
+                if(window.UI.isDragging){
+                    cell.drag();
+                }
+            });
+        });
+        ['mouseout', 'pointerleave'].forEach(e => {
+            inner.addEventListener(e, ()=> {
+                let el = document.querySelector(target);
+                el.classList.remove('hover');
+                el.classList.add('unhover');
+            });
+        });
+        
         let mid = document.createElement('div');
         mid.prepend(inner);
         let top = document.createElement('div');
