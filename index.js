@@ -1,11 +1,11 @@
-import Img from "/modules/img/img.js";
-import Isometric from "/modules/grid/grid.js";
-import UI from "/modules/ui/ui.js";
+import Img from "./modules/img/img.js";
+import Isometric from "./modules/grid/grid.js";
+import UI from "./modules/ui/ui.js";
 import Utils from "./modules/Utils.js";
 
 new Utils();
 new Img();
-//utils.loadHtml("/modules/nav/nav.html", (html) => {console.log(html);});
+//utils.loadHtml("./modules/nav/nav.html", (html) => {console.log(html);});
 
 window.UTILS.getJson("data.json", (data) => {
     Init(data);

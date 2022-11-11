@@ -1,4 +1,4 @@
-import Utils from "/modules/Utils.js"
+import Utils from "../Utils.js"
 
 export class Img {
     
@@ -11,17 +11,17 @@ export class Img {
     }
 
     url(name){
-        return `/modules/img/${name}`;
+        return `./modules/img/${name}`;
     }
 
     raw(img){
-        return `<img src="/modules/img/${img}" />`;
+        return `<img src="./modules/img/${img}" />`;
     }
     render(img, name){
         img = img ?? this.Blank;
         
         let el = document.createElement('div');
-        el.style.backgroundImage = `url('/modules/img/${img}')`;
+        el.style.backgroundImage = `url('./modules/img/${img}')`;
         el.classList = `img ${name?.toLowerCase()}-animation`;
 
         let wrapper = document.createElement('div');

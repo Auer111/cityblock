@@ -1,4 +1,4 @@
-import Utils from "/modules/Utils.js"
+import Utils from "../Utils.js"
 
 export class Isometric{
     constructor(rows, cols, items){
