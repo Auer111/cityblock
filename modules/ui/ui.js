@@ -23,12 +23,14 @@ export class UI{
                 window.UI.GrabCard(target.id);
                 window.UI.cursorEl.src = target.querySelector("img").src;
                 target.hidden = true;
+                document.body.classList.add("hide-cursor");
               },
               move (event) {},
               end (event){
                 var target = event.target;
                 target.hidden = false;
                 window.UI.cursorEl.src = "";
+                document.body.classList.remove("hide-cursor");
                 if(event.dropzone){
                     event.target.remove();
                 }
@@ -46,7 +48,7 @@ export class UI{
         this.cursorEl = cursor;
         document.body.prepend(cursor);
         window.addEventListener('mousemove', (e)=> {
-            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            cursor.style.transform = `translate3d(${e.clientX - (cursor.width/2)}px, ${e.clientY - (cursor.height/2)}px, 0)`;
         });
     }
       

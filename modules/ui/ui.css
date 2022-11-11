@@ -1,9 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300,700");
 
-*{ touch-action: none; } 
+*{ touch-action: none; }
+
+body.hide-cursor *{
+  cursor: none;
+}
 
 #cursor{
-  width: 2rem;
+  width: 50px;
+  z-index: 100;
+  position: relative;
 }
 
 #tile-card-wrapper {
