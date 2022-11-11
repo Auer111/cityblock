@@ -2,6 +2,10 @@
 
 *{ touch-action: none; } 
 
+#cursor{
+  width: 2rem;
+}
+
 #tile-card-wrapper {
   position: fixed;
   left: 0;
@@ -12,49 +16,6 @@
   width: 4.5em;
   display: flex;
   flex-direction: column-reverse;
-}
-
-#cats-wrapper {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  padding: 1em;
-  display: flex;
-  flex-direction: column-reverse;
-  pointer-events: none;
-  width: 4.5em;
-}
-
-#cats {
-  display: flex;
-  flex-direction: row-reverse;
-  flex-wrap: wrap;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 0.2em 0.1em;
-  margin-top: 1em;
-  pointer-events: all;
-}
-
-#cats > * {
-  margin: 0.1em;
-}
-
-#current-cat {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  pointer-events: all;
-}
-
-#current-cat img {
-  width: 5vw;
-}
-
-#current-cat .selected {
-  background-color: white;
-  border-radius: 100%;
 }
 
 /* CSS */
@@ -161,19 +122,30 @@ button {
   border: none;
 }
 
-.card {
-  font-family: "Open Sans", Helvetica, sans-serif;
-  display: inline-block;
-  width: 300px;
-  padding: 1em;
-  border-radius: 15px;
-  margin: 10px;
-  text-align: left;
-  transform: scale(0.5) translateY(100%) rotate(-5deg);
+#cards{
+  padding: 2em;
+  user-select: none;
+  pointer-events: none;
   position: fixed;
-  transition: 0.4s;
   bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+}
+
+.card {
+  margin: -2em;;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  width: 300px;
+  transform: scale(0.5) translateY(100%) rotate(-5deg);
+  transition: 0.4s;
   box-shadow: 0px 5px 20px -10px #111111;
+  user-select: none;
+  pointer-events: all;
+}
+.card.hidden{
+  visibility: hidden;
+  pointer-events: none;
 }
 .card__caption {
   background-color: rgba(255, 255, 255, 0.65);
@@ -317,5 +289,4 @@ button {
 .card:hover {
   z-index: 5;
   box-shadow: 0px 13px 30px -15px #000000;
-  transform: translateY(0px);
 }/*# sourceMappingURL=ui.css.map */

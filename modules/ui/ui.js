@@ -4,59 +4,60 @@ export class UI{
     constructor(data){
         new Utils().loadCss(import.meta.url);
         window.UI = this;
-        this.isMouseDown = false;
-        this.isDragging = false;
-        this.Init(data);
+
+        this.init(data);
+        this.cursor();
     }
 
-    Init(data){
-        const catsWrapperEl = window.document.getElementById("cats");
-        data.cats.forEach(cat => {
-            if(!cat.name){return;}
-            var el = document.createElement('div');
-            el.innerHTML = `
-            <button class="button-19 ${cat.color}" role="button" onClick='window.UI.SelectCat(${cat.id})'>
-                <i class="fa-solid fa-${cat.icon} fa-fw"></i>
-            </button>`;
-            catsWrapperEl.appendChild(el);
-        });
+    init(data){
+        
+        window.document.getElementById("cards").innerHTML = Array(5)
+        .fill()
+        .map((i) => this.renderCard(data.tiles[1]))
+        .join('');
 
-        ['mousedown', 'touchstart'].forEach(e => {
-            document.addEventListener(e, function (event) {
-                window.UI.mouseDown = true;
-            });
-        });
-        ['mouseup', 'touchend'].forEach(e => {
-            document.addEventListener(e, function (event) {
-                window.UI.mouseDown = false;
-                window.UI.isDragging = false;
-                window.UI.SelectTile(null,null);
-            });
-        });
-        ['mousemove', 'touchmove'].forEach(e => {
-            document.addEventListener(e, (event) => {
-                if(window.UI.mouseDown){
-                    window.UI.isDragging = true;
+        interact('.card').draggable({
+            listeners: {
+              start (event) {
+                var target = event.target;
+                window.UI.GrabCard(target.id);
+                window.UI.cursorEl.src = target.querySelector("img").src;
+                target.hidden = true;
+              },
+              move (event) {},
+              end (event){
+                var target = event.target;
+                target.hidden = false;
+                window.UI.cursorEl.src = "";
+                if(event.dropzone){
+                    event.target.remove();
                 }
-            });
+                else{
+
+                }
+              }
+            }
         });
-        
     }
 
-    mouseAction(){
-        
+    cursor(){
+        const cursor = document.createElement(`img`);
+        cursor.id = "cursor";
+        this.cursorEl = cursor;
+        document.body.prepend(cursor);
+        window.addEventListener('mousemove', (e)=> {
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        });
     }
-
-    renderCardDeck(){
-        window.document.getElementById("cards").innerHTML = this.renderCard(window.SelectedCard);
-    }
+      
+    
 
     renderCard(tile){
         if(!tile){return;}
 
         const cat = window.data.cats.find(x => x.id == tile.catId);
         return `
-        <figure class="card card--${cat.color}">
+        <figure id="${tile.id}" class="card card--${cat.color}">
             ${window.IMG.raw(tile.img)}
             <div class="triangle"></div>
             <figcaption class="card__caption">
@@ -87,59 +88,16 @@ export class UI{
         </figure>`;
     }
 
-    SelectCat(id){
-        var container = window.document.getElementById("current-cat");
-        container.innerHTML = "";
-        data.tiles.forEach(t => {
-            if(t.catId == id){
-                let el = document.createElement('div');
-                el.innerHTML = `
-                <button onClick="window.UI.SelectTile(this,${t.id})">
-                    <img src='/modules/img/${t.img}'/>
-                </button>`;
-                container.prepend(el);
-            }
-        });
-    }
-
-    SelectTile(that,id){
-        window.document.querySelectorAll('button.selected').forEach(i => i.classList.remove('selected'));
-        that?.classList.add('selected');
-    
-        let tile = id ? data.tiles.find(x => x.id == id) : null;
+    GrabCard(tileId){
+        let tile = tileId ? data.tiles.find(x => x.id == tileId) : null;
         window.GRID.items.forEach(cell => {
-            this.SetTileValidity(cell, id ? tile.buildon.includes(String(cell.tileId)) : true);
+            window.GRID.SetTileValidity(cell, tileId ? tile.buildon.includes(String(cell.tileId)) : true);
         });
-
-        window.SelectedTile = tile;
-        let cards = window.document.getElementById("cards");
-        let card = window.UI.renderCard(tile);
-        cards.innerHTML = card ?? "";
     }
     
-    ClickCell(id){  
-        if(!window.GRID || !window.SelectedTile){return;}
-        const cell = window.GRID.items.find(x => x.gridId == id);
-        if(cell.el.classList.contains("valid")){
-            cell.tileId = SelectedTile.id;
-            cell.img = window.IMG.render(SelectedTile.img, SelectedTile.name);
-            cell.el.querySelector(".img-wrapper").replaceWith(cell.img);
-        }
-        if(window.SelectedTile){
-            this.SetTileValidity(cell, SelectedTile.buildon.includes(String(cell.tileId)));
-        }
-    }
+    
 
-    SetTileValidity(cell, isValid){
-        if(isValid){
-            cell.el.classList.add("valid");
-            cell.el.classList.remove("invalid");
-        }
-        else{
-            cell.el.classList.add("invalid");
-            cell.el.classList.remove("valid");
-        }
-    }
+    
 }
 
 export default UI;

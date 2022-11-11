@@ -13,6 +13,15 @@ export class Isometric{
 
     Init(){
         document.getElementById("hero").children[0].appendChild(this.render());
+    
+        interact(".dropzone").dropzone({
+            ondrop: function (event) {
+                console.log(event, event.target.id, event.relatedTarget.id);
+                window.GRID.ClickCell(event.target.id, event.relatedTarget.id);
+            }
+        }).on('dropactivate', function (event) {
+            
+        });
     }
 
     render(){
@@ -34,9 +43,7 @@ export class Isometric{
 
                 cell.style.zIndex = 1000 - x - y;
 
-                let overlay = this.overlay(`.cell${x}-${y} > .img-wrapper`, this.items[i]);
-
-                cell.appendChild(overlay);
+                cell.innerHTML = this.createCellEventLayer(`.cell${x}-${y} > .img-wrapper`, this.items[i]);
                 cell.appendChild(this.items[i].img);
                 row.appendChild(cell);
 
@@ -49,39 +56,39 @@ export class Isometric{
         return grid;
     }
 
-    overlay(target, cell){
-        let inner = document.createElement('div');
+    createCellEventLayer(target, cell){
+        return `
+        <div class="overlay">
+            <div>
+                <div id="${cell.gridId}" class="dropzone"></div>
+            </div>
+        </div>`;
+    }
 
-        inner.addEventListener('mousedown', cell.click);
-        inner.addEventListener('pointerdown', e => {
-            cell.click();
-            inner.releasePointerCapture(e.pointerId);
-        });
+    ClickCell(cellId, tileId){
+        if(!window.GRID || !cellId || !tileId){return;}
+        const cell = window.GRID.items.find(x => x.gridId == cellId);
+        if(cell.el.classList.contains("valid")){
+            let selectedTile = data.tiles.find(x => x.id == tileId);
 
-        ['mouseover', 'pointerenter'].forEach(e => {
-            inner.addEventListener(e, ()=> {
-                let el = document.querySelector(target);
-                el.classList.remove('unhover');
-                el.classList.add('hover');
-                if(window.UI.isDragging){
-                    cell.drag();
-                }
-            });
+            cell.tileId = selectedTile.id;
+            cell.img = window.IMG.render(selectedTile.img, selectedTile.name);
+            cell.el.querySelector(".img-wrapper").replaceWith(cell.img);
+        }
+        window.GRID.items.forEach(cell => {
+            this.SetTileValidity(cell, true);
         });
-        ['mouseout', 'pointerleave'].forEach(e => {
-            inner.addEventListener(e, ()=> {
-                let el = document.querySelector(target);
-                el.classList.remove('hover');
-                el.classList.add('unhover');
-            });
-        });
-        
-        let mid = document.createElement('div');
-        mid.prepend(inner);
-        let top = document.createElement('div');
-        top.prepend(mid);
-        top.classList = 'overlay';
-        return top;
+    }
+
+    SetTileValidity(cell, isValid){
+        if(isValid){
+            cell.el.classList.add("valid");
+            cell.el.classList.remove("invalid");
+        }
+        else{
+            cell.el.classList.add("invalid");
+            cell.el.classList.remove("valid");
+        }
     }
 }
 
