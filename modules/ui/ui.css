@@ -1,15 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300,700");
 
-*{ touch-action: none; }
-
-body.hide-cursor *{
-  cursor: none;
+*{ 
+  touch-action: none;
+  pointer-events: none;
+  user-select: none; 
 }
 
-#cursor{
-  width: 50px;
-  z-index: 100;
-  position: relative;
+#can-place-overlay{
+  display: none;
+  position: absolute;
+}
+#can-place-overlay > img{
+  width: 4em;
+}
+#can-place-overlay > i{
+  font-size: xx-large;
+    text-align: center;
 }
 
 #tile-card-wrapper {
@@ -18,7 +24,6 @@ body.hide-cursor *{
   bottom: 0;
   top: 0;
   padding: 1em;
-  pointer-events: none;
   width: 4.5em;
   display: flex;
   flex-direction: column-reverse;

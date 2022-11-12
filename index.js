@@ -26,5 +26,4 @@ function Init(data){
     }));
 
     new Isometric(5,5, items);
-
 }

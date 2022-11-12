@@ -10,8 +10,8 @@ export class Img {
         this.Tile = 'tile.png';
     }
 
-    url(name){
-        return `./modules/img/${name}`;
+    url(img){
+        return `./modules/img/${img}`;
     }
 
     raw(img){

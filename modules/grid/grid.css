@@ -1,5 +1,5 @@
-#grid *{
-    pointer-events: none;
+body{
+    overflow: hidden;
 }
 
 #grid{
@@ -15,6 +15,8 @@
     transform: skewY(26.5deg);
     margin-bottom: -76px;
     position: relative;
+    justify-content: center;
+    display: flex;
 }
 
 
@@ -32,8 +34,8 @@
     right: 0;
 }
 
-.overlay > div > div {
-    pointer-events: all !important;
+.dropzone {
+    border: 1px solid black;
     padding: 53px;
     float: left;
     transform: rotate(45deg);
@@ -42,11 +44,8 @@
     transform:scale(1, .5) translateY(175px) translateX(25px);
 }
 
-#grid .img{
-    transform: translateY(0px);
-}
 /* todo */
-#grid .cell.valid .hover {
+#grid .cell.valid.hover .img{
     -webkit-animation-name: hover;
     -webkit-animation-duration: 0.5s;
     -webkit-animation-iteration-count: 1;
