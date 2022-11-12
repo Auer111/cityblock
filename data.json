@@ -10,14 +10,14 @@
             "id": 1,
             "name": "Wheat",
             "img": "Wheat.png",
-            "catId":3,
+            "catId":4,
             "buildon":["0"]
         },
         {
             "id": 2,
             "name": "Forest",
             "img": "Forest1.png",
-            "catId":3,
+            "catId":2,
             "buildon":["0"]
         },
         {
@@ -55,12 +55,18 @@
         },
         {
             "id":2,
-            "name":"Housing",
-            "icon":"house",
+            "name":"Nature",
+            "icon":"tree",
             "color":"green"
         },
         {
             "id":3,
+            "name":"Housing",
+            "icon":"house",
+            "color":"blue"
+        },
+        {
+            "id":4,
             "name":"Food",
             "icon":"burger",
             "color":"red"

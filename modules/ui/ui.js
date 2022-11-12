@@ -10,11 +10,7 @@ export class UI{
 
     init(data){
         
-        window.document.getElementById("cards").innerHTML = Array(5)
-        .fill()
-        .map((i) => this.renderCard(data.tiles[1]))
-        .join('');
-
+        this.renderHand();
         interact('.card').draggable({
             listeners: {
               start (event) {window.UI.dragstart(event);},
@@ -22,13 +18,18 @@ export class UI{
               end (event){window.UI.dragend(event);}
             }
         });
-        
         document.addEventListener("mousemove",(event)=>{
             window.UI.mousePos = [event.clientX,event.clientY];
         });
         document.addEventListener("touchmove",(event)=>{
             window.UI.mousePos = [event.touches[0].clientX,event.touches[0].clientY];
         });
+    }
+
+    renderHand(){
+        window.document.getElementById("cards").innerHTML = window.PLAYER.hand
+        .map((tile) => this.renderCard(tile))
+        .join('');
     }
 
     dragstart(event){
@@ -44,8 +45,6 @@ export class UI{
         if(!cell){return;}
         cell.el.classList.add('hover');
         //window.GRID.SetCanPlaceOverlay(event.target.id, event.relatedTarget.id);
-        
-        console.log(cell);
     }
     dragend(event){
         const cell = this.getCellAtMouse();
@@ -120,11 +119,11 @@ export class UI{
     
         var rect = document.getElementById("20").getBoundingClientRect();
         var origin = [rect.left + (rect.width/2), rect.top + (rect.height/2)]; //the pixel coordinates of (0, 0)
-        var unit = rect.width + 10; //padding
+        var unit = rect.width + 10; //+padding
     
         var isoX = ((screen[0] - origin[0]) / c - (screen[1] - origin[1]) / s) / unit;
         var isoY = ((screen[0] - origin[0]) / c + (screen[1] - origin[1]) / s) / unit;
-        var cell = [window.GRID.rows - 1 - Math.abs(Math.round(isoX)),Math.abs(Math.round(isoY))];
+        var cell = [window.GRID.rows - 1 - Math.round(isoX) * -1, Math.round(isoY) * -1];
         return  cell;
     }
 }

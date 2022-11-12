@@ -2,6 +2,7 @@ import Img from "./modules/img/img.js";
 import Isometric from "./modules/grid/grid.js";
 import UI from "./modules/ui/ui.js";
 import Utils from "./modules/Utils.js";
+import { Player } from "./modules/player.js";
 
 new Utils();
 new Img();
@@ -13,6 +14,7 @@ window.UTILS.getJson("data.json", (data) => {
 
 function Init(data){
     window.data = data;
+    new Player(data);
     new UI(data);
 
     const startTile = data.tiles[0];
