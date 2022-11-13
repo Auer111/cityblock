@@ -3,7 +3,7 @@ import Isometric from "./modules/grid/grid.js";
 import UI from "./modules/ui/ui.js";
 import Utils from "./modules/Utils.js";
 import { Player } from "./modules/player.js";
-import { Quest } from "./modules/quest.js";
+import { Quest } from "./modules/ui/quest.js";
 
 new Utils();
 new Img();
@@ -17,7 +17,7 @@ function Init(data){
     window.data = data;
     new Player(data);
     new UI(data);
-    new Quest();
+    new Quest(data);
 
     const startTile = data.tiles[0];
     var items = new Array(25).fill()

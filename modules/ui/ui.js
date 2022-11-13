@@ -51,7 +51,7 @@ export class UI{
         this.setCanPlaceOverlay();
         card.hidden = false;
         if(this.placeTile(cell, card.id)){
-            card.remove();
+            window.PLAYER.removeCard(card.id);
             cell.el.classList.remove('hover');
         }
         window.GRID.SetGridValidity(true);
@@ -65,6 +65,7 @@ export class UI{
             cell.tileId = selectedTile.id;
             cell.img = window.IMG.render(selectedTile.img, selectedTile.name);
             cell.el.querySelector(".img-wrapper").replaceWith(cell.img);
+            window.QUEST.placed(tileId);
             return true;
         }
         return false;
@@ -116,12 +117,6 @@ export class UI{
         this.placementOverlay.style.display = 'grid';
         this.placementOverlay.querySelector("img").src = window.IMG.url(selectedTile.img);
         cell.el.appendChild(this.placementOverlay);
-        
-        const icon = this.placementOverlay.querySelector("i");
-        const valid = cell.el.classList.contains("valid");
-
-        icon.classList.toggle("fa-down-long", valid);
-        icon.classList.toggle("fa-xmark", !valid);
     }
 
     getCellAtMouse(){

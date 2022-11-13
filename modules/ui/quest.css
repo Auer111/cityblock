@@ -1,0 +1,22 @@
+#quests{
+    position: fixed;
+}
+
+.quest{
+    margin: 1em;
+    font-family: "Open Sans", Helvetica, sans-serif;
+    box-shadow: 0px 5px 20px -10px #111111;
+}
+
+.quest img{
+    width: 3em;
+}
+
+.quest-info{
+    margin: auto;
+    padding: 0.5em;
+}
+
+.quest-info progress{
+    width: 100%;
+}

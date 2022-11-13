@@ -78,5 +78,15 @@
             "icon":"burger",
             "color":"red"
         }
+    ],
+    "quests":[
+        {
+            "id":0,
+            "info":"Place 1 forest.",
+            "unlockId":51,
+            "requireId":2,
+            "requireCount":1,
+            "progress":0
+        }
     ]
 }

@@ -9,16 +9,9 @@
 #can-place-overlay{
   display: none;
   position: absolute;
-  margin-top: 3em;
 }
 #can-place-overlay > img{
-  width: 4em;
-  z-index: 1;
-}
-#can-place-overlay > i{
-  font-size: xx-large;
-  text-align: center;
-  margin-top: -.5em;
+  width: 100%;
 }
 
 #tile-card-wrapper {
@@ -30,6 +23,14 @@
   width: 4.5em;
   display: flex;
   flex-direction: column-reverse;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
+.row{
+  display: flex;
 }
 
 /* CSS */
@@ -147,7 +148,7 @@ button {
   display: flex;
 }
 
-.card {
+.card{
   margin: -2em;;
   font-family: "Open Sans", Helvetica, sans-serif;
   transform: rotate(-5deg);
