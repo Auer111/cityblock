@@ -40,6 +40,13 @@
             "img": "pumpjack/PJ.png",
             "catId":1,
             "buildon":["0"]
+        },
+        {
+            "id": 51,
+            "name": "Lumberyard",
+            "img": "Lumberyard.png",
+            "catId":2,
+            "buildon":["0"]
         }
     ],
     "cats": [
@@ -55,7 +62,7 @@
         },
         {
             "id":2,
-            "name":"Nature",
+            "name":"Resource",
             "icon":"tree",
             "color":"green"
         },
