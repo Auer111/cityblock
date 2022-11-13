@@ -11,42 +11,42 @@
             "name": "Wheat",
             "img": "Wheat.png",
             "catId":4,
-            "buildon":["0"]
+            "buildon":[0,-1,-1,-1,-1]
         },
         {
             "id": 2,
             "name": "Forest",
             "img": "Forest1.png",
             "catId":2,
-            "buildon":["0"]
+            "buildon":[0,-1,-1,-1,-1]
         },
         {
             "id": 20,
             "name": "Barn",
             "img": "Barn.png",
             "catId":3,
-            "buildon":["0"]
+            "buildon":[0,-1,-1,-1,-1]
         },
         {
             "id": 30,
             "name": "Farmhouse",
             "img": "Farmhouse.png",
             "catId":2,
-            "buildon":["0"]
+            "buildon":[0,-1,-1,-1,-1]
         },
         {
             "id": 50,
             "name": "Pumpjack",
             "img": "pumpjack/PJ.png",
             "catId":1,
-            "buildon":["0"]
+            "buildon":[0,-1,-1,-1,-1]
         },
         {
             "id": 51,
             "name": "Lumberyard",
             "img": "Lumberyard.png",
             "catId":2,
-            "buildon":["0"]
+            "buildon":[0,-1,-1,-1,-1]
         }
     ],
     "cats": [

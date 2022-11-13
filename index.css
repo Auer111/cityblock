@@ -13,10 +13,6 @@ body{
     height: 600px;
 }
 
-#grid{
-    margin-left: 230px;
-}
-
 *{
     font-family: 'IBM Plex Mono', monospace;
 }

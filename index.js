@@ -27,5 +27,6 @@ function Init(data){
         img: window.IMG.render(startTile.img)
     }));
 
-    new Isometric(5,5, items);
+    window.GRID = new Isometric(5,5, items);
+    document.getElementById("hero").children[0].appendChild(window.GRID.render());
 }

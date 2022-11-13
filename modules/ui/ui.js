@@ -1,4 +1,5 @@
 import Utils from "../Utils.js"
+import Isometric from "../grid/grid.js";
 
 export class UI{
     constructor(data){
@@ -76,6 +77,17 @@ export class UI{
 
         const cat = window.data.cats.find(x => x.id == tile.catId);
         const img = window.IMG.raw(tile.img);
+
+        var items = new Array(9).fill()
+        .map((item,index) => ({ 
+            gridId: index, 
+            tileId: 0, 
+            img: window.IMG.render(null)
+        }));
+        items[4].img = window.IMG.render(window.data.tiles[0].img);
+        items[4].overlay = `<i class="fa-solid fa-down-long"></i>`;
+
+        const grid = new Isometric(3,3, items);
         return `
         <figure id="${tile.id}" class="card drag card--${cat.color}">
             ${img}
@@ -85,24 +97,8 @@ export class UI{
                     <h3 class="card__type">${cat.name}</h3>
                 </div>
                 <h1 class="card__name">${tile.name}</h1>
-                <table class="card__stats">
-                    <tbody>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <td>&nbsp;</td>
-                    </tr>
-                    </tbody>
-                </table>
-                
-                <div class="card__abilities">
-                <h4 class="card__ability">
-                    <span class="card__label">&nbsp;</span>
-                    &nbsp;
-                </h4>
-                <h4 class="card__ability">
-                    <span class="card__label">&nbsp;</span>
-                    &nbsp;
-                </h4>
+                <div class="grid-wrapper">
+                    ${grid.render().outerHTML}
                 </div>
             </figcaption>
         </figure>`;

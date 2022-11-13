@@ -2,15 +2,35 @@ body{
     overflow: hidden;
 }
 
-#grid{
+#hero .grid{
+    margin-left: 230px;
+}
+
+/* card grid */
+.grid-wrapper{
+    transform: scale(.4);
+    margin-right: -2em;
+    margin-top: -7em;
+}
+
+/* card overlay */
+.grid-wrapper .cell i{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 3.8em;
+    font-size: xxx-large;
+}
+
+.grid{
     transform: skewY(333deg);
     width: fit-content;
 }
 
-#grid .row{
+.grid .row{
     display: flex;
 }
-#grid .cell{
+.grid .cell{
     margin-right: -76px;
     transform: skewY(26.5deg);
     margin-bottom: -76px;
@@ -20,13 +40,13 @@ body{
 }
 
 
-#grid .img{
+.grid .img{
     width: 153px;
     height: 153px;
     background-size: contain;
 }
 
-#grid .overlay{
+.grid .overlay{
     position: absolute;
     top: 0;
     bottom: 0;
