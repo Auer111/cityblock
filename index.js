@@ -24,9 +24,7 @@ function Init(data){
     .map((item,index) => ({ 
         gridId: index, 
         tileId: startTile.id, 
-        img: window.IMG.render(startTile.img), 
-        click: ()=>{window.UI.ClickCell(index)},
-        drag: ()=>{window.UI.ClickCell(index)}
+        img: window.IMG.render(startTile.img)
     }));
 
     new Isometric(5,5, items);

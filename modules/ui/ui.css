@@ -9,13 +9,16 @@
 #can-place-overlay{
   display: none;
   position: absolute;
+  margin-top: 3em;
 }
 #can-place-overlay > img{
   width: 4em;
+  z-index: 1;
 }
 #can-place-overlay > i{
   font-size: xx-large;
-    text-align: center;
+  text-align: center;
+  margin-top: -.5em;
 }
 
 #tile-card-wrapper {
