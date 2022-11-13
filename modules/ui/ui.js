@@ -88,20 +88,20 @@ export class UI{
                 <table class="card__stats">
                     <tbody>
                     <tr>
-                        <th>Defense</th>
-                        <td>60</td>
+                        <th>&nbsp;</th>
+                        <td>&nbsp;</td>
                     </tr>
                     </tbody>
                 </table>
                 
                 <div class="card__abilities">
                 <h4 class="card__ability">
-                    <span class="card__label">Ability</span>
-                    Absorb
+                    <span class="card__label">&nbsp;</span>
+                    &nbsp;
                 </h4>
                 <h4 class="card__ability">
-                    <span class="card__label">Hidden Ability</span>
-                    Hydration
+                    <span class="card__label">&nbsp;</span>
+                    &nbsp;
                 </h4>
                 </div>
             </figcaption>
