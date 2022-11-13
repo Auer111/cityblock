@@ -22,6 +22,10 @@ body{
     font-size: xxx-large;
 }
 
+.grid-wrapper .dropzone{
+    border: 1px solid black;
+}
+
 .grid{
     transform: skewY(333deg);
     width: fit-content;

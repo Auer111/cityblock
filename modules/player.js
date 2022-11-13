@@ -2,7 +2,7 @@ export class Player{
     constructor(data){
         window.PLAYER = this;
 
-        this.hand = [data.tiles[1],data.tiles[1],data.tiles[2],data.tiles[2]];
+        this.hand = [data.tiles[2]];
     }
 
     addCard(tileId){
@@ -15,7 +15,4 @@ export class Player{
         this.hand.splice(remove,1);
         window.UI.renderHand();
     }
-
-    
-
 }

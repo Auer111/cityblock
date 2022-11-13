@@ -4,7 +4,8 @@
             "id": 0,
             "name": "Grass",
             "img": "Grass1.png",
-            "catId":0
+            "catId":0,
+            "buildon":[0,-1,-1,-1,-1]
         },
         {
             "id": 1,
@@ -39,14 +40,14 @@
             "name": "Pumpjack",
             "img": "pumpjack/PJ.png",
             "catId":1,
-            "buildon":[0,-1,-1,-1,-1]
+            "buildon":[0,2,-1,-1,-1]
         },
         {
             "id": 51,
             "name": "Lumberyard",
             "img": "Lumberyard.png",
             "catId":2,
-            "buildon":[0,-1,-1,-1,-1]
+            "buildon":[0,2,-1,-1,-1]
         }
     ],
     "cats": [
