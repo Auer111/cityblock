@@ -79,13 +79,10 @@ export class UI{
         const img = window.IMG.raw(tile.img);
 
         var items = new Array(9).fill()
-        .map((item,index) => ({ 
-            gridId: index, 
-            tileId: 0, 
-            img: window.IMG.render(null)
-        }));
+        .map((item,index) => this.getCardCell(tile, index));
+
         items[4].img = window.IMG.render(window.data.tiles[0].img);
-        items[4].overlay = `<i class="fa-solid fa-down-long"></i>`;
+        
 
         const grid = new Isometric(3,3, items);
         return `
@@ -102,6 +99,29 @@ export class UI{
                 </div>
             </figcaption>
         </figure>`;
+    }
+
+    getCardCell(tile, index){
+        let tId = null;
+        let selectedTile = null;
+        switch(index){
+            case 0: tId = null; break;
+            case 1: tId = tile.buildon[2]; break;
+            case 2: tId = null; break;
+            case 3: tId = tile.buildon[3]; break;
+            case 4: tId = tile.buildon[0]; break;
+            case 5: tId = tile.buildon[1]; break;
+            case 6: tId = null; break;
+            case 7: tId = tile.buildon[4]; break;
+            case 8: tId = null; break;
+        }
+        if(tId && tId != -1){selectedTile = data.tiles.find(x => x.id == tId);}
+        return { 
+            gridId: index, 
+            tileId: tId, 
+            img: window.IMG.render(selectedTile?.img),
+            overlay: index == 4 ? `<i class="fa-solid fa-down-long"></i>` : null
+        };
     }
 
     setCanPlaceOverlay(cell, tileId){ 
