@@ -20,3 +20,20 @@
 .quest-info progress{
     width: 100%;
 }
+
+
+#quest-complete{
+    pointer-events: all;
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url('/cityblock/modules/img/radiant.png'), url('/modules/img/radiant.png');
+    background-position: center;
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-inline: 40vw;
+}

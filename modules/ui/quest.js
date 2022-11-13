@@ -6,6 +6,7 @@ export class Quest{
     window.QUEST = this;
     this.items = data.quests;
     this.questEl = document.body.querySelector("#quests");
+    this.questCompleteEl = document.body.querySelector("#quest-complete");
     this.init();
   }
 
@@ -47,8 +48,17 @@ export class Quest{
   }
 
   complete(quest){
-    this.items = []
+    const remove = this.items.findIndex(q => q.id == quest.id);
+    this.items.splice(remove,1);
     this.init();
-    window.PLAYER.addCard(quest.unlockId);
+
+    const tile = window.data.tiles.find(x => x.id == quest.unlockId);
+    this.questCompleteEl.innerHTML = window.UI.getCardHtml(tile);
+    this.questCompleteEl.children[0].classList.remove('drag')
+    this.questCompleteEl.addEventListener('click', ()=>{
+      window.PLAYER.addCard(quest.unlockId);
+      window.QUEST.questCompleteEl.style.display = 'none';
+    });
+    window.QUEST.questCompleteEl.style.display = 'flex';
   }
 }

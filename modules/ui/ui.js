@@ -13,7 +13,7 @@ export class UI{
     init(){
         
         this.renderHand();
-        interact('.card').draggable({
+        interact('.card.drag').draggable({
             listeners: {
               start (event) {window.UI.dragstart(event.target);},
               move (event) {window.UI.drag(event.target)},
@@ -30,7 +30,7 @@ export class UI{
 
     renderHand(){
         window.document.getElementById("cards").innerHTML = window.PLAYER.hand
-        .map((tile) => this.renderCard(tile))
+        .map((tile) => this.getCardHtml(tile))
         .join('');
     }
 
@@ -71,13 +71,13 @@ export class UI{
         return false;
     }
 
-    renderCard(tile){
+    getCardHtml(tile){
         if(!tile){return;}
 
         const cat = window.data.cats.find(x => x.id == tile.catId);
         const img = window.IMG.raw(tile.img);
         return `
-        <figure id="${tile.id}" class="card card--${cat.color}">
+        <figure id="${tile.id}" class="card drag card--${cat.color}">
             ${img}
             <div class="triangle"></div>
             <figcaption class="card__caption">

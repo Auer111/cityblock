@@ -11,10 +11,8 @@ export class Player{
     }
 
     removeCard(tileId){
-        console.log("before remove",this.hand);
         const remove = this.hand.findIndex(x => x.id == tileId);
         this.hand.splice(remove,1);
-        console.log("aftr remove",remove,this.hand);
         window.UI.renderHand();
     }
 

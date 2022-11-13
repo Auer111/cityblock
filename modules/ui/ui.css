@@ -149,7 +149,8 @@ button {
 }
 
 .card{
-  margin: -2em;;
+  margin: -2em;
+  min-width: 12em;
   font-family: "Open Sans", Helvetica, sans-serif;
   transform: rotate(-5deg);
   transition: 0.4s;
