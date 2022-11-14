@@ -70,8 +70,8 @@ export class Isometric{
         return true;
     }
 
-    checkDirection(cell, tile, buildon, x, y){
-        const required = tile.buildon[buildon];
+    checkDirection(cell, tile, validAll, x, y){
+        const required = tile.validAll[validAll];
         const neighbor = this.canGetNeightborCell(cell, x, y);
         const outOfBounds = required != -1 && !neighbor;
         const invaidSquare = required != -1 && neighbor && required != this.getNeightborCellTileId(cell, x, y);

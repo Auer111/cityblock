@@ -106,13 +106,13 @@ export class UI{
         let selectedTile = null;
         switch(index){
             case 0: tId = null; break;
-            case 1: tId = tile.buildon[2]; break;
+            case 1: tId = tile.validAll[2]; break;
             case 2: tId = null; break;
-            case 3: tId = tile.buildon[3]; break;
-            case 4: tId = tile.buildon[0]; break;
-            case 5: tId = tile.buildon[1]; break;
+            case 3: tId = tile.validAll[3]; break;
+            case 4: tId = tile.validAll[0]; break;
+            case 5: tId = tile.validAll[1]; break;
             case 6: tId = null; break;
-            case 7: tId = tile.buildon[4]; break;
+            case 7: tId = tile.validAll[4]; break;
             case 8: tId = null; break;
         }
         if(tId && tId != -1){selectedTile = data.tiles.find(x => x.id == tId);}

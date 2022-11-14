@@ -5,49 +5,58 @@
             "name": "Grass",
             "img": "Grass1.png",
             "catId":0,
-            "buildon":[0,-1,-1,-1,-1]
+            "_validAll":"Tiles that are required for [current, up, right, down, left] squares",
+            "validAll":[0,-1,-1,-1,-1],
+            "_validAny":"List of tiles that must be present in adjacent any squares",
+            "validAny":[-1,-1]
         },
         {
             "id": 1,
             "name": "Wheat",
             "img": "Wheat.png",
             "catId":4,
-            "buildon":[0,-1,-1,-1,-1]
+            "validAll":[0,-1,-1,-1,-1],
+            "validAny":[-1,-1]
         },
         {
             "id": 2,
             "name": "Forest",
             "img": "Forest1.png",
             "catId":2,
-            "buildon":[0,-1,-1,-1,-1]
+            "validAll":[0,-1,-1,-1,-1],
+            "validAny":[-1,-1]
         },
         {
             "id": 20,
             "name": "Barn",
             "img": "Barn.png",
             "catId":3,
-            "buildon":[0,-1,-1,-1,-1]
+            "validAll":[0,-1,-1,-1,-1],
+            "validAny":[-1,-1]
         },
         {
             "id": 30,
             "name": "Farmhouse",
             "img": "Farmhouse.png",
             "catId":2,
-            "buildon":[0,-1,-1,-1,-1]
+            "validAll":[0,-1,-1,0,-1],
+            "validAny":[-1,-1]
         },
         {
             "id": 50,
             "name": "Pumpjack",
             "img": "pumpjack/PJ.png",
             "catId":1,
-            "buildon":[0,2,-1,-1,-1]
+            "validAll":[0,2,-1,-1,-1],
+            "validAny":[-1,-1]
         },
         {
             "id": 51,
             "name": "Lumberyard",
             "img": "Lumberyard.png",
             "catId":2,
-            "buildon":[0,2,-1,-1,-1]
+            "validAll":[0,2,-1,-1,-1],
+            "validAny":[-1,-1]
         }
     ],
     "cats": [
@@ -89,5 +98,6 @@
             "requireCount":1,
             "progress":0
         }
+        
     ]
 }

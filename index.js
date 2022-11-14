@@ -10,6 +10,9 @@ new Img();
 //utils.loadHtml("./modules/nav/nav.html", (html) => {console.log(html);});
 
 window.UTILS.getJson("data.json", (data) => {
+    data.tiles.forEach(tData => {
+        tData.validAny = tData.validAny.filter(t => t > 0);
+    });
     Init(data);
 });
 
