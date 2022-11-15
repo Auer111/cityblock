@@ -1,21 +1,24 @@
 import Utils from "../Utils.js"
+import Isometric from "../grid/grid.js";
 
 export class UI{
     constructor(data){
         new Utils().loadCss(import.meta.url);
         window.UI = this;
+
+        this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.mousePos = [0,0];
         this.init(data);
     }
 
-    init(data){
+    init(){
         
         this.renderHand();
-        interact('.card').draggable({
+        interact('.card.drag').draggable({
             listeners: {
-              start (event) {window.UI.dragstart(event);},
-              move (event) {window.UI.drag()},
-              end (event){window.UI.dragend(event);}
+              start (event) {window.UI.dragstart(event.target);},
+              move (event) {window.UI.drag(event.target)},
+              end (event){window.UI.dragend(event.target);}
             }
         });
         document.addEventListener("mousemove",(event)=>{
@@ -28,48 +31,62 @@ export class UI{
 
     renderHand(){
         window.document.getElementById("cards").innerHTML = window.PLAYER.hand
-        .map((tile) => this.renderCard(tile))
+        .map((tile) => this.getCardHtml(tile))
         .join('');
     }
 
-    dragstart(event){
-        var target = event.target;
-        window.UI.GrabCard(target.id);              
-        target.hidden = true;
+    dragstart(card){
+        window.GRID.SetGridValidity(null,window.data.tiles.find(x => x.id == card.id));
+        card.hidden = true;
         document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
     }
-    drag(){
+    drag(card){
         const cell = this.getCellAtMouse();
-        
         document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
         if(!cell){return;}
         cell.el.classList.add('hover');
-        //window.GRID.SetCanPlaceOverlay(event.target.id, event.relatedTarget.id);
+        this.setCanPlaceOverlay(cell, card.id);
     }
-    dragend(event){
+    dragend(card){
         const cell = this.getCellAtMouse();
-        window.GRID.SetCanPlaceOverlay();
-
-        var target = event.target;
-        target.hidden = false;
-        if(cell){
-            event.target.remove();
+        this.setCanPlaceOverlay();
+        card.hidden = false;
+        if(this.placeTile(cell, card.id)){
+            window.PLAYER.removeCard(card.id);
             cell.el.classList.remove('hover');
-            
-            window.GRID.ClickCell(cell, event.target.id);
         }
-        else{
-
-        }
+        window.GRID.SetGridValidity(true);
     }
     
-    renderCard(tile){
+    placeTile(cell, tileId){
+        if(!window.GRID || !cell || !tileId){return false;}
+
+        let selectedTile = data.tiles.find(x => x.id == tileId);
+        if(cell.el.classList.contains("valid")){
+            cell.tileId = selectedTile.id;
+            cell.img = window.IMG.render(selectedTile.img, selectedTile.name);
+            cell.el.querySelector(".img-wrapper").replaceWith(cell.img);
+            window.QUEST.placed(tileId);
+            return true;
+        }
+        return false;
+    }
+
+    getCardHtml(tile){
         if(!tile){return;}
 
         const cat = window.data.cats.find(x => x.id == tile.catId);
         const img = window.IMG.raw(tile.img);
+
+        var items = new Array(9).fill()
+        .map((item,index) => this.getCardCell(tile, index));
+
+        items[4].img = window.IMG.render(window.data.tiles[0].img);
+        
+
+        const grid = new Isometric(3,3, items);
         return `
-        <figure id="${tile.id}" class="card card--${cat.color}">
+        <figure id="${tile.id}" class="card drag card--${cat.color}">
             ${img}
             <div class="triangle"></div>
             <figcaption class="card__caption">
@@ -77,34 +94,45 @@ export class UI{
                     <h3 class="card__type">${cat.name}</h3>
                 </div>
                 <h1 class="card__name">${tile.name}</h1>
-                <table class="card__stats">
-                    <tbody>
-                    <tr>
-                        <th>Defense</th>
-                        <td>60</td>
-                    </tr>
-                    </tbody>
-                </table>
-                
-                <div class="card__abilities">
-                <h4 class="card__ability">
-                    <span class="card__label">Ability</span>
-                    Absorb
-                </h4>
-                <h4 class="card__ability">
-                    <span class="card__label">Hidden Ability</span>
-                    Hydration
-                </h4>
+                <div class="grid-wrapper">
+                    ${grid.render().outerHTML}
                 </div>
             </figcaption>
         </figure>`;
     }
 
-    GrabCard(tileId){
-        let tile = tileId ? data.tiles.find(x => x.id == tileId) : null;
-        window.GRID.items.forEach(cell => {
-            window.GRID.SetTileValidity(cell, tileId ? tile.buildon.includes(String(cell.tileId)) : true);
-        });
+    getCardCell(tile, index){
+        let tId = null;
+        let selectedTile = null;
+        switch(index){
+            case 0: tId = null; break;
+            case 1: tId = tile.validAll[2]; break;
+            case 2: tId = null; break;
+            case 3: tId = tile.validAll[3]; break;
+            case 4: tId = tile.validAll[0]; break;
+            case 5: tId = tile.validAll[1]; break;
+            case 6: tId = null; break;
+            case 7: tId = tile.validAll[4]; break;
+            case 8: tId = null; break;
+        }
+        if(tId && tId != -1){selectedTile = data.tiles.find(x => x.id == tId);}
+        return { 
+            gridId: index, 
+            tileId: tId, 
+            img: window.IMG.render(selectedTile?.img),
+            overlay: index == 4 ? `<i class="fa-solid fa-down-long"></i>` : null
+        };
+    }
+
+    setCanPlaceOverlay(cell, tileId){ 
+        if(!window.GRID || !cell || !tileId){
+            this.placementOverlay.style.display = 'none';
+            return;
+        }
+        let selectedTile = data.tiles.find(x => x.id == tileId);
+        this.placementOverlay.style.display = 'grid';
+        this.placementOverlay.querySelector("img").src = window.IMG.url(selectedTile.img);
+        cell.el.appendChild(this.placementOverlay);
     }
 
     getCellAtMouse(){
@@ -116,11 +144,9 @@ export class UI{
         var theta = 30.5;
         var c = Math.cos(theta/2);
         var s = Math.sin(theta/2);
-    
         var rect = document.getElementById("20").getBoundingClientRect();
         var origin = [rect.left + (rect.width/2), rect.top + (rect.height/2)]; //the pixel coordinates of (0, 0)
         var unit = rect.width + 10; //+padding
-    
         var isoX = ((screen[0] - origin[0]) / c - (screen[1] - origin[1]) / s) / unit;
         var isoY = ((screen[0] - origin[0]) / c + (screen[1] - origin[1]) / s) / unit;
         var cell = [window.GRID.rows - 1 - Math.round(isoX) * -1, Math.round(isoY) * -1];

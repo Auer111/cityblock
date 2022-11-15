@@ -11,11 +11,7 @@
   position: absolute;
 }
 #can-place-overlay > img{
-  width: 4em;
-}
-#can-place-overlay > i{
-  font-size: xx-large;
-    text-align: center;
+  width: 100%;
 }
 
 #tile-card-wrapper {
@@ -27,6 +23,14 @@
   width: 4.5em;
   display: flex;
   flex-direction: column-reverse;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
+.row{
+  display: flex;
 }
 
 /* CSS */
@@ -144,8 +148,9 @@ button {
   display: flex;
 }
 
-.card {
-  margin: -2em;;
+.card{
+  margin: -2em;
+  min-width: 12em;
   font-family: "Open Sans", Helvetica, sans-serif;
   transform: rotate(-5deg);
   transition: 0.4s;
@@ -189,7 +194,7 @@ button {
   border-color: rgba(255, 255, 255, 0.65);
   border-style: solid;
   border-width: 5px 81px 0 0;
-  top: 3.6em;
+  top: 2.6em;
 }
 .card__type {
   position: absolute;

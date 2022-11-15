@@ -3,36 +3,14 @@ import Utils from "../Utils.js"
 export class Isometric{
     constructor(rows, cols, items){
         new Utils().loadCss(import.meta.url);
-        window.GRID = this;
-
-        this.placementOverlay = document.body.querySelector("#can-place-overlay");
-
         this.rows = rows;
         this.cols = cols;
         this.items = items;
-        this.Init();
-    }
-
-    Init(){
-        document.getElementById("hero").children[0].appendChild(this.render());
-        // interact(".dropzone").dropzone({
-        //     ondrop: function (event) {
-        //         console.log(event.target.getBoundingClientRect());
-        //         window.GRID.ClickCell(event.target.id, event.relatedTarget.id);
-        //     },
-        //     ondragenter: function (event) {
-        //         event.target.parentNode.parentNode.parentNode.classList.add('hover');
-        //         window.GRID.SetCanPlaceOverlay(event.target.id, event.relatedTarget.id);
-        //     },
-        //     ondragleave: function (event) {
-        //         event.target.parentNode.parentNode.parentNode.classList.remove('hover');
-        //     }
-        // });
     }
 
     render(){
         let grid = document.createElement("div");
-        grid.id = "grid";
+        grid.classList.add("grid");
         let i = 0;
         outer: for(let x = 0; x < this.rows; x++){
             let row = document.createElement("div");
@@ -49,7 +27,7 @@ export class Isometric{
 
                 cell.style.zIndex = 1000 - x - y;
 
-                cell.innerHTML = this.createCellEventLayer(`.cell${x}-${y} > .img-wrapper`, this.items[i]);
+                cell.innerHTML = this.createCellEventLayer(this.items[i]);
                 cell.appendChild(this.items[i].img);
                 row.appendChild(cell);
 
@@ -64,53 +42,57 @@ export class Isometric{
         return grid;
     }
 
-    createCellEventLayer(target, cell){
+    createCellEventLayer(cell){
         return `
         <div class="overlay">
+            ${cell.overlay ? cell.overlay : ""}
             <div>
                 <div id="${cell.gridId}" class="dropzone"></div>
             </div>
         </div>`;
     }
 
-    
-    ClickCell(cell, tileId){
-        if(!window.GRID || !cell || !tileId){return;}
-        if(cell.el.classList.contains("valid")){
-            let selectedTile = data.tiles.find(x => x.id == tileId);
-
-            cell.tileId = selectedTile.id;
-            cell.img = window.IMG.render(selectedTile.img, selectedTile.name);
-            cell.el.querySelector(".img-wrapper").replaceWith(cell.img);
-        }
-        window.GRID.items.forEach(cell => {
-            this.SetTileValidity(cell, true);
+    SetGridValidity(isValid, tile){
+        this.items.forEach(cell => {
+            isValid = tile ? this.isValidNeighborCells(cell, tile) : isValid;
+            cell.el.classList.toggle('valid', isValid);
+            cell.el.classList.toggle('invalid', !isValid);
         });
     }
 
-    SetTileValidity(cell, isValid){
-        if(isValid){
-            cell.el.classList.add("valid");
-            cell.el.classList.remove("invalid");
+    isValidNeighborCells(cell,tile){
+        var dirs = [[0,0,0],[1,0,1],[2,-1,0],[3,0,-1],[4,1,0]];
+        for (let i = 0; i < dirs.length; i++) {
+            if(!this.checkDirection(cell,tile,dirs[i][0],dirs[i][1],dirs[i][2])){
+                return false;
+            }
         }
-        else{
-            cell.el.classList.add("invalid");
-            cell.el.classList.remove("valid");
-        }
+        return true;
     }
 
-    SetCanPlaceOverlay(cellId, tileId){ 
-        if(!window.GRID || !cellId || !tileId){
-            this.placementOverlay.style.display = 'none';
-            return;
+    checkDirection(cell, tile, validAll, x, y){
+        const required = tile.validAll[validAll];
+        const neighbor = this.canGetNeightborCell(cell, x, y);
+        const outOfBounds = required != -1 && !neighbor;
+        const invaidSquare = required != -1 && neighbor && required != this.getNeightborCellTileId(cell, x, y);
+        if(outOfBounds || invaidSquare){
+            return false;
         }
-        const cell = window.GRID.items.find(x => x.gridId == cellId);
-        let selectedTile = data.tiles.find(x => x.id == tileId);
-        this.placementOverlay.style.display = 'grid';
-        if(cell.el.classList.contains("valid")){
-            this.placementOverlay.querySelector("img").src = window.IMG.url(selectedTile.img);
-            cell.el.appendChild(this.placementOverlay);
-        }
+        return true;
+    }
+
+    canGetNeightborCell(cell ,offX, offY){
+        if(cell.y + offY >= this.cols){return false;}
+        if(cell.y + offY < 0){return false;}
+        if(cell.x + offX >= this.rows){return false;}
+        if(cell.x + offX < 0){return false;}
+        return true;
+    }
+
+    getNeightborCellTileId(cell ,offX, offY){
+        let nX = cell.x + offX;
+        let nY = cell.y + offY;
+        return this.items[(nX * this.rows) + nY].tileId;
     }
 }
 

@@ -1,0 +1,39 @@
+#quests{
+    position: fixed;
+}
+
+.quest{
+    margin: 1em;
+    font-family: "Open Sans", Helvetica, sans-serif;
+    box-shadow: 0px 5px 20px -10px #111111;
+}
+
+.quest img{
+    width: 3em;
+}
+
+.quest-info{
+    margin: auto;
+    padding: 0.5em;
+}
+
+.quest-info progress{
+    width: 100%;
+}
+
+
+#quest-complete{
+    pointer-events: all;
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url('/cityblock/modules/img/radiant.png'), url('/modules/img/radiant.png');
+    background-position: center;
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-inline: 40vw;
+}
