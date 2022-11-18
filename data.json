@@ -3,7 +3,7 @@
         {
             "id": 0,
             "name": "Grass",
-            "img": "Grass1.png",
+            "img": "unity/Grass.png",
             "catId":0,
             "_validAll":"Tiles that are required for [current, up, right, down, left] squares",
             "validAll":[0,-1,-1,-1,-1],
@@ -13,7 +13,7 @@
         {
             "id": 1,
             "name": "Wheat",
-            "img": "Wheat.png",
+            "img": "unity/Wheat.png",
             "catId":4,
             "validAll":[0,-1,-1,-1,-1],
             "validAny":[-1,-1]
@@ -21,7 +21,7 @@
         {
             "id": 2,
             "name": "Forest",
-            "img": "Forest1.png",
+            "img": "unity/Forest.png",
             "catId":2,
             "validAll":[0,-1,-1,-1,-1],
             "validAny":[-1,-1]
@@ -36,8 +36,8 @@
         },
         {
             "id": 30,
-            "name": "Farmhouse",
-            "img": "Farmhouse.png",
+            "name": "Cabin",
+            "img": "unity/Cabin.png",
             "catId":2,
             "validAll":[0,-1,-1,0,-1],
             "validAny":[-1,-1]
@@ -53,7 +53,7 @@
         {
             "id": 51,
             "name": "Lumberyard",
-            "img": "Lumberyard.png",
+            "img": "unity/Lumberyard.png",
             "catId":2,
             "validAll":[0,2,-1,-1,-1],
             "validAny":[-1,-1]

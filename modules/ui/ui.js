@@ -6,7 +6,9 @@ export class UI{
         new Utils().loadCss(import.meta.url);
         window.UI = this;
 
+        
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
+        this.placementCellId = null;
         this.mousePos = [0,0];
         this.init(data);
     }
@@ -129,10 +131,15 @@ export class UI{
             this.placementOverlay.style.display = 'none';
             return;
         }
+        //did not change cell
+        if(cell.gridId === this.placementCellId){
+            return;
+        }
         let selectedTile = data.tiles.find(x => x.id == tileId);
         this.placementOverlay.style.display = 'grid';
         this.placementOverlay.querySelector("img").src = window.IMG.url(selectedTile.img);
         cell.el.appendChild(this.placementOverlay);
+        this.placementCellId = cell.gridId;
     }
 
     getCellAtMouse(){

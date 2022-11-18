@@ -42,13 +42,16 @@ body{
     position: relative;
     justify-content: center;
     display: flex;
+    width: 152px;
+    height: 152px;
 }
 
 
-.grid .img{
+.grid img{
+    position: absolute;
     width: 153px;
-    height: 153px;
-    background-size: contain;
+    bottom: 0;
+    left: 0;
 }
 
 .grid .overlay{
