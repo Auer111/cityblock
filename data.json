@@ -92,7 +92,7 @@
             "id":1,
             "name":"Power",
             "icon":"bolt-lightning",
-            "color":"yellow"
+            "color":"brown"
         },
         {
             "id":2,
@@ -116,7 +116,7 @@
     "quests":[
         {
             "id":0,
-            "info":"Place 1 forest",
+            "info":"Lumberyard",
             "unlockId":51,
             "requireId":2,
             "requireCount":1,
@@ -124,7 +124,7 @@
         },
         {
             "id":1,
-            "info":"Place 1 mine",
+            "info":"Mine",
             "unlockId":52,
             "requireId":3,
             "requireCount":1,
@@ -132,7 +132,7 @@
         },
         {
             "id":2,
-            "info":"Place 1 coal power plant",
+            "info":"Coal Power Plant",
             "unlockId":53,
             "requireId":52,
             "requireCount":1,

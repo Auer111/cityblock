@@ -14,11 +14,11 @@
   pointer-events: all;
 }
 
-.quest img{
+.quest > img{
     position: absolute;
     z-index: -1;
     width: 5em;
-    margin-top: -1em;
+    bottom: 2em;
     --mask: linear-gradient(315deg,#0000 41px,#000 0);
     -webkit-mask: var(--mask);
     mask: var(--mask);
