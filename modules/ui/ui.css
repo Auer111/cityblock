@@ -150,7 +150,7 @@ button {
 
 .card{
   margin: -2em;
-  min-width: 12em;
+  width: 12em;
   font-family: "Open Sans", Helvetica, sans-serif;
   transform: rotate(-5deg);
   transition: 0.4s;
@@ -186,7 +186,7 @@ button {
     -webkit-mask: var(--mask);
     mask: var(--mask);
 }
-.card .triangle{
+.triangle{
   transform: skew(0deg, 315deg);
   position: absolute;
   width: 0.2em;
@@ -249,56 +249,56 @@ button {
   background: linear-gradient(110deg, #FDBB2D 0%, #3A1C71 100%);
   box-shadow: 0px 5px 20px -10px #3A1C71;
 }
-.card--brown .card__type {
+.card--brown h3 {
   background-color: #C08A53;
 }
 .card--lightblue {
   background: linear-gradient(120deg, #1CB5E0 0%, #000851 100%);
   box-shadow: 0px 5px 20px -10px #000851;
 }
-.card--lightblue .card__type {
+.card--lightblue h3 {
   background-color: #1CB5E0;
 }
 .card--black {
   background: linear-gradient(90deg, rgb(255, 222, 0) 34%, rgb(232, 255, 153) 83%);
 }
-.card--black .card__type {
+.card--black h3 {
   background-color: #000;
 }
 .card--red {
   background: linear-gradient(0deg, rgb(199, 24, 0) 10%, rgb(252, 194, 69) 100%);
 }
-.card--red .card__type {
+.card--red h3 {
   background-color: rgb(199, 24, 0);
 }
 .card--pink {
   background: linear-gradient(140deg, rgb(255, 167, 249) 0%, rgb(255, 44, 195) 39%, rgb(255, 227, 167) 100%);
 }
-.card--pink .card__type {
+.card--pink h3 {
   background: #ff2cc3;
 }
 .card--purple {
   background: linear-gradient(20deg, rgb(25, 25, 25) 0%, rgb(16, 11, 50) 33%, rgb(92, 2, 73) 100%);
 }
-.card--purple .card__type {
+.card--purple h3 {
   background: #5c0249;
 }
 .card--green {
   background: linear-gradient(140deg, rgb(196, 218, 61) 0%, rgb(110, 127, 14) 69%, rgb(39, 80, 9) 100%);
 }
-.card--green .card__type {
+.card--green h3 {
   background: #6e7f0e;
 }
 .card--blue {
   background: linear-gradient(230deg, rgb(202, 234, 246) 0%, rgb(160, 234, 241) 46%, rgb(111, 184, 235) 100%);
 }
-.card--blue .card__type {
+.card--blue h3 {
   background: #6fb8eb;
 }
 .card--skin {
   background: linear-gradient(45deg, rgb(255, 230, 240) 0%, rgb(255, 197, 224) 34%, rgb(255, 166, 185) 71%, rgb(255, 138, 149) 100%);
 }
-.card--skin .card__type {
+.card--skin h3 {
   background: #ff8a95;
 }
 .card:hover {
