@@ -20,8 +20,8 @@ export class Img {
     render(img, name){
         img = img ?? this.Blank;
         
-        let el = document.createElement('div');
-        el.style.backgroundImage = `url('./modules/img/${img}')`;
+        let el = document.createElement('img');
+        el.src = `./modules/img/${img}`;
         el.classList = `img ${name?.toLowerCase()}-animation`;
 
         let wrapper = document.createElement('div');

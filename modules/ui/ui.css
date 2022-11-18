@@ -9,6 +9,8 @@
 #can-place-overlay{
   display: none;
   position: absolute;
+  width: 153px;
+  bottom: 0;
 }
 #can-place-overlay > img{
   width: 100%;
@@ -177,8 +179,9 @@ button {
   border-radius: 3px 3px 0 0;
   height: 2em;
 }
-.card img{
+.card > img{
   position: absolute;
+  bottom: 75%;
   z-index: -1;
   width: 5em;
   margin-top: -1em;
