@@ -27,6 +27,14 @@
             "validAny":[-1,-1]
         },
         {
+            "id": 3,
+            "name": "Mountian",
+            "img": "unity/Mountian.png",
+            "catId":2,
+            "validAll":[0,-1,-1,-1,-1],
+            "validAny":[-1,-1]
+        },
+        {
             "id": 20,
             "name": "Barn",
             "img": "Barn.png",
@@ -56,6 +64,14 @@
             "img": "unity/Lumberyard.png",
             "catId":2,
             "validAll":[0,2,-1,-1,-1],
+            "validAny":[-1,-1]
+        },
+        {
+            "id": 52,
+            "name": "Mine",
+            "img": "unity/Mine.png",
+            "catId":2,
+            "validAll":[3,-1,-1,-1,-1],
             "validAny":[-1,-1]
         }
     ],
@@ -92,9 +108,17 @@
     "quests":[
         {
             "id":0,
-            "info":"Place 1 forest.",
+            "info":"Place 1 forest",
             "unlockId":51,
             "requireId":2,
+            "requireCount":1,
+            "progress":0
+        },
+        {
+            "id":1,
+            "info":"Place 1 mine",
+            "unlockId":52,
+            "requireId":3,
             "requireCount":1,
             "progress":0
         }
