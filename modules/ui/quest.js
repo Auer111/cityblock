@@ -20,12 +20,13 @@ export class Quest{
     const cat = window.data.cats.find(x => x.id == tile.catId);
     const img = window.IMG.raw(tile.img);
     return `
-    <figure id="quest-${tile.id}" class="quest card--${cat.color} row">
-        ${img}
-        <div class="col quest-info">
-          <span>${quest.info}</span>
+    <figure id="${tile.id}" class="quest card--${cat.color}">
+      ${img}
+        <div class="triangle"></div>
+        <figcaption class="card__caption">
+          <h3 class="quest__info">${quest.info}</h3>
           <progress value="0" max="${quest.requireCount}"></progress>
-        </div>
+        </figcaption>
     </figure>`;
   }
 
