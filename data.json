@@ -73,6 +73,14 @@
             "catId":2,
             "validAll":[3,-1,-1,-1,-1],
             "validAny":[-1,-1]
+        },
+        {
+            "id": 53,
+            "name": "Coal Power Plant",
+            "img": "unity/CoalPowerPlant.png",
+            "catId":1,
+            "validAll":[0,-1,-1,-1,-1],
+            "validAny":[-1,-1]
         }
     ],
     "cats": [
@@ -119,6 +127,14 @@
             "info":"Place 1 mine",
             "unlockId":52,
             "requireId":3,
+            "requireCount":1,
+            "progress":0
+        },
+        {
+            "id":2,
+            "info":"Place 1 coal power plant",
+            "unlockId":53,
+            "requireId":52,
             "requireCount":1,
             "progress":0
         }

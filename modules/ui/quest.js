@@ -33,7 +33,10 @@ export class Quest{
   updateQuestUI(quest){
     if(!this.items.length){return;}
     const el = document.querySelector('#quest-'+quest.unlockId);
-    el.querySelector('progress').value = quest.progress;
+    if(el){
+      el.querySelector('progress').value = quest.progress;
+    }
+    
   }
 
   placed(tileId){
@@ -51,15 +54,15 @@ export class Quest{
   complete(quest){
     const remove = this.items.findIndex(q => q.id == quest.id);
     this.items.splice(remove,1);
-    this.init();
-
+    
     const tile = window.data.tiles.find(x => x.id == quest.unlockId);
     this.questCompleteEl.innerHTML = window.UI.getCardHtml(tile);
-    this.questCompleteEl.children[0].classList.remove('drag')
+    this.questCompleteEl.children[0].classList.remove('drag');
     this.questCompleteEl.addEventListener('click', ()=>{
       window.PLAYER.addCard(quest.unlockId);
       window.QUEST.questCompleteEl.style.display = 'none';
-    });
+      this.init();
+    },{once: true});
     window.QUEST.questCompleteEl.style.display = 'flex';
   }
 }
