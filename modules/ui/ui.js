@@ -152,7 +152,7 @@ export class UI{
         var c = Math.cos(theta/2);
         var s = Math.sin(theta/2);
         var rect = document.getElementById("20").getBoundingClientRect();
-        var origin = [rect.left + (rect.width/2), rect.top + (rect.height/2)]; //the pixel coordinates of (0, 0)
+        var origin = [rect.left + (rect.width/2), rect.bottom - (rect.width/2)]; //the pixel coordinates of (0, 0)
         var unit = rect.width + 10; //+padding
         var isoX = ((screen[0] - origin[0]) / c - (screen[1] - origin[1]) / s) / unit;
         var isoY = ((screen[0] - origin[0]) / c + (screen[1] - origin[1]) / s) / unit;

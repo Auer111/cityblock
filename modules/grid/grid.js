@@ -54,23 +54,23 @@ export class Isometric{
 
     SetGridValidity(isValid, tile){
         this.items.forEach(cell => {
-            isValid = tile ? this.isValidNeighborCells(cell, tile) : isValid;
+            isValid = tile ? this.isValidAllNeighborCells(cell, tile) : isValid;
             cell.el.classList.toggle('valid', isValid);
             cell.el.classList.toggle('invalid', !isValid);
         });
     }
 
-    isValidNeighborCells(cell,tile){
+    isValidAllNeighborCells(cell,tile){
         var dirs = [[0,0,0],[1,0,1],[2,-1,0],[3,0,-1],[4,1,0]];
         for (let i = 0; i < dirs.length; i++) {
-            if(!this.checkDirection(cell,tile,dirs[i][0],dirs[i][1],dirs[i][2])){
+            if(!this.isAdjacentTileValid(cell,tile,dirs[i][0],dirs[i][1],dirs[i][2])){
                 return false;
             }
         }
-        return true;
+        return this.isValidAnyNeighborCells(cell, tile);
     }
 
-    checkDirection(cell, tile, validAll, x, y){
+    isAdjacentTileValid(cell, tile, validAll, x, y){
         const required = tile.validAll[validAll];
         const neighbor = this.canGetNeightborCell(cell, x, y);
         const outOfBounds = required != -1 && !neighbor;
@@ -79,6 +79,24 @@ export class Isometric{
             return false;
         }
         return true;
+    }
+
+    isValidAnyNeighborCells(cell,tile){
+        
+        let lookingFor = [...tile.validAny];
+
+        var dirs = [[0,1],[-1,0],[0,-1],[1,0]];
+        for (let i = 0; i < dirs.length; i++) {
+            if(!this.canGetNeightborCell(cell, dirs[i][0], dirs[i][1])){
+                continue;
+            }
+            let neighborId = this.getNeightborCellTileId(cell, dirs[i][0], dirs[i][1]);
+            let remove = lookingFor.findIndex(id => id == neighborId);
+            if(remove != -1){
+                lookingFor.splice(remove,1);
+            }
+        }
+        return lookingFor.length === 0;
     }
 
     canGetNeightborCell(cell ,offX, offY){

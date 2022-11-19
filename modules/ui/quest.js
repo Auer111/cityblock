@@ -4,19 +4,19 @@ export class Quest{
   constructor(data){
     new Utils().loadCss(import.meta.url);
     window.QUEST = this;
-    this.items = data.quests;
+    this.items = data.tiles.filter(t => !t.unlocked);
     this.questEl = document.body.querySelector("#quests");
     this.questCompleteEl = document.body.querySelector("#quest-complete");
     this.init();
   }
 
   init(){
-    this.questEl.innerHTML = this.items.map((quest) => this.renderQuest(quest)).join('');
+
+    this.questEl.innerHTML = this.items.map((tile) => this.renderQuest(tile)).join('');
   }
 
-  renderQuest(quest){
-    if(!quest){return;}
-    const tile = window.data.tiles.find(x => x.id == quest.unlockId);
+  renderQuest(tile){
+    if(!tile){return;}
     const cat = window.data.cats.find(x => x.id == tile.catId);
     const img = window.IMG.raw(tile.img);
     return `
@@ -24,10 +24,20 @@ export class Quest{
       ${img}
         <div class="triangle"></div>
         <figcaption class="card__caption">
-          <h3 class="quest__info">${quest.info}</h3>
-          <progress value="0" max="${quest.requireCount}"></progress>
+          <h3 class="quest__info">${tile.name}</h3>
+          ${this.renderRequirements(tile.require)}
         </figcaption>
     </figure>`;
+  }
+
+  renderRequirements(require){
+    let html = "";
+    console.log(require);
+    require.forEach(r => {
+      const tile = window.data.tiles.find(x => x.id == r.id);
+      html += `<div class="row"><progress value="0" max="${r.count}"></progress><span>${window.IMG.raw(tile.img)}</span></div>`
+    });
+    return html;
   }
 
   updateQuestUI(quest){

@@ -18,7 +18,7 @@
     position: absolute;
     z-index: -1;
     width: 5em;
-    bottom: 2em;
+    top: -6em;
     --mask: linear-gradient(315deg,#0000 41px,#000 0);
     -webkit-mask: var(--mask);
     mask: var(--mask);
@@ -36,10 +36,17 @@
     padding-left: 3em;
     line-height: 1;
     border-radius: 2px;
+    margin-bottom: .5em;
   }
 
 .quest progress{
     width: 100%;
+    margin: auto;
+}
+.quest span > img{
+    width: 1em;
+    margin-top: -100%;
+    margin-left: 0.5em;
 }
 
 
@@ -58,3 +65,4 @@
     justify-content: space-around;
     padding-inline: 40vw;
 }
+

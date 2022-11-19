@@ -12,11 +12,13 @@ new Img();
 window.UTILS.getJson("data.json", (data) => {
     data.tiles.forEach(tData => {
         tData.validAny = tData.validAny.filter(t => t > 0);
+        tData.unlocked = tData.require == null;
     });
     Init(data);
 });
 
 function Init(data){
+    console.log(data);
     window.data = data;
     new Player(data);
     new UI(data);

@@ -48,7 +48,19 @@
             "img": "unity/Cabin.png",
             "catId":2,
             "validAll":[0,-1,-1,0,-1],
-            "validAny":[-1,-1]
+            "validAny":[-1,-1],
+            "require":[
+                {
+                    "id":1,
+                    "count":1,
+                    "progress":0
+                },
+                {
+                    "id":51,
+                    "count":1,
+                    "progress":0
+                }
+            ]
         },
         {
             "id": 50,
@@ -63,8 +75,15 @@
             "name": "Lumberyard",
             "img": "unity/Lumberyard.png",
             "catId":2,
-            "validAll":[0,2,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAll":[0,-1,-1,-1,-1],
+            "validAny":[-1,2],
+            "require":[
+                {
+                    "id":2,
+                    "count":1,
+                    "progress":0
+                }
+            ]
         },
         {
             "id": 52,
@@ -72,7 +91,14 @@
             "img": "unity/Mine.png",
             "catId":2,
             "validAll":[3,-1,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAny":[-1,-1],
+            "require":[
+                {
+                    "id":3,
+                    "count":1,
+                    "progress":0
+                }
+            ]
         },
         {
             "id": 53,
@@ -80,7 +106,14 @@
             "img": "unity/CoalPowerPlant.png",
             "catId":1,
             "validAll":[0,-1,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAny":[-1,52],
+            "require":[
+                {
+                    "id":52,
+                    "count":1,
+                    "progress":0
+                }
+            ]
         }
     ],
     "cats": [
@@ -112,32 +145,5 @@
             "icon":"burger",
             "color":"red"
         }
-    ],
-    "quests":[
-        {
-            "id":0,
-            "info":"Lumberyard",
-            "unlockId":51,
-            "requireId":2,
-            "requireCount":1,
-            "progress":0
-        },
-        {
-            "id":1,
-            "info":"Mine",
-            "unlockId":52,
-            "requireId":3,
-            "requireCount":1,
-            "progress":0
-        },
-        {
-            "id":2,
-            "info":"Coal Power Plant",
-            "unlockId":53,
-            "requireId":52,
-            "requireCount":1,
-            "progress":0
-        }
-        
     ]
 }
