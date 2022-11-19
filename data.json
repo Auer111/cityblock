@@ -47,7 +47,7 @@
             "name": "Cabin",
             "img": "unity/Cabin.png",
             "catId":2,
-            "validAll":[0,-1,-1,0,-1],
+            "validAll":[0,-1,-1,-1,-1],
             "validAny":[-1,-1],
             "require":[
                 {

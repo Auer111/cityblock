@@ -18,7 +18,7 @@ window.UTILS.getJson("data.json", (data) => {
 });
 
 function Init(data){
-    console.log(data);
+    //console.log(data);
     window.data = data;
     new Player(data);
     new UI(data);

@@ -20,7 +20,7 @@ export class Quest{
     const cat = window.data.cats.find(x => x.id == tile.catId);
     const img = window.IMG.raw(tile.img);
     return `
-    <figure id="${tile.id}" class="quest card--${cat.color}">
+    <figure id="quest-${tile.id}" class="quest card--${cat.color}">
       ${img}
         <div class="triangle"></div>
         <figcaption class="card__caption">
@@ -32,44 +32,46 @@ export class Quest{
 
   renderRequirements(require){
     let html = "";
-    console.log(require);
     require.forEach(r => {
       const tile = window.data.tiles.find(x => x.id == r.id);
-      html += `<div class="row"><progress value="0" max="${r.count}"></progress><span>${window.IMG.raw(tile.img)}</span></div>`
+      html += `<div class="row"><progress class="progress-${r.id}" value="0" max="${r.count}"></progress><span>${window.IMG.raw(tile.img)}</span></div>`
     });
     return html;
   }
 
-  updateQuestUI(quest){
+  updateQuestUI(lockedTile, require){
     if(!this.items.length){return;}
-    const el = document.querySelector('#quest-'+quest.unlockId);
+    const el = document.querySelector('#quest-'+lockedTile.id);
     if(el){
-      el.querySelector('progress').value = quest.progress;
+      el.querySelector(`.progress-${require.id}`).value = require.progress;
     }
     
   }
 
   placed(tileId){
-    this.items.forEach(quest => {
-      if(quest.requireId == tileId){
-        quest.progress++; 
-        if(quest.progress >= quest.requireCount){
-          this.complete(quest);
+    this.items.forEach(lockedTile => {
+      lockedTile.require = lockedTile.require.filter(r => {
+        if(r.id == tileId){
+          r.progress++;
+          this.updateQuestUI(lockedTile, r);
+          if(r.progress >= r.count){return false;}
         }
-        this.updateQuestUI(quest);
+        return true;
+      });
+      if(lockedTile.require.length === 0){
+        this.unlock(lockedTile);
       }
     });
   }
 
-  complete(quest){
-    const remove = this.items.findIndex(q => q.id == quest.id);
+  unlock(tile){
+    const remove = this.items.findIndex(q => q.id == tile.id);
     this.items.splice(remove,1);
-    
-    const tile = window.data.tiles.find(x => x.id == quest.unlockId);
+
     this.questCompleteEl.innerHTML = window.UI.getCardHtml(tile);
     this.questCompleteEl.children[0].classList.remove('drag');
     this.questCompleteEl.addEventListener('click', ()=>{
-      window.PLAYER.addCard(quest.unlockId);
+      window.PLAYER.addCard(tile.id);
       window.QUEST.questCompleteEl.style.display = 'none';
       this.init();
     },{once: true});
