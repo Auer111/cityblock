@@ -21,8 +21,9 @@ function Init(data){
     //console.log(data);
     window.data = data;
     new Player(data);
-    new UI(data);
     new Quest(data);
+    new UI(data);
+    
 
     const startTile = data.tiles[0];
     var items = new Array(25).fill()

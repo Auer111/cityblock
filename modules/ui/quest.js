@@ -5,14 +5,18 @@ export class Quest{
     new Utils().loadCss(import.meta.url);
     window.QUEST = this;
     this.items = data.tiles.filter(t => !t.unlocked);
-    this.questEl = document.body.querySelector("#quests");
+    this.cardsEl = document.body.querySelector("#cards");
     this.questCompleteEl = document.body.querySelector("#quest-complete");
     this.init();
   }
 
   init(){
+    this.renderQuests();
+  }
 
-    this.questEl.innerHTML = this.items.map((tile) => this.renderQuest(tile)).join('');
+  renderQuests(){
+    this.cardsEl.querySelectorAll(".quest").forEach(q=> q.remove());
+    this.cardsEl.insertAdjacentHTML('beforeend', this.items.map((tile) => this.renderQuest(tile)).join(''));
   }
 
   renderQuest(tile){
@@ -20,14 +24,23 @@ export class Quest{
     const cat = window.data.cats.find(x => x.id == tile.catId);
     const img = window.IMG.raw(tile.img);
     return `
-    <figure id="quest-${tile.id}" class="quest card--${cat.color}">
-      ${img}
-        <div class="triangle"></div>
-        <figcaption class="card__caption">
-          <h3 class="quest__info">${tile.name}</h3>
-          ${this.renderRequirements(tile.require)}
-        </figcaption>
-    </figure>`;
+    <figure id="quest-${tile.id}" class="quest card card--${cat.color}">
+            ${img}
+            <div class="triangle"></div>
+            <figcaption class="card__caption">
+                <div class="card__image-container">
+                    <h3 class="card__type">${cat.name}</h3>
+                </div>
+                <h1 class="card__name">${tile.name}</h1>
+                <div class="lock">
+                  <i class="fa-sharp fa-solid fa-lock"></i>
+                </div>
+                
+            </figcaption>
+        </figure>
+    
+    
+    `;
   }
 
   renderRequirements(require){
@@ -43,7 +56,7 @@ export class Quest{
     if(!this.items.length){return;}
     const el = document.querySelector('#quest-'+lockedTile.id);
     if(el){
-      el.querySelector(`.progress-${require.id}`).value = require.progress;
+      //el.querySelector(`.progress-${require.id}`).value = require.progress;
     }
     
   }

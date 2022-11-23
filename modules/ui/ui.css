@@ -140,7 +140,7 @@ button {
 }
 
 #cards{
-  padding: 2em;
+  margin: 2em 0 .5em 0;
   user-select: none;
   pointer-events: none;
   position: fixed;
@@ -148,17 +148,19 @@ button {
   right: 0;
   left: 0;
   display: flex;
+  background: #00000070;
 }
 
 .card{
   margin: -2em;
   width: 12em;
   font-family: "Open Sans", Helvetica, sans-serif;
-  transform: rotate(-5deg);
+  transform: scale(.6);
   transition: 0.4s;
   box-shadow: 0px 5px 20px -10px #111111;
   user-select: none;
   pointer-events: all;
+  height: 16em;
 }
 .card.hidden{
   visibility: hidden;
@@ -173,6 +175,7 @@ button {
   --mask: linear-gradient(135deg,#0000 60px,#000 0);
     -webkit-mask: var(--mask);
     mask: var(--mask);
+    height: 14em;
 }
 .card__image-container {
   background-color: rgba(0, 0, 0, 0.7);

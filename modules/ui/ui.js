@@ -35,6 +35,8 @@ export class UI{
         window.document.getElementById("cards").innerHTML = window.PLAYER.hand
         .map((tile) => this.getCardHtml(tile))
         .join('');
+
+        window.QUEST.renderQuests();
     }
 
     dragstart(card){
