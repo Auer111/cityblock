@@ -216,6 +216,18 @@ button {
   border-radius: 2px;
   background: #bbbbbb;
 }
+.card .count{
+  position: absolute;
+    right: -1em;
+    top: -1em;
+    color: white;
+    background: #0f180d;
+    text-align: center;
+    border-radius: 100%;
+    border: 1px solid black;
+    padding: 0.5em;
+    width: 1em;
+}
 .card__label {
   font-size: 10px;
   text-transform: uppercase;

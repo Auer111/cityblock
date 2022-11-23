@@ -32,7 +32,7 @@ export class UI{
     }
 
     renderHand(){
-        window.document.getElementById("cards").innerHTML = window.PLAYER.hand
+        window.document.getElementById("cards").innerHTML = [...new Set(window.PLAYER.hand)]
         .map((tile) => this.getCardHtml(tile))
         .join('');
 
@@ -41,20 +41,23 @@ export class UI{
 
     dragstart(card){
         window.GRID.SetGridValidity(null,window.data.tiles.find(x => x.id == card.id));
-        card.hidden = true;
         document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
     }
     drag(card){
         const cell = this.getCellAtMouse();
         document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
-        if(!cell){return;}
-        cell.el.classList.add('hover');
-        this.setCanPlaceOverlay(cell, card.id);
+        if(!cell){
+            this.placementCellId = null;
+            this.setCanPlaceOverlay();
+        }
+        else{
+            cell.el.classList.add('hover');
+            this.setCanPlaceOverlay(cell, card.id);
+        }
     }
     dragend(card){
         const cell = this.getCellAtMouse();
         this.setCanPlaceOverlay();
-        card.hidden = false;
         if(this.placeTile(cell, card.id)){
             window.PLAYER.removeCard(card.id);
             cell.el.classList.remove('hover');
@@ -81,6 +84,7 @@ export class UI{
 
         const cat = window.data.cats.find(x => x.id == tile.catId);
         const img = window.IMG.raw(tile.img);
+        const count = window.PLAYER.hand.filter(x => x == tile).length;
 
         var items = new Array(9).fill()
         .map((item,index) => this.getCardCell(tile, index));
@@ -93,6 +97,7 @@ export class UI{
         <figure id="${tile.id}" class="card drag card--${cat.color}">
             ${img}
             <div class="triangle"></div>
+            ${count > 1 ? `<div class="count">${count}</div>`: ""}
             <figcaption class="card__caption">
                 <div class="card__image-container">
                     <h3 class="card__type">${cat.name}</h3>
