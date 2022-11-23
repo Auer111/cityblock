@@ -34,5 +34,8 @@ function Init(data){
     }));
 
     window.GRID = new Isometric(5,5, items);
-    document.getElementById("hero").children[0].appendChild(window.GRID.render());
+    document.getElementById("map").children[0].appendChild(window.GRID.render());
+
+    window.GRID.makeDraggable(".bg");
+
 }

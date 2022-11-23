@@ -35,7 +35,7 @@ export class Utils{
     .then(function (response) { return response.text(); })
     .then(function (json) { onLoad(JSON.parse(json)); })
     .catch(function (err) { console.warn('Something went wrong.', err); });
-  }  
+  }
 
   createExtensions(){
     String.prototype.hashCode = function() {

@@ -2,10 +2,6 @@ body{
     overflow: hidden;
 }
 
-#hero .grid{
-    margin-left: 230px;
-}
-
 /* card grid */
 .grid-wrapper{
     transform: scale(.3) translateX(-6em);

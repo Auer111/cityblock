@@ -6,6 +6,7 @@ export class Isometric{
         this.rows = rows;
         this.cols = cols;
         this.items = items;
+        this.dragEl = null;
     }
 
     render(){
@@ -40,6 +41,51 @@ export class Isometric{
         }
 
         return grid;
+    }
+
+    makeDraggable(querySelector){
+        this.dragEl = document.querySelector(querySelector);
+        this.dragEl.style.pointerEvents = 'all';
+        this.dragEl.style.touchAction = 'auto';
+        const rect = this.dragEl.getBoundingClientRect();
+
+        interact(querySelector).draggable({
+            modifiers: [
+              interact.modifiers.restrictRect({
+                restriction: {
+                  top: -rect.height / 2, 
+                  right: document.scrollingElement.clientWidth + (rect.width / 2), 
+                  bottom: document.scrollingElement.clientHeight + (rect.height / 2), 
+                  left: -rect.width / 2
+                }
+              })
+            ],
+            listeners: {
+              start (event) {window.GRID.dragstart(event);},
+              move (event) {window.GRID.drag(event)},
+              end (event){window.GRID.dragend(event);}
+            }
+        });
+      }
+    
+    dragstart(event){
+      //console.log("start drag", el);
+    }
+    drag(event){
+      var target = event.target
+      // keep the dragged position in the data-x/data-y attributes
+      var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+      var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+    
+      // translate the element
+      target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+    
+      // update the posiion attributes
+      target.setAttribute('data-x', x)
+      target.setAttribute('data-y', y)
+    }
+    dragend(event){
+    
     }
 
     createCellEventLayer(cell){

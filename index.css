@@ -3,14 +3,20 @@ body{
     margin: 0;
 }
 
-#hero{
+#map{
     display: grid;
     place-content: center;
     height: 100vh;
 }
 
-#hero > .bg{
-    height: 600px;
+#map > .bg{
+    padding: 0px 5em;
+    height: 400px;
+}
+
+#map .grid{
+    margin-left: 230px;
+    margin-top: -20%;
 }
 
 *{
