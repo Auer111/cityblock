@@ -11,9 +11,7 @@ export class Player{
     }
 
     getHandTileCount(tile){
-        return this.unlimited.find(u => u.tile == tile) === undefined
-            ? -1
-            : this.hand.filter(x => x == tile).length
+        return this.unlimited.includes(tile) ? -1 : this.hand.filter(t => t.id == tile.id).length;
     }
 
     addCard(tileId){

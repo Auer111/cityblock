@@ -116,7 +116,8 @@ export class UI{
         const count = window.PLAYER.getHandTileCount(tile);
         switch(count){
             case -1: return `<div class="count"><i class="fa-solid fa-fw fa-infinity"></i></div>`;
-            case 0: return "";
+            case 0:
+            case 1: return "";
             default: return `<div class="count">${count}</div>`;
         }
     }
