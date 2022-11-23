@@ -40,6 +40,7 @@ export class UI{
     }
 
     dragstart(card){
+        card.classList.add('dragging');
         window.GRID.SetGridValidity(null,window.data.tiles.find(x => x.id == card.id));
         document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
     }
@@ -56,6 +57,7 @@ export class UI{
         }
     }
     dragend(card){
+        card.classList.remove('dragging');
         const cell = this.getCellAtMouse();
         this.setCanPlaceOverlay();
         if(this.placeTile(cell, card.id)){

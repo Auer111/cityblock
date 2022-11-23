@@ -151,6 +151,10 @@ button {
   background: #00000070;
 }
 
+.card.dragging{
+  transform: scale(.6) translateY(-50px);
+}
+
 .card{
   margin: -2em;
   width: 12em;
