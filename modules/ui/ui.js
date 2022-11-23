@@ -32,7 +32,8 @@ export class UI{
     }
 
     renderHand(){
-        window.document.getElementById("cards").innerHTML = [...new Set(window.PLAYER.hand)]
+        const handStacked =  [...new Set(window.PLAYER.getHand())];
+        window.document.getElementById("cards").innerHTML = handStacked
         .map((tile) => this.getCardHtml(tile))
         .join('');
 
@@ -86,7 +87,6 @@ export class UI{
 
         const cat = window.data.cats.find(x => x.id == tile.catId);
         const img = window.IMG.raw(tile.img);
-        const count = window.PLAYER.hand.filter(x => x == tile).length;
 
         var items = new Array(9).fill()
         .map((item,index) => this.getCardCell(tile, index));
@@ -99,7 +99,7 @@ export class UI{
         <figure id="${tile.id}" class="card drag card--${cat.color}">
             ${img}
             <div class="triangle"></div>
-            ${count > 1 ? `<div class="count">${count}</div>`: ""}
+            ${this.getCountText(tile)}
             <figcaption class="card__caption">
                 <div class="card__image-container">
                     <h3 class="card__type">${cat.name}</h3>
@@ -110,6 +110,15 @@ export class UI{
                 </div>
             </figcaption>
         </figure>`;
+    }
+
+    getCountText(tile){
+        const count = window.PLAYER.getHandTileCount(tile);
+        switch(count){
+            case -1: return `<div class="count"><i class="fa-solid fa-fw fa-infinity"></i></div>`;
+            case 0: return "";
+            default: return `<div class="count">${count}</div>`;
+        }
     }
 
     getCardCell(tile, index){
