@@ -101,9 +101,7 @@ export class UI{
             <div class="triangle"></div>
             ${this.getCountText(tile)}
             <figcaption class="card__caption">
-                <div class="card__image-container">
-                    <h3 class="card__type">${cat.name}</h3>
-                </div>
+                <h3 class="card__type">${cat.name}</h3>
                 <h1 class="card__name">${tile.name}</h1>
                 <div class="grid-wrapper">
                     ${grid.render().outerHTML}
@@ -170,7 +168,7 @@ export class UI{
         var theta = 30.5;
         var c = Math.cos(theta/2);
         var s = Math.sin(theta/2);
-        var rect = document.getElementById("20").getBoundingClientRect();
+        var rect = document.querySelector(".grid-left").getBoundingClientRect();
         var origin = [rect.left + (rect.width/2), rect.bottom - (rect.width/2)]; //the pixel coordinates of (0, 0)
         var unit = rect.width + 10; //+padding
         var isoX = ((screen[0] - origin[0]) / c - (screen[1] - origin[1]) / s) / unit;

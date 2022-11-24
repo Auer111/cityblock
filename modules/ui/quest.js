@@ -79,14 +79,15 @@ export class Quest{
     const remove = this.items.findIndex(q => q.id == tile.id);
     this.items.splice(remove,1);
 
-    this.questCompleteEl.innerHTML = window.UI.getCardHtml(tile);
-    this.questCompleteEl.children[0].classList.remove('drag');
-    this.questCompleteEl.style.display = 'flex';
+    //this.questCompleteEl.innerHTML = window.UI.getCardHtml(tile);
+    //this.questCompleteEl.children[0].classList.remove('drag');
+    //this.questCompleteEl.style.display = 'flex';
     window.PLAYER.addCard(tile.id);
-    this.questCompleteEl.addEventListener('click', ()=>{
-      window.QUEST.questCompleteEl.style.display = 'none';
-      this.init();
-    },{once: true});
+    this.init();
+    // this.questCompleteEl.addEventListener('click', ()=>{
+    //   //window.QUEST.questCompleteEl.style.display = 'none';
+      
+    // },{once: true});
     
   }
 }

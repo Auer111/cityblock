@@ -7,6 +7,7 @@ export class Isometric{
         this.cols = cols;
         this.items = items;
         this.dragEl = null;
+        this.cellSize = 77;
     }
 
     render(){
@@ -15,16 +16,20 @@ export class Isometric{
         let i = 0;
         outer: for(let x = 0; x < this.rows; x++){
             let row = document.createElement("div");
-            row.style.marginLeft = `${-77* x}px`;
+            row.style.marginLeft = `${-this.cellSize* x}px`;
             row.classList = "row";
             for(let y = 0; y < this.cols; y++){
 
                 if(i >= this.items.length){ 
                     break outer; 
                 }
+                
 
                 let cell = document.createElement("div");
-                cell.classList = `cell cell${x}-${y}`;
+                cell.classList = `cell cell-${x}-${y}`;
+                if(x === this.cols - 1 && y === 0){
+                    cell.classList.add("grid-left");
+                }
 
                 cell.style.zIndex = 1000 - x - y;
 
@@ -41,6 +46,14 @@ export class Isometric{
         }
 
         return grid;
+    }
+
+    sizeGrid(grid){
+        const parent = grid.parentElement;
+        parent.style.paddingLeft = `${this.cellSize * (this.cols - 1)}px`;
+        parent.style.paddingRight = `${this.cellSize}px`;
+        parent.style.paddingBottom = `${this.cellSize}px`;
+        grid.style.marginTop = `${-this.cellSize}px`;
     }
 
     makeDraggable(querySelector){

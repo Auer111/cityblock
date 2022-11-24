@@ -26,16 +26,17 @@ function Init(data){
     
 
     const startTile = data.tiles[0];
-    var items = new Array(25).fill()
+    var items = new Array(9).fill()
     .map((item,index) => ({ 
         gridId: index, 
         tileId: startTile.id, 
         img: window.IMG.render(startTile.img)
     }));
 
-    window.GRID = new Isometric(5,5, items);
-    document.getElementById("map").children[0].appendChild(window.GRID.render());
-
+    window.GRID = new Isometric(3,3, items);
+    const gridEl = window.GRID.render();
+    document.getElementById("map").children[0].appendChild(gridEl);
+    window.GRID.sizeGrid(gridEl);
     window.GRID.makeDraggable(".bg");
 
 }

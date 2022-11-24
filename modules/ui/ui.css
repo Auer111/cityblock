@@ -156,8 +156,10 @@ button {
 }
 
 .card{
+  padding: 0.5em;
   margin: -2em;
   width: 12em;
+  min-width: 12em;
   font-family: "Open Sans", Helvetica, sans-serif;
   transform: scale(.6);
   transition: 0.4s;
@@ -172,19 +174,14 @@ button {
 }
 .card__caption {
   background-color: rgba(255, 255, 255, 0.65);
-  padding: 1em;
   position: relative;
-  border-radius: 0 0 3px 3px;
   z-index: -1;
   --mask: linear-gradient(135deg,#0000 60px,#000 0);
-    -webkit-mask: var(--mask);
-    mask: var(--mask);
-    height: 14em;
-}
-.card__image-container {
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 3px 3px 0 0;
-  height: 2em;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
+  height: 14em;
+  top: -1em;
+  padding-bottom: 1.8em;
 }
 .card > img{
   position: absolute;
@@ -192,7 +189,7 @@ button {
   z-index: -1;
   width: 5em;
   margin-top: -1em;
-  --mask: linear-gradient(315deg,#0000 41px,#000 0);
+  --mask: linear-gradient(315deg,#0000 37px,#000 0);
     -webkit-mask: var(--mask);
     mask: var(--mask);
 }
@@ -201,24 +198,18 @@ button {
   position: absolute;
   width: 0.2em;
   z-index: 2;
-  border-color: rgba(255, 255, 255, 0.65);
+  border-color: rgb(255 255 255 / 54%);
   border-style: solid;
   border-width: 5px 81px 0 0;
-  top: 2.6em;
+  top: 3.3em;
 }
 .card__type {
-  position: absolute;
-  top: 1.5em;
-  right: 2em;
-  transform: translateY(-50%);
   color: #ffffff;
   text-transform: uppercase;
   font-family: "Open Sans Condensed", "Open Sans", helvetica, sans-serif;
-  letter-spacing: 0.1em;
-  padding: 0.25em;
-  line-height: 1;
+  text-align: end;
+  padding-right: 0.5em;
   border-radius: 2px;
-  background: #bbbbbb;
 }
 .card .count{
   position: absolute;
