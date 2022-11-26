@@ -21,6 +21,7 @@ export class Campaign
     }
 
     loadLevel(index){
+        this.data.currentLevel = index;
         this.level = this.data.levels.find(l => l.id === index);
 
         new Player(this.data);

@@ -4,7 +4,7 @@ export class Player{
         this.data = data;
         this.unlimited = [];
         this.hand = [];
-        this.loadData()
+        this.loadData();
     }
 
     loadData(){

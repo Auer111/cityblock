@@ -67,8 +67,7 @@ class Next{
         return `
         <div class="next">
             <button onClick="window.MENU.Next.onClick()" class="button-19 green">Next</button>
-        </div>
-        `;
+        </div>`;
     }
     onClick(){
         window.CAMPAIGN.loadLevel(1);
