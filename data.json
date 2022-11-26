@@ -8,7 +8,7 @@
             "_validAll":"Tiles that are required for [current, up, right, down, left] squares",
             "validAll":[0,-1,-1,-1,-1],
             "_validAny":"List of tiles that must be present in adjacent any squares",
-            "validAny":[-1,-1]
+            "validAny":[]
         },
         {
             "id": 1,
@@ -16,7 +16,7 @@
             "img": "unity/Wheat.png",
             "catId":4,
             "validAll":[0,-1,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAny":[]
         },
         {
             "id": 2,
@@ -24,7 +24,7 @@
             "img": "unity/Forest.png",
             "catId":2,
             "validAll":[0,-1,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAny":[]
         },
         {
             "id": 3,
@@ -32,7 +32,7 @@
             "img": "unity/Mountian.png",
             "catId":2,
             "validAll":[0,-1,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAny":[]
         },
         {
             "id": 20,
@@ -40,7 +40,7 @@
             "img": "Barn.png",
             "catId":3,
             "validAll":[0,-1,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAny":[]
         },
         {
             "id": 30,
@@ -48,7 +48,7 @@
             "img": "unity/Cabin.png",
             "catId":2,
             "validAll":[0,-1,-1,-1,-1],
-            "validAny":[-1,-1],
+            "validAny":[],
             "require":[
                 {
                     "id":1,
@@ -68,7 +68,7 @@
             "img": "pumpjack/PJ.png",
             "catId":1,
             "validAll":[0,2,-1,-1,-1],
-            "validAny":[-1,-1]
+            "validAny":[]
         },
         {
             "id": 51,
@@ -91,7 +91,7 @@
             "img": "unity/Mine.png",
             "catId":2,
             "validAll":[3,-1,-1,-1,-1],
-            "validAny":[-1,-1],
+            "validAny":[],
             "require":[
                 {
                     "id":3,
@@ -144,6 +144,27 @@
             "name":"Food",
             "icon":"burger",
             "color":"red"
+        }
+    ],
+    "currentLevel":0,
+    "levels":[
+        {
+            "id":0,
+            "name":"Cabin",
+            "info":"Build a cabin",
+            "tiles":[0,0,0,0],
+            "hand":[1,2],
+            "handUnlimited":[],
+            "locked":[51,30]
+        },
+        {
+            "id":1,
+            "name":"Tutorial",
+            "info":"Build a cabin",
+            "tiles":[0,0,0,0],
+            "hand":[],
+            "handUnlimited":[2],
+            "locked":[51,30]
         }
     ]
 }

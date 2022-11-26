@@ -3,14 +3,14 @@ import Isometric from "../grid/grid.js";
 
 export class UI{
     constructor(data){
-        new Utils().loadCss(import.meta.url);
+        window.UTILS.loadCss(import.meta.url);
         window.UI = this;
-
+        this.data = data;
         
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
         this.mousePos = [0,0];
-        this.init(data);
+        this.init();
     }
 
     init(){
@@ -42,7 +42,7 @@ export class UI{
 
     dragstart(card){
         card.classList.add('dragging');
-        window.GRID.SetGridValidity(null,window.data.tiles.find(x => x.id == card.id));
+        window.GRID.SetGridValidity(null,this.data.tiles.find(x => x.id == card.id));
         document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
     }
     drag(card){
@@ -71,7 +71,7 @@ export class UI{
     placeTile(cell, tileId){
         if(!window.GRID || !cell || !tileId){return false;}
 
-        let selectedTile = data.tiles.find(x => x.id == tileId);
+        let selectedTile = this.data.tiles.find(x => x.id == tileId);
         if(cell.el.classList.contains("valid")){
             cell.tileId = selectedTile.id;
             cell.img = window.IMG.render(selectedTile.img, selectedTile.name);
@@ -85,13 +85,13 @@ export class UI{
     getCardHtml(tile){
         if(!tile){return;}
 
-        const cat = window.data.cats.find(x => x.id == tile.catId);
+        const cat = this.data.cats.find(x => x.id == tile.catId);
         const img = window.IMG.raw(tile.img);
 
         var items = new Array(9).fill()
         .map((item,index) => this.getCardCell(tile, index));
 
-        items[4].img = window.IMG.render(window.data.tiles[0].img);
+        items[4].img = window.IMG.render(this.data.tiles[0].img);
         
 
         const grid = new Isometric(3,3, items);
@@ -134,7 +134,7 @@ export class UI{
             case 7: tId = tile.validAll[4]; break;
             case 8: tId = null; break;
         }
-        if(tId && tId != -1){selectedTile = data.tiles.find(x => x.id == tId);}
+        if(tId && tId != -1){selectedTile = this.data.tiles.find(x => x.id == tId);}
         return { 
             gridId: index, 
             tileId: tId, 
@@ -152,7 +152,7 @@ export class UI{
         if(cell.gridId === this.placementCellId){
             return;
         }
-        let selectedTile = data.tiles.find(x => x.id == tileId);
+        let selectedTile = this.data.tiles.find(x => x.id == tileId);
         this.placementOverlay.style.display = 'grid';
         this.placementOverlay.querySelector("img").src = window.IMG.url(selectedTile.img);
         cell.el.appendChild(this.placementOverlay);

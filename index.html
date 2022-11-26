@@ -5,20 +5,30 @@
         <link rel="stylesheet" href="index.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&family=IBM+Plex+Sans+Condensed:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&family=IBM+Plex+Serif:ital@0;1&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     </head>
     <body ondragstart="return false;" ondrop="return false;">
-        <div id="map">
-            <div class="bg">
-                
+        <section id="main-menu">
+            <div>
+                <div class="iso"></div>
+                <h1>City Block</h1>
+                <button class="button-19 blue" onclick="window.MENU.Main.onClickCampaign()">Campaign</button>
             </div>
-        </div>
-        <div id="cards">
-            <div id="quests"></div>
-        </div>
-        <div id="can-place-overlay">
-            <img />
-        </div>
+        </section>
+        <section id="play-area">
+            <div id="map">
+                <div class="bg">
+                    
+                </div>
+            </div>
+            <div id="cards">
+                <div id="quests"></div>
+            </div>
+            <div id="can-place-overlay">
+                <img />
+            </div>
+        </section>
+        
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
         <script type="module" src="index.js"></script>
     </body>

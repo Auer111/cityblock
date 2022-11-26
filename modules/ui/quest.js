@@ -4,7 +4,8 @@ export class Quest{
   constructor(data){
     new Utils().loadCss(import.meta.url);
     window.QUEST = this;
-    this.items = data.tiles.filter(t => !t.unlocked);
+    this.data = data;
+    this.items = window.CAMPAIGN.level.locked.map(tid => data.tiles.find(t => t.id === tid));
     this.cardsEl = document.body.querySelector("#cards");
     this.questCompleteEl = document.body.querySelector("#quest-complete");
     this.init();
@@ -21,7 +22,7 @@ export class Quest{
 
   renderQuest(tile){
     if(!tile){return;}
-    const cat = window.data.cats.find(x => x.id == tile.catId);
+    const cat = this.data.cats.find(x => x.id == tile.catId);
     const img = window.IMG.raw(tile.img);
     return `
     <figure id="quest-${tile.id}" class="quest card card--${cat.color}">
@@ -44,7 +45,7 @@ export class Quest{
   renderRequirements(require){
     let html = "";
     require.forEach(r => {
-      const tile = window.data.tiles.find(x => x.id == r.id);
+      const tile = this.data.tiles.find(x => x.id == r.id);
       html += `<div class="row"><progress class="progress-${r.id}" value="0" max="${r.count}"></progress><span>${window.IMG.raw(tile.img)}</span></div>`
     });
     return html;
@@ -91,3 +92,5 @@ export class Quest{
     
   }
 }
+
+export default Quest;
