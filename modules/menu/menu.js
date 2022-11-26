@@ -1,5 +1,5 @@
 import Isometric from "../grid/grid.js";
-import {Campaign} from "../campaign.js"
+import {Campaign} from "../campaign/campaign.js"
 import Data from "../data.js";
 
 export class Menu {
@@ -9,6 +9,7 @@ export class Menu {
         this.active = null;
         this.sections = {}; //page/window
         this.Main = new Main();
+        this.Next = new Next();
         this.extractHtmlSections();
     }
 
@@ -58,6 +59,19 @@ class Main{
     onClickCampaign(){
         window.MENU.renderSection('play-area');
         new Campaign().init();
+    }
+}
+class Next{
+    constructor(){}
+    html(){
+        return `
+        <div class="next">
+            <button onClick="window.MENU.Next.onClick()" class="button-19 green">Next</button>
+        </div>
+        `;
+    }
+    onClick(){
+        window.CAMPAIGN.loadLevel(1);
     }
 }
 export default Menu;

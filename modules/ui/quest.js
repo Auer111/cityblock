@@ -5,8 +5,9 @@ export class Quest{
     new Utils().loadCss(import.meta.url);
     window.QUEST = this;
     this.data = data;
+    this.levelComplete = false;
     this.items = window.CAMPAIGN.level.locked.map(tid => data.tiles.find(t => t.id === tid));
-    this.cardsEl = document.body.querySelector("#cards");
+    this.cardsEl = document.getElementById("cards");
     this.questCompleteEl = document.body.querySelector("#quest-complete");
     this.init();
   }
@@ -74,22 +75,17 @@ export class Quest{
         this.unlock(lockedTile);
       }
     });
+
+    if(window.CAMPAIGN.level.objective == tileId){
+      this.levelComplete = true;
+    }
   }
 
   unlock(tile){
     const remove = this.items.findIndex(q => q.id == tile.id);
     this.items.splice(remove,1);
-
-    //this.questCompleteEl.innerHTML = window.UI.getCardHtml(tile);
-    //this.questCompleteEl.children[0].classList.remove('drag');
-    //this.questCompleteEl.style.display = 'flex';
     window.PLAYER.addCard(tile.id);
     this.init();
-    // this.questCompleteEl.addEventListener('click', ()=>{
-    //   //window.QUEST.questCompleteEl.style.display = 'none';
-      
-    // },{once: true});
-    
   }
 }
 

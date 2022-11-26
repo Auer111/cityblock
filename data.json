@@ -155,16 +155,18 @@
             "tiles":[0,0,0,0],
             "hand":[1,2],
             "handUnlimited":[],
-            "locked":[51,30]
+            "locked":[51,30],
+            "objective":30
         },
         {
             "id":1,
-            "name":"Tutorial",
-            "info":"Build a cabin",
+            "name":"Barn",
+            "info":"Build a barn",
             "tiles":[0,0,0,0],
             "hand":[],
             "handUnlimited":[2],
-            "locked":[51,30]
+            "locked":[],
+            "objective":30
         }
     ]
 }

@@ -1,11 +1,13 @@
-import Isometric from "./grid/grid.js";
-import Quest from "./ui/quest.js";
-import UI from "./ui/ui.js";
-import Player from "./player.js";
+import Isometric from "../grid/grid.js";
+import Quest from "../ui/quest.js";
+import UI from "../ui/ui.js";
+import Player from "../player.js";
+import Utils from "../Utils.js";
 
 export class Campaign
 {
     constructor(){
+        new Utils().loadCss(import.meta.url);
         window.CAMPAIGN = this;
         this.data = null;
         this.gridContainer = null

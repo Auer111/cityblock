@@ -1,4 +1,3 @@
-import Utils from "../Utils.js"
 import Isometric from "../grid/grid.js";
 
 export class UI{
@@ -32,6 +31,11 @@ export class UI{
     }
 
     renderHand(){
+        if(window.QUEST.levelComplete){
+            window.document.getElementById("cards").innerHTML = window.MENU.Next.html();
+            return;
+        }
+
         const handStacked =  [...new Set(window.PLAYER.getHand())];
         window.document.getElementById("cards").innerHTML = handStacked
         .map((tile) => this.getCardHtml(tile))

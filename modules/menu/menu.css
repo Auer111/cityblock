@@ -12,6 +12,13 @@
   margin-bottom: -5em;
 }
 
+.next{
+  display: grid;
+  place-content: center;
+  width: 100%;
+  padding: 2em;
+}
+
 
 
 .button-19 {
@@ -114,4 +121,6 @@
   button {
     background: transparent;
     border: none;
+    touch-action: auto;
+    pointer-events: all;
   }
