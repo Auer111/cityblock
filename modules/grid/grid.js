@@ -23,7 +23,6 @@ export class Isometric{
                 if(i >= this.items.length){ 
                     break outer; 
                 }
-                
 
                 let cell = document.createElement("div");
                 cell.classList = `cell cell-${x}-${y}`;

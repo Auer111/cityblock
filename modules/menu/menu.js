@@ -70,7 +70,7 @@ class Next{
         </div>`;
     }
     onClick(){
-        window.CAMPAIGN.loadLevel(1);
+        window.CAMPAIGN.loadLevel(window.DATA.data.currentLevel + 1);
     }
 }
 export default Menu;

@@ -28,13 +28,18 @@ export class Campaign
         new Quest(this.data);
         new UI(this.data);
 
-        const startTile = this.data.tiles[0];
-        var items = new Array(this.level.tiles.length).fill()
-        .map((item,index) => ({ 
-            gridId: index, 
-            tileId: startTile.id, 
-            img: window.IMG.render(startTile.img)
-        }));
+        let items = [];
+        let i = 0;
+        this.data.levels[this.data.currentLevel].tiles.forEach(id=> {
+            let tile = this.data.tiles.find(x => x.id == id);
+            items.push({ 
+                gridId: i, 
+                tileId: id, 
+                img: window.IMG.render(tile.img)
+            });
+            window.QUEST.placed(id);
+            i++;
+        });
 
         const rowColCount = Math.sqrt(this.level.tiles.length);
 
@@ -45,6 +50,8 @@ export class Campaign
         window.GRID.sizeGrid(gridEl);
         window.GRID.makeDraggable(".bg");
     }
+
+
 }
 
 export default new Campaign();
