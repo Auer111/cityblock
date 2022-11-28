@@ -7,7 +7,7 @@ export class Isometric{
         this.cols = cols;
         this.items = items;
         this.dragEl = null;
-        this.cellSize = 77;
+        this.cellSize = 76;
     }
 
     render(){
