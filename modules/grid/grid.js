@@ -1,11 +1,12 @@
 import Utils from "../Utils.js"
+//import Cell from "./cell.js";
 
 export class Isometric{
-    constructor(rows, cols, items){
+    constructor(rows, cols, cells){
         new Utils().loadCss(import.meta.url);
         this.rows = rows;
         this.cols = cols;
-        this.items = items;
+        this.cells = cells;
         this.dragEl = null;
         this.cellSize = 76;
     }
@@ -20,7 +21,7 @@ export class Isometric{
             row.classList = "row";
             for(let y = 0; y < this.cols; y++){
 
-                if(i >= this.items.length){ 
+                if(i >= this.cells.length){ 
                     break outer; 
                 }
 
@@ -32,19 +33,23 @@ export class Isometric{
 
                 cell.style.zIndex = 1000 - x - y;
 
-                cell.innerHTML = this.createCellEventLayer(this.items[i]);
-                cell.appendChild(this.items[i].img);
+                cell.innerHTML = this.createCellEventLayer(this.cells[i]);
+                cell.appendChild(this.cells[i].img);
                 row.appendChild(cell);
 
-                this.items[i].el = cell;
-                this.items[i].x = x;
-                this.items[i].y = y;
+                this.cells[i].el = cell;
+                this.cells[i].x = x;
+                this.cells[i].y = y;
                 i++;
             }
             grid.prepend(row);
         }
 
         return grid;
+    }
+
+    updateAdjacent(){
+
     }
 
     sizeGrid(grid){
@@ -111,7 +116,7 @@ export class Isometric{
     }
 
     SetGridValidity(isValid, tile){
-        this.items.forEach(cell => {
+        this.cells.forEach(cell => {
             isValid = tile ? this.isValidAllNeighborCells(cell, tile) : isValid;
             cell.el.classList.toggle('valid', isValid);
             cell.el.classList.toggle('invalid', !isValid);
@@ -168,7 +173,7 @@ export class Isometric{
     getNeightborCellTileId(cell ,offX, offY){
         let nX = cell.x + offX;
         let nY = cell.y + offY;
-        return this.items[(nX * this.rows) + nY].tileId;
+        return this.cells[(nX * this.rows) + nY].tileId;
     }
 }
 

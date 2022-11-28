@@ -165,7 +165,7 @@ export class UI{
 
     getCellAtMouse(){
         var cellXY = this.screen2Iso(this.mousePos);
-        return window.GRID.items.find(cell => cell.x == cellXY[0] && cell.y == cellXY[1]);
+        return window.GRID.cells.find(cell => cell.x == cellXY[0] && cell.y == cellXY[1]);
     }
 
     screen2Iso(screen) {
