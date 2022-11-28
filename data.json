@@ -24,7 +24,8 @@
             "img": "unity/Forest.png",
             "catId":2,
             "validAll":[0,-1,-1,-1,-1],
-            "validAny":[]
+            "validAny":[],
+            "require":[]
         },
         {
             "id": 3,
@@ -64,18 +65,20 @@
         },
         {
             "id": 50,
-            "name": "Pumpjack",
-            "img": "pumpjack/PJ.png",
-            "catId":1,
-            "validAll":[0,2,-1,-1,-1],
-            "validAny":[]
+            "name": "Camp",
+            "img": "unity/Camp.png",
+            "catId":2,
+            "validAll":[0,-1,-1,-1,-1],
+            "validAny":[],
+            "require":[]
         },
         {
             "id": 51,
-            "name": "Lumberyard",
+            "name": "Lumbercamp",
             "img": "unity/Lumbercamp.png",
             "catId":2,
-            "validAll":[0,-1,-1,-1,-1],
+            "autoUpgrade": true,
+            "validAll":[50,-1,-1,-1,-1],
             "validAny":[-1,2],
             "require":[
                 {
@@ -155,7 +158,7 @@
             "tiles":[0,0,0,3],
             "hand":[2],
             "handUnlimited":[],
-            "locked":[51],
+            "locked":[50],
             "objective":51
         },
         {
