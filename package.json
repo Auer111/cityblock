@@ -1,0 +1,30 @@
+{
+  "name": "webpack-demo",
+  "version": "1.0.0",
+  "description": "Init",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Auer111/cityblock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Auer111/cityblock/issues"
+  },
+  "homepage": "https://github.com/Auer111/cityblock#readme",
+  "dependencies": {
+    "interactjs": "^1.10.17"
+  }
+}
