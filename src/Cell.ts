@@ -20,6 +20,9 @@ export class Cell
 
     render() : HTMLElement 
     {
+        if(this.tile === undefined){
+            debugger;
+        }
         let cell = document.createElement("div");
         cell.classList.add('cell');
         cell.classList.add(`cell-${this.x}-${this.y}`);
@@ -29,8 +32,8 @@ export class Cell
             <div>
                 <div id="${cell.id}" class="dropzone"></div>
             </div>
-        </div>`);
-        cell.appendChild(this.tile.img);
+        </div>
+        ${this.tile.img.outerHTML}`);
         return cell;
     }
 

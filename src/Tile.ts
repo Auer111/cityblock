@@ -1,5 +1,6 @@
+import Utils from "../modules/Utils";
 import { _Campaign } from "./Campaign";
-import { Level } from "./Level";
+import './extensions'
 
 export class Tile
 {
@@ -47,13 +48,15 @@ export class Tile
                 </figcaption>
             </figure>`
         .ToEl();
-    }
+    };
 
     setImg(){
-        this.img = `
+        const imgHtml = `
         <div class="img-wrapper">
-            <img class="img ${this.label?.toLowerCase()}-animation" src="./img/${this.img}" />
-        </div>`
-        .ToEl();
-    }
+            <img class="img ${this.label?.toLowerCase()}-animation" src="./img/${this.imgPath}" />
+        </div>`;
+        
+
+        this.img = imgHtml.ToEl();
+    };
 }

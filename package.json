@@ -11,6 +11,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "css-loader": "^6.7.2",
     "ts-loader": "^9.4.1",
     "typescript": "^4.9.3",
     "webpack": "^5.75.0",
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/Auer111/cityblock#readme",
   "dependencies": {
-    "interactjs": "^1.10.17"
+    "interactjs": "^1.10.17",
+    "style-loader": "^3.3.1"
   }
 }

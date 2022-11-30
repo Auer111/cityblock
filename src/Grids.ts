@@ -1,4 +1,4 @@
-//import Cell from "./cell.js";
+import "./css/grid.css"
 import interact from 'interactjs'
 import { InteractEvent } from "@interactjs/types";
 import Cell from './cell';
@@ -13,7 +13,6 @@ export class Isometric
     dragEl: HTMLElement;
     cellSize : Number;
     constructor(rows:number, cols: number, tileDatas: Tile[]){
-        //new Utils().loadCss(import.meta.url);
         this.rows = rows;
         this.cols = cols;
         this.cells = new Array(rows * cols);

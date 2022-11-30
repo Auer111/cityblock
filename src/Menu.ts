@@ -1,7 +1,4 @@
-// import Isometric from "../grid/grid.js";
-// import {Campaign} from "../campaign/campaign.js"
-// import Data from "../data.js";
-
+import "./css/menu.css"
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
 import Isometric from "./Grids";
@@ -42,10 +39,13 @@ export class Menu {
 }
 class Main
 {
-    constructor(){}
+    constructor(){
+        
+    }
 
     render(){
         _Menu.renderSection('main-menu');
+        document.querySelector('#main-menu button').addEventListener('click', ()=>{_Menu.Main.onClickCampaign()});
 
         const grid = new Isometric(3,3,new Array(9).fill(_Data.tiles[0]));
 
@@ -55,6 +55,7 @@ class Main
 
     onClickCampaign(){
         _Menu.renderSection('play-area');
+        _Campaign.loadLevel(0);
     }
 }
 class Next{

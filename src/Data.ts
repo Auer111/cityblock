@@ -44,8 +44,8 @@ export class Data{
                 hand:[this.tiles[2]],
                 handUnlimited:[],
                 locked:[this.tiles[1]],
-                objective:this.tiles[1]
-
+                objective:this.tiles[1],
+                size:2
             })
         ]
     }
