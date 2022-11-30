@@ -21,7 +21,8 @@ export class Cell
     render() : HTMLElement 
     {
         let cell = document.createElement("div");
-        cell.classList.add(`cell cell-${this.x}-${this.y}`);
+        cell.classList.add('cell');
+        cell.classList.add(`cell-${this.x}-${this.y}`);
         cell.style.zIndex = String(1000 - this.x - this.y);
         cell.insertAdjacentHTML('beforeend',`
         <div class="overlay">

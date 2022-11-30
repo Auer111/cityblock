@@ -1,16 +1,15 @@
 import Quest from "./Quest";
-import UI from "./Ui";
+import { _UI } from "./Ui";
 import { _Data } from "./Data";
-import Isometric from "./Grid";
+import Isometric from "./Grids";
 import { Level } from "./Level";
 
 export class Campaign
 {
-    level : Level = _Data.levels[0];
+    level : Level = null;
     grid : Isometric;
     gridWrapperEl : HTMLElement;
     Quest: Quest;
-    UI:UI;
     constructor(){
         this.gridWrapperEl = document.getElementById("map").children[0] as HTMLElement;
     }
@@ -25,7 +24,7 @@ export class Campaign
         this.level = _Data.levels[index];
 
         this.Quest = new Quest();
-        this.UI = new UI();
+        _UI.onLevelStart();
 
         this.grid = new Isometric(this.level.size,this.level.size, 
             new Array(this.level.size).fill(_Data.tiles[0]));

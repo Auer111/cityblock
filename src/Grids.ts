@@ -1,8 +1,8 @@
 //import Cell from "./cell.js";
 import interact from 'interactjs'
 import { InteractEvent } from "@interactjs/types";
-import Cell from './cell.js';
-import { Tile } from './Tile.js';
+import Cell from './cell';
+import { Tile } from './Tile';
 
 export class Isometric
 {
@@ -94,7 +94,7 @@ export class Isometric
             }
         });
     }
-    SetGridValidity(isValid:boolean, tile : Tile){
+    SetGridValidity(isValid:boolean, tile : Tile | null){
         this.cells.forEach(cell => {
             //cell.isValidAllNeighborCells(tile);
         });

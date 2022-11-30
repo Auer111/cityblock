@@ -1,6 +1,6 @@
 
-import { Tile } from './Tile.js';
-import{ Level }from './Level.js';
+import { Tile } from './Tile';
+import{ Level }from './Level';
 export class Data{
 
     tiles : Tile[];

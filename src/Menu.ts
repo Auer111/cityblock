@@ -4,7 +4,7 @@
 
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
-import Isometric from "./grid";
+import Isometric from "./Grids";
 
 export class Menu {
     active : string | null;
@@ -42,9 +42,7 @@ export class Menu {
 }
 class Main
 {
-    constructor(){
-        this.render();
-    }
+    constructor(){}
 
     render(){
         _Menu.renderSection('main-menu');
