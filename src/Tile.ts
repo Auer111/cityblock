@@ -4,6 +4,7 @@ import { Category } from "./Category";
 import { _Data } from "./Data";
 import './extensions'
 
+let _tileIterator = 0;
 export class Tile
 {
     public id: number = _tileIterator++;
@@ -17,6 +18,15 @@ export class Tile
         Object.assign(this, init);
         this.imgPath = `./img/${this.imgPath}`;
         
+    }
+
+    static find(id:number):Tile
+    {
+        return _Data.tiles.find(x => x.id == id);
+    }
+    static select(ids:number[]):Tile[]
+    {
+        return ids.map(i=> Tile.find(i));
     }
 
     card() : HTMLElement 
@@ -66,4 +76,3 @@ export class Tile
     }
 }
 
-export let _tileIterator = 0;

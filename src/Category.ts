@@ -1,3 +1,4 @@
+let _categoryIterator = 0;
 export class Category
 {
     public id: number = _categoryIterator++;
@@ -9,5 +10,3 @@ export class Category
         Object.assign(this, init);
     }
 }
-
-export let _categoryIterator = 0;

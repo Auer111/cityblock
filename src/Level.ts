@@ -2,9 +2,10 @@ import { _Data } from "./Data";
 import { Tile } from "./Tile";
 import { _UI } from "./Ui";
 
+let _levelIterator = 0;
 export class Level
 {
-    public id: number;
+    public id: number = _levelIterator++;
     public label:string;
     public hand: Tile[];
     public handUnlimited:Tile[];
@@ -13,6 +14,10 @@ export class Level
     public size: number;
     public constructor(init?:Partial<Level>) {
         Object.assign(this, init);
+    }
+
+    complete(){
+        return this.hand.length === 0;
     }
 
     getHand(){

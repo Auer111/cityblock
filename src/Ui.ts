@@ -3,6 +3,8 @@ import { InteractEvent } from "@interactjs/types";
 import { _Campaign } from './Campaign';
 import { _Data } from './Data';
 import { Cell } from './cell';
+import { _Menu } from './Menu';
+import { Tile } from './Tile';
 
 export class UI
 {
@@ -69,12 +71,12 @@ export class UI
     }
 
     renderHand(){
-        const level = _Campaign.level;
-        // if(window.QUEST.levelComplete){
-        //     this.cardsEl.innerHTML = window.MENU.Next.html();
-        //     return;
-        // }
-        const handStacked =  [...new Set(level.getHand())];
+        if(_Campaign.level.complete()){
+            this.cardsEl.innerHTML = "";
+            this.cardsEl.appendChild(_Menu.Next.el);
+            return;
+        }
+        const handStacked =  [...new Set(_Campaign.level.getHand())];
         this.cardsEl.innerHTML = "";
         handStacked.forEach(t => this.cardsEl.appendChild(t.card()));
     }
@@ -82,7 +84,7 @@ export class UI
     placeTile(cell:Cell, tileId: number){
         if(!_Campaign.grid || !cell || !tileId){return false;}
         if(cell.el.classList.contains("valid")){
-            cell.setTile(_Data.tile(tileId));
+            cell.setTile(Tile.find(tileId));
             //window.QUEST.placed(tileId);
             return true;
         }
@@ -125,7 +127,7 @@ export class UI
         }
 
         this.placementOverlay.style.display = 'grid';
-        this.placementOverlay.querySelector("img").src = _Data.tile(tileId).imgPath;
+        this.placementOverlay.querySelector("img").src = Tile.find(tileId).imgPath;
         cell.el.appendChild(this.placementOverlay);
         this.placementCellId = cell.id;
     }

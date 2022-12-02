@@ -8,12 +8,6 @@ export class Data{
     categories:Category[];
     levels : Level[];
     constructor(){
-        this.seed();
-    }
-
-    tile(id:number):Tile
-    {
-        return this.tiles.find(x => x.id == id);
     }
 
     seed(){
@@ -31,8 +25,7 @@ export class Data{
             new Tile({
                 label:"Forest",
                 imgPath:"unity/Forest.png",
-                categoryId:2,
-                requiredNeighbors:[2,0]
+                categoryId:2
             }),
             new Tile({
                 label:"Mountian",
@@ -81,12 +74,19 @@ export class Data{
 
         this.levels = [
             new Level({
-                id:0,
-                label:"Welcome",
-                hand:[this.tiles[2]],
+                label:"Camp",
+                hand:Tile.select([1]),
                 handUnlimited:[],
-                locked:[this.tiles[1]],
+                locked:[],
                 objective:this.tiles[1],
+                size:2
+            }),
+            new Level({
+                label:"Lumber",
+                hand:Tile.select([2]),
+                handUnlimited:[],
+                locked:Tile.select([1]),
+                objective:Tile.find(1),
                 size:2
             })
         ]

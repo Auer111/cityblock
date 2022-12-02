@@ -1,4 +1,5 @@
 import "./css/menu.css"
+import './extensions'
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
 import Isometric from "./Grids";
@@ -27,7 +28,6 @@ export class Menu {
 
     //deletes active section html and inserts desired section
     renderSection(showEl : string){
-        if(showEl === this.active){return;}
         if(this.active){
             const active = document.getElementById(this.active);
             active.remove();
@@ -59,14 +59,16 @@ class Main
     }
 }
 class Next{
-    constructor(){}
-    html(){
-        return `
+    el:HTMLElement;
+    constructor(){
+        this.el = `
         <div class="next">
-            <button onClick="window.MENU.Next.onClick()" class="button-19 green">Next</button>
-        </div>`;
+            <button class="button-19 green">Next</button>
+        </div>`.ToEl();
+        this.el.addEventListener('click', ()=>{_Menu.Next.onClick()})
     }
     onClick(){
+        _Menu.renderSection('play-area');
         _Campaign.loadNextLevel();
     }
 }
