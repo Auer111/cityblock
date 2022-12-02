@@ -81,10 +81,8 @@ export class UI
     
     placeTile(cell:Cell, tileId: number){
         if(!_Campaign.grid || !cell || !tileId){return false;}
-        
-        cell.setTile(_Data.tile(tileId));
         if(cell.el.classList.contains("valid")){
-            
+            cell.setTile(_Data.tile(tileId));
             //window.QUEST.placed(tileId);
             return true;
         }

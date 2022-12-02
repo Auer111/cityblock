@@ -31,7 +31,8 @@ export class Data{
             new Tile({
                 label:"Forest",
                 imgPath:"unity/Forest.png",
-                categoryId:2
+                categoryId:2,
+                requiredNeighbors:[2,0]
             }),
             new Tile({
                 label:"Mountian",
