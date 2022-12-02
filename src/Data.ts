@@ -1,39 +1,80 @@
 
 import { Tile } from './Tile';
 import{ Level }from './Level';
+import { Category } from './Category';
 export class Data{
 
     tiles : Tile[];
+    categories:Category[];
     levels : Level[];
     constructor(){
         this.seed();
+    }
+
+    tile(id:number):Tile
+    {
+        return this.tiles.find(x => x.id == id);
     }
 
     seed(){
         this.tiles = [
             new Tile({
                 label:"Grass",
-                imgPath:"unity/Grass.png"
+                imgPath:"unity/Grass.png",
+                categoryId:0
             }),
             new Tile({
                 label:"Camp",
-                imgPath:"unity/Camp.png"
+                imgPath:"unity/Camp.png",
+                categoryId:2
             }),
             new Tile({
                 label:"Forest",
-                imgPath:"unit/Forest.png"
+                imgPath:"unity/Forest.png",
+                categoryId:2
             }),
             new Tile({
                 label:"Mountian",
-                imgPath:"unity/Mountian.png"
+                imgPath:"unity/Mountian.png",
+                categoryId:2
             }),
             new Tile({
                 label:"Water",
-                imgPath:"unity/Water.png"
+                imgPath:"unity/Water.png",
+                categoryId:2
             }),
             new Tile({
                 label:"Wheat",
-                imgPath:"unity/Wheat.png"
+                imgPath:"unity/Wheat.png",
+                categoryId:4
+            })
+        ]
+
+        this.categories = [
+            new Category({
+                label:"",
+                icon:"",
+                color:""
+            }),
+            new Category({
+                label:"Power",
+                icon:"bolt-lightning",
+                color:"brown"
+            }),
+            new Category({
+                label:"Resource",
+                icon:"tree",
+                color:"green"
+            }),
+            new Category({
+                label:"Housing",
+                icon:"house",
+                color:"blue"
+            }),
+            new Category({
+                label:"Food",
+                icon:"burger",
+                color:"red"
             })
         ]
 

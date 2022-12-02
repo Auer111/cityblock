@@ -30,7 +30,16 @@
         <section id="campaign">
 
         </section>
+        <script type="text/javascript">
+            (function(){ 
+                 var s = document.createElement("script");
+                 s.src = `./dist/bundle.js?x=${Math.random()}`;
+                 s.type = "text/javascript"; 
+                 s.async = true;
+                 s.defer = true;
+                 document.body.appendChild(s);
+             })();
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-        <script type="module" src="./dist/bundle.js"></script>
     </body>
 </html>

@@ -1,4 +1,3 @@
-import "./css/campaign.css"
 import Quest from "./Quest";
 import { _UI } from "./Ui";
 import { _Data } from "./Data";

@@ -2,6 +2,7 @@ import interact from 'interactjs'
 import { InteractEvent } from "@interactjs/types";
 import { _Campaign } from './Campaign';
 import { _Data } from './Data';
+import { Cell } from './cell';
 
 export class UI
 {
@@ -39,24 +40,24 @@ export class UI
                 },
                 move (event:InteractEvent) {
                     const card = event.target;
-                    const cell = this.getCellAtMouse();
+                    const cell = _UI.getCellAtMouse();
                     document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
                     if(!cell){
-                        this.placementCellId = null;
-                        this.setCanPlaceOverlay();
+                        _UI.placementCellId = null;
+                        _UI.setCanPlaceOverlay(cell, null);
                     }
                     else{
                         cell.el.classList.add('hover');
-                        this.setCanPlaceOverlay(cell, Number(card.id));
+                        _UI.setCanPlaceOverlay(cell, Number(card.id));
                     }
                 },
                 end (event:InteractEvent)
                 {
                     const card = event.target;
                     card.classList.remove('dragging');
-                    const cell = this.getCellAtMouse();
-                    this.setCanPlaceOverlay();
-                    if(this.placeTile(cell, card.id)){
+                    const cell = _UI.getCellAtMouse();
+                    _UI.setCanPlaceOverlay(null, null);
+                    if(_UI.placeTile(cell, Number(card.id))){
                         _Campaign.level.removeCard(Number(card.id));
                         cell.el.classList.remove('hover');
                     }
@@ -74,24 +75,21 @@ export class UI
         //     return;
         // }
         const handStacked =  [...new Set(level.getHand())];
-        this.cardsEl.innerHTML = handStacked
-        .map((tile) => tile.card())
-        .join('');
+        this.cardsEl.innerHTML = "";
+        handStacked.forEach(t => this.cardsEl.appendChild(t.card()));
     }
     
-    // placeTile(cell, tileId){
-    //     if(!_Campaign.grid || !cell || !tileId){return false;}
-
-    //     let selectedTile = this.data.tiles.find(x => x.id == tileId);
-    //     if(cell.el.classList.contains("valid")){
-    //         cell.tileId = selectedTile.id;
-    //         cell.img = window.IMG.render(selectedTile.img, selectedTile.name);
-    //         cell.el.querySelector(".img-wrapper").replaceWith(cell.img);
-    //         //window.QUEST.placed(tileId);
-    //         return true;
-    //     }
-    //     return false;
-    // }
+    placeTile(cell:Cell, tileId: number){
+        if(!_Campaign.grid || !cell || !tileId){return false;}
+        
+        cell.setTile(_Data.tile(tileId));
+        if(cell.el.classList.contains("valid")){
+            
+            //window.QUEST.placed(tileId);
+            return true;
+        }
+        return false;
+    }
 
 
     // getCardCell(tile, index){
@@ -116,21 +114,23 @@ export class UI
     //     };
     // }
 
-    // setCanPlaceOverlay(cell, tileId){ 
-    //     if(!_Campaign.grid || !cell || !tileId){
-    //         this.placementOverlay.style.display = 'none';
-    //         return;
-    //     }
-    //     //did not change cell
-    //     if(cell.gridId === this.placementCellId){
-    //         return;
-    //     }
-    //     let selectedTile = _Data.tiles.find(x => x.id == tileId);
-    //     this.placementOverlay.style.display = 'grid';
-    //     //this.placementOverlay.querySelector("img").src = window.IMG.url(selectedTile.img);
-    //     cell.el.appendChild(this.placementOverlay);
-    //     this.placementCellId = cell.gridId;
-    // }
+    setCanPlaceOverlay(cell:Cell, tileId: number){ 
+        
+        if(!_Campaign.grid || !cell || !tileId){
+            this.placementOverlay.style.display = 'none';
+            return;
+        }
+
+        //did not change cell
+        if(cell.id === this.placementCellId){
+            return;
+        }
+
+        this.placementOverlay.style.display = 'grid';
+        this.placementOverlay.querySelector("img").src = _Data.tile(tileId).imgPath;
+        cell.el.appendChild(this.placementOverlay);
+        this.placementCellId = cell.id;
+    }
 
     getCellAtMouse(){
         var cellXY = this.screen2Iso(this.mousePos);

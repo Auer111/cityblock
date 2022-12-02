@@ -31,14 +31,7 @@ export class Isometric
             row.classList.add("row");
             for(let y = 0; y < this.cols; y++){
                 if(i >= this.cells.length){ break outer; }
-
-                this.cells[i] = new Cell(i,x,y,row,tileDatas[i]);
-
-                if(x === this.cols - 1 && y === 0){
-                    this.cells[i].el.classList.add("grid-left");
-                }
-                row.appendChild(this.cells[i].el);
-
+                this.cells[i] = new Cell(i,x,y,this.cols,row,tileDatas[i]);
                 i++;
             }
             grid.prepend(row);

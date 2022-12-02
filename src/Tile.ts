@@ -1,29 +1,35 @@
 import Utils from "../modules/Utils";
 import { _Campaign } from "./Campaign";
+import { Category } from "./Category";
+import { _Data } from "./Data";
 import './extensions'
 
 export class Tile
 {
-    public id: number;
+    public id: number = _tileIterator++;
     public label:string;
     public imgPath: string;
-    public img:HTMLElement|null = null;
     public locked:boolean;
+    public categoryId:number;
+    public category:Category;
     public constructor(init?:Partial<Tile>) {
         Object.assign(this, init);
-        this.setImg();
+        this.imgPath = `./img/${this.imgPath}`;
+        
     }
 
-    card() : HTMLElement {
+    card() : HTMLElement 
+    {
+        this.category = this.category ?? _Data.categories[this.categoryId];
 
         if(this.locked){
             return `
-            <figure id="quest-${this.id}" class="quest card card--${"cat color"}">
-                ${this.img}
+            <figure id="quest-${this.id}" class="quest card card--${this.category.color}">
+            <img src="${this.imgPath}" />
                 <div class="triangle"></div>
                 <figcaption class="card__caption">
                     <div class="card__image-container">
-                        <h3 class="card__type">${"cat name"}</h3>
+                        <h3 class="card__type">${this.category.label}</h3>
                     </div>
                     <h1 class="card__name">${this.label}</h1>
                     <div class="lock">
@@ -35,28 +41,28 @@ export class Tile
             .ToEl()
         }
         
-        return `<figure id="${this.id}" class="card drag card--${"cat.color"}">
-                ${this.img}
+        return `<figure id="${this.id}" class="card drag card--${this.category.color}">
+                <img src="${this.imgPath}" />
                 <div class="triangle"></div>
-                ${"this.getCountText(tile)"}
+                ${_Campaign.level.getCountHtml(this)}
                 <figcaption class="card__caption">
-                    <h3 class="card__type">${"cat.name"}</h3>
+                    <h3 class="card__type">${this.category.label}</h3>
                     <h1 class="card__name">${this.label}</h1>
                     <div class="grid-wrapper">
-                        ${_Campaign.level.getCountHtml(this)}
+                        
                     </div>
                 </figcaption>
             </figure>`
         .ToEl();
     };
 
-    setImg(){
-        const imgHtml = `
-        <div class="img-wrapper">
-            <img class="img ${this.label?.toLowerCase()}-animation" src="./img/${this.imgPath}" />
-        </div>`;
-        
-
-        this.img = imgHtml.ToEl();
-    };
+    wrappedImg() : HTMLElement
+    {
+       return `
+       <div class="img-wrapper">
+            <img class="img ${this.label?.toLowerCase()}-animation" src="${this.imgPath}" />
+        </div>`.ToEl();
+    }
 }
+
+export let _tileIterator = 0;

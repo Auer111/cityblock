@@ -1,8 +1,10 @@
 const path = require('path');
 
+//node_modules\.bin\webpack
 module.exports = {
 mode: 'development',
   watch: true,
+  cache: false,
   entry: './src/index.ts',
   devtool: 'inline-source-map',
   module: {
