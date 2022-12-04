@@ -14,32 +14,32 @@ export class Data{
         this.tiles = [
             new Tile({
                 label:"Grass",
-                imgPath:"unity/Grass.png",
+                imgPath:"Grass.png",
                 categoryId:0
             }),
             new Tile({
                 label:"Camp",
-                imgPath:"unity/Camp.png",
+                imgPath:"Camp.png",
                 categoryId:2
             }),
             new Tile({
                 label:"Forest",
-                imgPath:"unity/Forest.png",
+                imgPath:"Forest.png",
                 categoryId:2
             }),
             new Tile({
                 label:"Mountian",
-                imgPath:"unity/Mountian.png",
+                imgPath:"Mountian.png",
                 categoryId:2
             }),
             new Tile({
                 label:"Water",
-                imgPath:"unity/Water.png",
+                imgPath:"Water.png",
                 categoryId:2
             }),
             new Tile({
                 label:"Wheat",
-                imgPath:"unity/Wheat.png",
+                imgPath:"Wheat.png",
                 categoryId:4
             })
         ]

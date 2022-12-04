@@ -1,6 +1,8 @@
 const path = require('path');
 
+//npm install --save-dev webpack
 //node_modules\.bin\webpack
+//npm run build
 module.exports = {
 mode: 'development',
   watch: true,
