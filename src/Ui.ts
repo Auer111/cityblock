@@ -62,6 +62,7 @@ export class UI
                     if(_UI.placeTile(cell, Number(card.id))){
                         _Campaign.level.removeCard(Number(card.id));
                         cell.el.classList.remove('hover');
+
                     }
                     _Campaign.grid.SetGridValidity(true, null);
                 }
@@ -89,6 +90,10 @@ export class UI
             return true;
         }
         return false;
+    }
+
+    pullFromDeck(){
+        
     }
 
 
