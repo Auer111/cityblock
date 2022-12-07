@@ -16,7 +16,6 @@ export class Level
     public cells: TileToCell[];
     public constructor(init?:Partial<Level>) {
         Object.assign(this, init);
-        this.hand = Tile.select([1]);
     }
 
     complete(){
@@ -29,7 +28,7 @@ export class Level
     }
 
     drawCard(tileId: number){
-        this.hand = [...this.hand, _Data.tiles.find(x => x.id == tileId)];
+        this.hand = [...this.hand, Tile.find(tileId)];
         _UI.renderHand();
     }
 

@@ -30,10 +30,13 @@ export class Cell
     }
 
     tryUpgrade(){
+        let upgraded:boolean = false;
         this.tile.upgradeIds.forEach(upId => {
             const tile:Tile = Tile.find(upId);
             if(tile !== undefined && _Campaign.grid.isValidAnyNeighborCells(this,tile) === true){
                 this.tile = tile;
+                _Campaign.grid.tryUpgradeNeighborCells(this);
+                return;
             }
         });
     }

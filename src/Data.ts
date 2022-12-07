@@ -13,49 +13,64 @@ export class Data{
 
     seed(){
         this.tiles = [
+            //0
             new Tile({
                 label:"Grass",
-                imgPath:"Grass.png",
                 categoryId:0
             }),
+            //1
             new Tile({
                 label:"Camp",
-                imgPath:"Camp.png",
                 upgradeIds:[3,5],
                 categoryId:2
             }),
+            //2
             new Tile({
                 label:"Forest",
-                imgPath:"Forest.png",
                 categoryId:2
             }),
+            //3
             new Tile({
                 label:"Lumbercamp",
-                imgPath:"Lumbercamp.png",
                 requiredNeighbors:[2],
                 categoryId:2
             }),
+            //4
             new Tile({
                 label:"Mountian",
-                imgPath:"Mountian.png",
                 categoryId:2
             }),
+            //5
             new Tile({
                 label:"Quarry",
-                imgPath:"Quarry.png",
                 categoryId:2,
                 requiredNeighbors:[4],
             }),
+            //6
             new Tile({
                 label:"Water",
-                imgPath:"Water.png",
                 categoryId:2
             }),
+            //7
             new Tile({
                 label:"Wheat",
-                imgPath:"Wheat.png",
                 categoryId:4
-            })
+            }),
+            //8
+            new Tile({
+                label:"Blind",
+                categoryId:4
+            }),
+            //9
+            new Tile({
+                label:"Blacksmith",
+                categoryId:4
+            }),
+            //10
+            new Tile({
+                label:"Windmill",
+                categoryId:4
+            }),
         ]
 
         this.categories = [
@@ -90,13 +105,25 @@ export class Data{
             new Level({
                 label:"Level 1",
                 objective:Tile.find(3),
+                hand: Tile.select([1]),
                 cells: [new TileToCell(0,1,Tile.find(2))],
                 size:2
             }),
             new Level({
                 label:"Level 2",
-                objective:Tile.find(3),
-                cells: [new TileToCell(0,1,Tile.find(4))],
+                objective:Tile.find(5),
+                hand: Tile.select([1]),
+                cells: [new TileToCell(1,1,Tile.find(4))],
+                size:2
+            }),
+            new Level({
+                label:"Level 3",
+                objective:Tile.find(5),
+                hand: Tile.select([1]),
+                cells: [
+                    new TileToCell(0,1,Tile.find(2)),
+                    new TileToCell(1,1,Tile.find(4))
+                ],
                 size:2
             })
         ]

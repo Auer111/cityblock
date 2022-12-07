@@ -17,7 +17,7 @@ export class Tile
     public requiredNeighbors:number[] = [];
     public constructor(init?:Partial<Tile>) {
         Object.assign(this, init);
-        this.imgPath = `./img/${this.imgPath}`;
+        this.imgPath = `./img/${this.imgPath ?? (this.label+'.png')}`;
         
     }
 

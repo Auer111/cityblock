@@ -86,14 +86,13 @@ export class UI
         if(!_Campaign.grid || !cell || !tileId){return false;}
         if(cell.el.classList.contains("valid")){
             cell.setTile(Tile.find(tileId));
-            //window.QUEST.placed(tileId);
             return true;
         }
         return false;
     }
 
     pullFromDeck(){
-        
+
     }
 
 

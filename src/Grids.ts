@@ -6,148 +6,132 @@ import { Tile } from './Tile';
 
 export class Isometric
 {
-    rows: number;
-    cols: number;
-    cells: Cell[];
-    el: HTMLElement;
-    dragEl: HTMLElement;
-    cellSize : Number;
-    constructor(rows:number, cols: number, tileDatas: Tile[]){
-        this.rows = rows;
-        this.cols = cols;
-        this.cells = new Array(rows * cols);
-        this.dragEl = null;
-        this.cellSize = 76;
-        this.el = this.render(tileDatas);
-    }
-
-    render(tileDatas: Tile[]){
-        let grid = document.createElement("div");
-        grid.classList.add("grid");
-        let i = 0;
-        outer: for(let x = 0; x < this.rows; x++){
-            let row = document.createElement("div");
-            row.style.marginLeft = `${-this.cellSize* x}px`;
-            row.classList.add("row");
-            for(let y = 0; y < this.cols; y++){
-                if(i >= this.cells.length){ break outer; }
-                this.cells[i] = new Cell(i,x,y,this.cols,row,tileDatas[i]);
-                i++;
-            }
-            grid.prepend(row);
-        }
-
-        return grid;
-    }
-
-    updateAdjacent(){
-
-    }
-
-    sizeGrid(grid : any){
-        const parent = grid.parentElement;
-        parent.style.paddingLeft = `${+this.cellSize * (this.cols - 1)}px`;
-        parent.style.paddingRight = `${this.cellSize}px`;
-        parent.style.paddingBottom = `${this.cellSize}px`;
-        grid.style.marginTop = `${-this.cellSize}px`;
-    }
-
-    makeDraggable(querySelector : any){
-        this.dragEl = document.querySelector(querySelector);
-        this.dragEl.style.pointerEvents = 'all';
-        this.dragEl.style.touchAction = 'auto';
-        const rect = this.dragEl.getBoundingClientRect();
-
-        interact(querySelector).draggable({
-            modifiers: [
-              interact.modifiers.restrictRect({
-                restriction: {
-                  top: -rect.height / 2, 
-                  right: document.scrollingElement.clientWidth + (rect.width / 2), 
-                  bottom: document.scrollingElement.clientHeight + (rect.height / 2), 
-                  left: -rect.width / 2
-                }
-              })
-            ],
-            listeners: {
-              move (event : InteractEvent) {
-                var target = event.target
-                // keep the dragged position in the data-x/data-y attributes
-                var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-                var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-                
-                // translate the element
-                target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-                
-                // update the posiion attributes
-                target.setAttribute('data-x', String(x))
-                target.setAttribute('data-y', String(y))
-              }
-            }
-        });
-    }
-    SetGridValidity(isValid:boolean, tile : Tile | null){
-        this.cells.forEach(cell => {
-          const valid = this.isValidAllNeighborCells(cell, tile);
-          cell.el.classList.toggle("valid",valid);
-          cell.el.classList.toggle("invalid",!valid);
-        });
-    }
-
-    isValidAllNeighborCells(cell:Cell,tile:Tile){
-      // var dirs = [[0,0,0],[1,0,1],[2,-1,0],[3,0,-1],[4,1,0]];
-      // for (let i = 0; i < dirs.length; i++) {
-      //     if(!this.isAdjacentTileValid(cell,tile,dirs[i][0],dirs[i][1],dirs[i][2])){
-      //         return false;
-      //     }
-      // }
-      return this.isValidAnyNeighborCells(cell, tile);
+  rows: number;
+  cols: number;
+  cells: Cell[];
+  el: HTMLElement;
+  dragEl: HTMLElement;
+  cellSize : Number;
+  constructor(rows:number, cols: number, tileDatas: Tile[]){
+      this.rows = rows;
+      this.cols = cols;
+      this.cells = new Array(rows * cols);
+      this.dragEl = null;
+      this.cellSize = 76;
+      this.el = this.render(tileDatas);
   }
 
-  // isAdjacentTileValid(cell:Cell, tile:Tile, validAll:boolean, x, y){
-  //     const required = tile.validAll[validAll];
-  //     const neighbor = this.canGetNeightborCell(cell, x, y);
-  //     const outOfBounds = required != -1 && !neighbor;
-  //     const invaidSquare = required != -1 && neighbor && required != this.getNeightborCellTileId(cell, x, y);
-  //     if(outOfBounds || invaidSquare){
-  //         return false;
-  //     }
-  //     return true;
-  // }
-
-  isValidAnyNeighborCells(cell:Cell,tile:Tile){
-      if(!tile){
-        return true;
+  render(tileDatas: Tile[]){
+      let grid = document.createElement("div");
+      grid.classList.add("grid");
+      let i = 0;
+      outer: for(let x = 0; x < this.rows; x++){
+          let row = document.createElement("div");
+          row.style.marginLeft = `${-this.cellSize* x}px`;
+          row.classList.add("row");
+          for(let y = 0; y < this.cols; y++){
+              if(i >= this.cells.length){ break outer; }
+              this.cells[i] = new Cell(i,x,y,this.cols,row,tileDatas[i]);
+              i++;
+          }
+          grid.prepend(row);
       }
 
-      let lookingFor = [...tile.requiredNeighbors];
+      return grid;
+  }
 
-      var dirs = [[0,1],[-1,0],[0,-1],[1,0]];
-      for (let i = 0; i < dirs.length; i++) {
-          if(!this.canGetNeightborCell(cell, dirs[i][0], dirs[i][1])){
-              continue;
+  sizeGrid(grid : any){
+      const parent = grid.parentElement;
+      parent.style.paddingLeft = `${+this.cellSize * (this.cols - 1)}px`;
+      parent.style.paddingRight = `${this.cellSize}px`;
+      parent.style.paddingBottom = `${this.cellSize}px`;
+      grid.style.marginTop = `${-this.cellSize}px`;
+  }
+
+  makeDraggable(querySelector : any){
+    this.dragEl = document.querySelector(querySelector);
+    this.dragEl.style.pointerEvents = 'all';
+    this.dragEl.style.touchAction = 'auto';
+    const rect = this.dragEl.getBoundingClientRect();
+
+    interact(querySelector).draggable({
+        modifiers: [
+          interact.modifiers.restrictRect({
+            restriction: {
+              top: -rect.height / 2, 
+              right: document.scrollingElement.clientWidth + (rect.width / 2), 
+              bottom: document.scrollingElement.clientHeight + (rect.height / 2), 
+              left: -rect.width / 2
+            }
+          })
+        ],
+        listeners: {
+          move (event : InteractEvent) {
+            var target = event.target
+            // keep the dragged position in the data-x/data-y attributes
+            var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+            var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+            
+            // translate the element
+            target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+            
+            // update the posiion attributes
+            target.setAttribute('data-x', String(x))
+            target.setAttribute('data-y', String(y))
           }
-          let neighborId = this.getNeightborCellTileId(cell, dirs[i][0], dirs[i][1]);
-          let remove = lookingFor.findIndex(id => id == neighborId);
-          if(remove != -1){
-              lookingFor.splice(remove,1);
-          }
-      }
-      return lookingFor.length === 0;
+        }
+    });
+  }
+
+  SetGridValidity(isValid:boolean, tile : Tile | null){
+    this.cells.forEach(cell => {
+      const valid = this.isValidAnyNeighborCells(cell, tile);
+      cell.el.classList.toggle("valid",valid);
+      cell.el.classList.toggle("invalid",!valid);
+    });
+  }
+
+  tryUpgradeNeighborCells(cell:Cell)
+  {
+    var dirs = [[0,1],[-1,0],[0,-1],[1,0]];
+    for (let i = 0; i < dirs.length; i++) {
+        if(this.canGetNeightborCell(cell, dirs[i][0], dirs[i][1])){
+          this.getNeightborCell(cell, dirs[i][0], dirs[i][1]).tryUpgrade();
+        }
+    }
+  }
+
+  isValidAnyNeighborCells(cell:Cell,tile:Tile)
+  {
+    if(!tile){return true;}
+
+    let lookingFor = [...tile.requiredNeighbors];
+    var dirs = [[0,1],[-1,0],[0,-1],[1,0]];
+    for (let i = 0; i < dirs.length; i++) {
+        if(!this.canGetNeightborCell(cell, dirs[i][0], dirs[i][1])){
+            continue;
+        }
+        let neighborId = this.getNeightborCell(cell, dirs[i][0], dirs[i][1]).tile.id;
+        let remove = lookingFor.findIndex(id => id == neighborId);
+        if(remove != -1){
+            lookingFor.splice(remove,1);
+        }
+    }
+    return lookingFor.length === 0;
   }
 
   canGetNeightborCell(cell:Cell ,offX:number, offY:number){
-      if(cell.y + offY >= this.cols){return false;}
-      if(cell.y + offY < 0){return false;}
-      if(cell.x + offX >= this.rows){return false;}
-      if(cell.x + offX < 0){return false;}
-      return true;
+    if(cell.y + offY >= this.cols){return false;}
+    if(cell.y + offY < 0){return false;}
+    if(cell.x + offX >= this.rows){return false;}
+    if(cell.x + offX < 0){return false;}
+    return true;
   }
 
-  getNeightborCellTileId(cell:Cell ,offX:number, offY:number){
-      let nX = cell.x + offX;
-      let nY = cell.y + offY;
-      return this.cells[(nX * this.rows) + nY].tile.id;
+  getNeightborCell(cell:Cell ,offX:number, offY:number){
+    let nX = cell.x + offX;
+    let nY = cell.y + offY;
+    return this.cells[(nX * this.rows) + nY];
   }
 }
 
