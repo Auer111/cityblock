@@ -41,8 +41,6 @@ export class Campaign
         this.grid.sizeGrid(this.grid.el);
         this.grid.makeDraggable(".bg");
     }
-
-
 }
 
 export const _Campaign = new Campaign();
