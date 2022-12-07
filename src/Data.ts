@@ -2,6 +2,7 @@
 import { Tile } from './Tile';
 import{ Level }from './Level';
 import { Category } from './Category';
+import { TileToCell } from './TileToCell';
 export class Data{
 
     tiles : Tile[];
@@ -20,6 +21,7 @@ export class Data{
             new Tile({
                 label:"Camp",
                 imgPath:"Camp.png",
+                upgradeIds:[3,5],
                 categoryId:2
             }),
             new Tile({
@@ -28,9 +30,21 @@ export class Data{
                 categoryId:2
             }),
             new Tile({
+                label:"Lumbercamp",
+                imgPath:"Lumbercamp.png",
+                requiredNeighbors:[2],
+                categoryId:2
+            }),
+            new Tile({
                 label:"Mountian",
                 imgPath:"Mountian.png",
                 categoryId:2
+            }),
+            new Tile({
+                label:"Quarry",
+                imgPath:"Quarry.png",
+                categoryId:2,
+                requiredNeighbors:[4],
             }),
             new Tile({
                 label:"Water",
@@ -74,19 +88,15 @@ export class Data{
 
         this.levels = [
             new Level({
-                label:"Camp",
-                hand:Tile.select([1]),
-                handUnlimited:[],
-                locked:[],
-                objective:this.tiles[1],
+                label:"Level 1",
+                objective:Tile.find(3),
+                cells: [new TileToCell(0,1,Tile.find(2))],
                 size:2
             }),
             new Level({
-                label:"Lumber",
-                hand:Tile.select([2]),
-                handUnlimited:[],
-                locked:Tile.select([1]),
-                objective:Tile.find(1),
+                label:"Level 2",
+                objective:Tile.find(3),
+                cells: [new TileToCell(0,1,Tile.find(4))],
                 size:2
             })
         ]

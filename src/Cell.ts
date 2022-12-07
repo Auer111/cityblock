@@ -1,3 +1,5 @@
+import { _Campaign } from "./Campaign";
+import { _Data } from "./Data";
 import { Tile } from "./Tile";
 
 export class Cell
@@ -23,7 +25,17 @@ export class Cell
     public setTile = function(tile:Tile) : void
     {
         this.tile = tile;
+        this.tryUpgrade();
         this.el.replaceWith(this.render());
+    }
+
+    tryUpgrade(){
+        this.tile.upgradeIds.forEach(upId => {
+            const tile:Tile = Tile.find(upId);
+            if(tile !== undefined && _Campaign.grid.isValidAnyNeighborCells(this,tile) === true){
+                this.tile = tile;
+            }
+        });
     }
 
     render() : HTMLElement 

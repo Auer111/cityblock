@@ -13,6 +13,7 @@ export class Tile
     public locked:boolean;
     public categoryId:number;
     public category:Category;
+    public upgradeIds: number[] = [];
     public requiredNeighbors:number[] = [];
     public constructor(init?:Partial<Tile>) {
         Object.assign(this, init);
