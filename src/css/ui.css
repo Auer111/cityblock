@@ -4,6 +4,12 @@
   user-select: none; 
 }
 
+center{
+  display: grid;
+  place-content: center;
+  height: 100%;
+}
+
 #can-place-overlay{
   display: none;
   position: absolute;
@@ -61,6 +67,17 @@
   user-select: none;
   pointer-events: all;
   height: 16em;
+}
+.deck-bg{
+  position: relative;
+}
+.deck-bg img{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.5em;
+  width: 100%;
+  height: 12em;
 }
 .card.hidden{
   visibility: hidden;

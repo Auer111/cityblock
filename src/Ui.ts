@@ -5,9 +5,11 @@ import { _Data } from './Data';
 import { Cell } from './cell';
 import { _Menu } from './Menu';
 import { Tile } from './Tile';
+import { Deck } from './Deck';
 
 export class UI
 {
+    Deck : Deck;
     cardsEl : HTMLElement;
     placementOverlay : HTMLElement;
     placementCellId : number;
@@ -27,6 +29,7 @@ export class UI
     }
 
     onLevelStart(){
+        this.Deck = new Deck();
         this.cardsEl = window.document.getElementById("cards");
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
@@ -72,14 +75,14 @@ export class UI
     }
 
     renderHand(){
+        this.cardsEl.innerHTML = "";
         if(_Campaign.level.complete()){
             this.cardsEl.innerHTML = "";
             this.cardsEl.appendChild(_Menu.Next.el);
             return;
         }
-        const handStacked =  [...new Set(_Campaign.level.getHand())];
-        this.cardsEl.innerHTML = "";
-        handStacked.forEach(t => this.cardsEl.appendChild(t.card()));
+        this.cardsEl.appendChild(this.Deck.render());
+        [...new Set(_Campaign.level.getHand())].forEach(t => this.cardsEl.appendChild(t.card()));
     }
     
     placeTile(cell:Cell, tileId: number){

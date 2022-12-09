@@ -10,7 +10,7 @@ export class Level
     public id: number = _levelIterator++;
     public label:string;
     public hand: Tile[];
-    public deck:Tile[];
+    public deck:Tile[] = [];
     public objective:Tile;
     public size: number;
     public cells: TileToCell[];

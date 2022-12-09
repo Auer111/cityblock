@@ -19,7 +19,6 @@ export class Tile
     public constructor(init?:Partial<Tile>) {
         Object.assign(this, init);
         this.imgPath = `./img/${this.imgPath ?? (this.label+'.png')}`;
-        
     }
 
     static find(id:number):Tile
@@ -79,6 +78,10 @@ export class Tile
        <div class="img-wrapper">
             <img class="img ${this.label?.toLowerCase()}-animation" src="${this.imgPath}" />
         </div>`.ToEl();
+    }
+
+    loadCategory(){
+        this.category = Category.find(this.categoryId);
     }
 }
 

@@ -1,3 +1,5 @@
+import { _Data } from "./Data";
+
 let _categoryIterator = 0;
 export class Category
 {
@@ -8,5 +10,10 @@ export class Category
 
     public constructor(init?:Partial<Category>) {
         Object.assign(this, init);
+    }
+
+    static find(id:number):Category
+    {
+        return _Data.categories.find(x => x.id == id);
     }
 }
