@@ -11,19 +11,19 @@ export class Deck{
     render():HTMLElement
     {
         if(this.cards.length == 0){
-            return `<figure class="card deck">
-                <center>
-                    <span>Empty Deck<span>
-                </center>
-            </figure>`.ToEl();
+            return `
+            <div id="deck">
+                <img src="./img/ui/pouch.png" />
+                <img class="back" src="./img/ui/pouch_back.png" />
+            </div>`.ToEl();
         }
 
         const card =  this.cards[0];
-        return `<div class="deck-bg">
-        <img src="./img/ui/panel_blue.png" />
-            <figure id="${card.id}" class="card deck card--${card.category.color}">
-                    
-            </figure>
-        </div>`.ToEl();
+        return `
+            <div id="deck">
+                <img src="./img/ui/pouch.png" />
+                <figure id="${card.id}" class="card deck card--${card.category.color}"></figure>
+                <img class="back" src="./img/ui/pouch_back.png" />
+            </div>`.ToEl();
     }
 }

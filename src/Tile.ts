@@ -57,17 +57,12 @@ export class Tile
             .ToEl()
         }
         
-        return `<figure id="${this.id}" class="card drag card--${this.category.color}">
-                <img src="${this.imgPath}" />
-                <div class="triangle"></div>
-                ${_Campaign.level.getCountHtml(this)}
-                <figcaption class="card__caption">
-                    <h3 class="card__type">${this.category.label}</h3>
-                    <h1 class="card__name">${this.label}</h1>
-                    <div class="grid-wrapper">
-                        
-                    </div>
-                </figcaption>
+        return `<figure id="${this.id}" class="card drag">
+                    <div class="label bg">${this.label}</div>
+                    <div class="label">${this.label}</div>
+                    <end>
+                        <img src="${this.imgPath}" />
+                    </end>
             </figure>`
         .ToEl();
     };
