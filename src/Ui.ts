@@ -37,7 +37,7 @@ export class UI
                 start (event:InteractEvent) {
                     const card = event.target;
                     card.classList.add('dragging');
-                    _Campaign.grid.SetGridValidity(null,_Data.tiles.find(x => x.id == Number(card.id)));
+                    _Campaign.grid.SetGridValidity(null,Tile.find(Number(card.id)));
                     document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
                 },
                 move (event:InteractEvent) {
@@ -85,7 +85,7 @@ export class UI
     placeTile(cell:Cell, tileId: number){
         if(!_Campaign.grid || !cell || !tileId){return false;}
         if(cell.el.classList.contains("valid")){
-            cell.setTile(Tile.find(tileId));
+            cell.placeTile(Tile.find(tileId));
             return true;
         }
         return false;
@@ -94,29 +94,6 @@ export class UI
     pullFromDeck(){
 
     }
-
-
-    // getCardCell(tile, index){
-    //     let tId = null;
-    //     let selectedTile = null;
-    //     switch(index){
-    //         case 0: tId = null; break;
-    //         case 1: tId = tile.validAll[2]; break;
-    //         case 2: tId = null; break;
-    //         case 3: tId = tile.validAll[3]; break;
-    //         case 4: tId = tile.validAll[0]; break;
-    //         case 5: tId = tile.validAll[1]; break;
-    //         case 6: tId = null; break;
-    //         case 7: tId = tile.validAll[4]; break;
-    //         case 8: tId = null; break;
-    //     }
-    //     if(tId && tId != -1){selectedTile = this.data.tiles.find(x => x.id == tId);}
-    //     return { 
-    //         gridId: index, 
-    //         tileId: tId, 
-    //         overlay: index == 4 ? `<i class="fa-solid fa-down-long"></i>` : null
-    //     };
-    // }
 
     setCanPlaceOverlay(cell:Cell, tileId: number){ 
         
@@ -142,11 +119,12 @@ export class UI
     }
 
     screen2Iso(screen : number[]) {
+        var offY = 20;
         var theta = 30.5;
         var c = Math.cos(theta/2);
         var s = Math.sin(theta/2);
         var rect = document.querySelector(".grid-left").getBoundingClientRect();
-        var origin = [rect.left + (rect.width/2), rect.bottom - (rect.width/2)]; //the pixel coordinates of (0, 0)
+        var origin = [rect.left + (rect.width/2), offY + rect.bottom - (rect.width/2)]; //the pixel coordinates of (0, 0)
         var unit = rect.width + 10; //+padding
         var isoX = ((screen[0] - origin[0]) / c - (screen[1] - origin[1]) / s) / unit;
         var isoY = ((screen[0] - origin[0]) / c + (screen[1] - origin[1]) / s) / unit;

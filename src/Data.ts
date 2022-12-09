@@ -105,7 +105,7 @@ export class Data{
             new Level({
                 label:"Level 1",
                 objective:Tile.find(3),
-                hand: Tile.select([1]),
+                hand: Tile.select([1,2]),
                 cells: [new TileToCell(0,1,Tile.find(2))],
                 size:2
             }),

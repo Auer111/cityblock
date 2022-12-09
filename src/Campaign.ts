@@ -1,4 +1,3 @@
-import Quest from "./Quest";
 import { _UI } from "./Ui";
 import { _Data } from "./Data";
 import Isometric from "./Grids";
@@ -10,7 +9,6 @@ export class Campaign
     level : Level = null;
     grid : Isometric;
     gridWrapperEl : HTMLElement;
-    Quest: Quest;
     constructor(){
         
     }
@@ -31,7 +29,7 @@ export class Campaign
         this.level.cells.forEach(T2C=> {
             const gridCell = this.grid.cells.find(c => c.x == T2C.X && c.y == T2C.Y);
             if(gridCell !== undefined){
-                gridCell.setTile(T2C.Tile);
+                gridCell.placeTile(T2C.Tile);
             }
         });
 

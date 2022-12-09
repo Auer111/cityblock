@@ -22,20 +22,27 @@ export class Cell
         this.parent.appendChild(this.el);
     }
 
-    public setTile = function(tile:Tile) : void
-    {
+    //Update tile and rerender
+    _setTile = function(tile:Tile) : void{
         this.tile = tile;
-        this.tryUpgrade();
-        this.el.replaceWith(this.render());
+        this.el.innerHTML = this.render().innerHTML;
     }
 
+    //update tile and all neighbors
+    public placeTile = function(tile:Tile) : void
+    {
+        this._setTile(tile);
+        this.tryUpgrade();
+        _Campaign.grid.tryUpgradeNeighborCells(this);
+    }
+
+    
     tryUpgrade(){
         let upgraded:boolean = false;
         this.tile.upgradeIds.forEach(upId => {
             const tile:Tile = Tile.find(upId);
             if(tile !== undefined && _Campaign.grid.isValidAnyNeighborCells(this,tile) === true){
-                this.tile = tile;
-                _Campaign.grid.tryUpgradeNeighborCells(this);
+                this.placeTile(tile);
                 return;
             }
         });

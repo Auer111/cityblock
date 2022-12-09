@@ -83,11 +83,16 @@ export class Isometric
     });
   }
 
-  SetGridValidity(isValid:boolean, tile : Tile | null){
+  SetGridValidity(allValid:boolean|null, tile : Tile|null){
     this.cells.forEach(cell => {
-      const valid = this.isValidAnyNeighborCells(cell, tile);
-      cell.el.classList.toggle("valid",valid);
-      cell.el.classList.toggle("invalid",!valid);
+
+      const cellValid = (allValid === null 
+        && tile.canPlace(cell.tile.id)
+        && this.isValidAnyNeighborCells(cell, tile));
+
+      const status = allValid === null ? cellValid : allValid;
+      cell.el.classList.toggle("valid",status);
+      cell.el.classList.toggle("invalid",!status);
     });
   }
 

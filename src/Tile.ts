@@ -14,6 +14,7 @@ export class Tile
     public categoryId:number;
     public category:Category;
     public upgradeIds: number[] = [];
+    public placeOn: number[] = [0];
     public requiredNeighbors:number[] = [];
     public constructor(init?:Partial<Tile>) {
         Object.assign(this, init);
@@ -28,6 +29,10 @@ export class Tile
     static select(ids:number[]):Tile[]
     {
         return ids.map(i=> Tile.find(i));
+    }
+
+    canPlace(tileId:number):boolean{
+        return this.placeOn.find(t => t === tileId) !== undefined;
     }
 
     card() : HTMLElement 

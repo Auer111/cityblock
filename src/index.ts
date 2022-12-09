@@ -6,7 +6,3 @@ import "./css/ui.css"
 import "./css/quest.css"
 _Data.seed();
 _Menu.Main.render();
-
-
-
-
