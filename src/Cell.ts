@@ -1,6 +1,7 @@
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
 import { Deck } from "./Deck";
+import { TileResource } from "./Resource";
 import { Tile } from "./Tile";
 import { _UI } from "./Ui";
 
@@ -13,6 +14,9 @@ export class Cell
     tile: Tile;
     el : HTMLElement;
     parent : HTMLElement;
+    needsResourceRefresh : boolean;
+    public tileResources: TileResource[] = [];
+    public neighbors : Cell[] = [];
     constructor(id:number,x:number,y:number, gridColumnCount:number, parent:HTMLElement, tile: Tile){
         this.id=id;
         this.x = x;
@@ -22,12 +26,7 @@ export class Cell
         this.parent = parent;
         this.el = this.render();
         this.parent.appendChild(this.el);
-    }
-
-    //Update tile and rerender
-    _setTile = function(tile:Tile) : void{
-        this.tile = tile;
-        this.el.innerHTML = this.render().innerHTML;
+        this.tileResources = this.tile.tileResources;
     }
 
     //update tile and all neighbors
@@ -35,18 +34,50 @@ export class Cell
     {
         this._setTile(tile);
         this.tryUpgrade();
-        _Campaign.grid.tryUpgradeNeighborCells(this);
+        this.neighbors.forEach((n:Cell) => n.tryUpgrade());
+        console.log(this.neighbors);
+    }
+
+    //Update tile and rerender
+    _setTile = function(tile:Tile) : void{
+        this.tile = tile;
+        this.tileResources = this.tile.tileResources;
+        this.el.innerHTML = this.render().innerHTML;
+    }
+
+    
+
+    refreshResourceValues(){
+        if(this.needsResourceRefresh === true){
+            this.needsResourceRefresh = false;
+           
+        }
     }
     
     tryUpgrade(){
-        let upgraded:boolean = false;
+        this.needsResourceRefresh = true;
         this.tile.upgradeIds.forEach(upId => {
             const tile:Tile = Tile.one(upId);
-            if(tile !== undefined && _Campaign.grid.isValidAnyNeighborCells(this,tile) === true){
+            if(tile !== undefined && this.hasMetNeighborRequirements(tile) === true){
                 this.placeTile(tile);
                 return;
             }
         });
+    }
+
+    hasMetNeighborRequirements(tile:Tile)
+    {
+        if(!tile){return true;}
+        let lookingFor = [...tile.requiredNeighbors];
+        this.neighbors.forEach(neighbor => {
+            let neighborId = neighbor.tile.id;
+            let remove = lookingFor.findIndex(id => id == neighborId);
+            if(remove != -1){
+                lookingFor.splice(remove,1);
+            }
+        });
+
+        return lookingFor.length === 0;
     }
 
     render() : HTMLElement 

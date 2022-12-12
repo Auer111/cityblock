@@ -28,7 +28,7 @@ export class Data
             //0
             new Tile({
                 label:"Grass",
-                handIds:[2]
+                handIds:[1,2]
             }),
             //1
             new Tile({

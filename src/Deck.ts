@@ -19,6 +19,8 @@ export class Deck{
     }
 
     renderResources(){
+        _Campaign.grid.cells.forEach(c => c.refreshResourceValues());
+
         return `<div id="resources row">${_Data.resources.map(r => {
             return `${r.render().outerHTML}`;
         }).join('')}</div>`.ToEl();

@@ -32,7 +32,7 @@ export class UI
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
 
-        this.renderHand(new Deck(Tile.many(_Campaign.level.deckTileIds)));
+        this.render(new Deck(Tile.many(_Campaign.level.deckTileIds)));
         interact('.card.drag').draggable({
             listeners: {
                 start (event:InteractEvent) {
@@ -61,7 +61,7 @@ export class UI
                     const cell = _UI.getCellAtMouse();
                     _UI.setCanPlaceOverlay(null, null);
                     if(_UI.placeTile(cell, Number(card.id))){
-                        _UI.renderHand(new Deck(cell.tile.hand));
+                        _UI.render(new Deck(cell.tile.hand));
                         cell.el.classList.remove('hover');
                     }
                     _Campaign.grid.SetGridValidity(true, null);
@@ -71,7 +71,7 @@ export class UI
         
     }
 
-    renderHand(deck:Deck){
+    render(deck:Deck){
         this.cardsEl.innerHTML = "";
         if(_Campaign.level.complete()){
             this.cardsEl.innerHTML = "";
@@ -89,10 +89,6 @@ export class UI
             return true;
         }
         return false;
-    }
-
-    pullFromDeck(){
-
     }
 
     setCanPlaceOverlay(cell:Cell, tileId: number){ 

@@ -21,6 +21,7 @@ export class Isometric
       this.dragEl = null;
       this.cellSize = 76;
       this.el = this.render(tileDatas);
+      this.cells.forEach(c => c.neighbors = this.getNeighborCells(c));
   }
 
   render(tileDatas: Tile[]){
@@ -57,7 +58,7 @@ export class Isometric
     const rect = this.dragEl.getBoundingClientRect();
     
     interact(querySelector).on('tap', function (event) {
-      _UI.renderHand(new Deck(_UI.getCellAtMouse().tile.hand));
+      _UI.render(new Deck(_UI.getCellAtMouse().tile.hand));
       event.preventDefault();
     }).draggable({
         modifiers: [
@@ -93,7 +94,7 @@ export class Isometric
 
       const cellValid = (allValid === null 
         && tile.canPlace(cell.tile.id)
-        && this.isValidAnyNeighborCells(cell, tile));
+        && cell.hasMetNeighborRequirements(tile));
 
       const status = allValid === null ? cellValid : allValid;
       cell.el.classList.toggle("valid",status);
@@ -101,33 +102,15 @@ export class Isometric
     });
   }
 
-  tryUpgradeNeighborCells(cell:Cell)
-  {
+  getNeighborCells(cell:Cell){
     var dirs = [[0,1],[-1,0],[0,-1],[1,0]];
+    let neighbors = [];
     for (let i = 0; i < dirs.length; i++) {
         if(this.canGetNeightborCell(cell, dirs[i][0], dirs[i][1])){
-          this.getNeightborCell(cell, dirs[i][0], dirs[i][1]).tryUpgrade();
+          neighbors.push(this.getNeightborCell(cell, dirs[i][0], dirs[i][1]));
         }
     }
-  }
-
-  isValidAnyNeighborCells(cell:Cell,tile:Tile)
-  {
-    if(!tile){return true;}
-
-    let lookingFor = [...tile.requiredNeighbors];
-    var dirs = [[0,1],[-1,0],[0,-1],[1,0]];
-    for (let i = 0; i < dirs.length; i++) {
-        if(!this.canGetNeightborCell(cell, dirs[i][0], dirs[i][1])){
-            continue;
-        }
-        let neighborId = this.getNeightborCell(cell, dirs[i][0], dirs[i][1]).tile.id;
-        let remove = lookingFor.findIndex(id => id == neighborId);
-        if(remove != -1){
-            lookingFor.splice(remove,1);
-        }
-    }
-    return lookingFor.length === 0;
+    return neighbors;
   }
 
   canGetNeightborCell(cell:Cell ,offX:number, offY:number){
