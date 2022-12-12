@@ -18,6 +18,9 @@ export class Data
             }),
             new Resource({
                 label:"Food"
+            }),
+            new Resource({
+                label:"Stone"
             })
         ]
 
@@ -25,6 +28,7 @@ export class Data
             //0
             new Tile({
                 label:"Grass",
+                handIds:[2]
             }),
             //1
             new Tile({
@@ -98,7 +102,7 @@ export class Data
                 objective:Tile.one(13),
                 deckTileIds: [1],
                 cells: [new TileToCell(0,1,Tile.one(2))],
-                size:5
+                size:3
             }),
         ]
     }
