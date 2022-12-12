@@ -1,6 +1,8 @@
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
+import { Deck } from "./Deck";
 import { Tile } from "./Tile";
+import { _UI } from "./Ui";
 
 export class Cell
 {
@@ -35,12 +37,11 @@ export class Cell
         this.tryUpgrade();
         _Campaign.grid.tryUpgradeNeighborCells(this);
     }
-
     
     tryUpgrade(){
         let upgraded:boolean = false;
         this.tile.upgradeIds.forEach(upId => {
-            const tile:Tile = Tile.find(upId);
+            const tile:Tile = Tile.one(upId);
             if(tile !== undefined && _Campaign.grid.isValidAnyNeighborCells(this,tile) === true){
                 this.placeTile(tile);
                 return;
@@ -68,6 +69,7 @@ export class Cell
             </div>
         </div>
         ${this.tile.wrappedImg().outerHTML}`);
+
         return cell;
     }
 }

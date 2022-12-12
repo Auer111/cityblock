@@ -16,3 +16,11 @@ body{
 .cant-place::after{
     content: '';
 }
+
+.col{
+    flex: 1;
+    flex-direction: column;
+}
+.row{
+    display: flex;
+}

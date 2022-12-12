@@ -4,5 +4,6 @@ import './css/index.css'
 import "./css/campaign.css"
 import "./css/ui.css"
 import "./css/quest.css"
+import "./css/resource.css"
 _Data.seed();
 _Menu.Main.render();

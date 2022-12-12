@@ -6,6 +6,13 @@
 #deck{
   position: relative;
   min-width: 9em;
+  background: url('../../img/ui/wood.png');
+  background-size: 10em;
+    box-shadow: 0 0 20px 0px black;
+  padding: 0;
+    transform: scale(.9);
+    margin-right: 1em;
+    margin-left: 0;
 }
 #deck img{
   position: absolute;
@@ -27,6 +34,10 @@ end{
   height: 100%;
 }
 
+.invalid #can-place-overlay{
+  display: none !important;
+}
+
 #can-place-overlay{
   display: none;
   position: absolute;
@@ -46,14 +57,6 @@ end{
   width: 4.5em;
   display: flex;
   flex-direction: column-reverse;
-}
-
-.col{
-  display: flex;
-  flex-direction: column;
-}
-.row{
-  display: flex;
 }
 
 #cards{

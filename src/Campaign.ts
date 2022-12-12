@@ -21,8 +21,6 @@ export class Campaign
     }
     loadLevel(index: number){
         this.level = _Data.levels[index];
-        _UI.onLevelStart();
-
         const items = (new Array(this.level.size ** 2).fill(_Data.tiles[0])) as Tile[];
         this.grid = new Isometric(this.level.size,this.level.size, items);
 
@@ -38,6 +36,8 @@ export class Campaign
         this.gridWrapperEl.appendChild(this.grid.el);
         this.grid.sizeGrid(this.grid.el);
         this.grid.makeDraggable(".bg");
+
+        _UI.onLevelStart();
     }
 }
 

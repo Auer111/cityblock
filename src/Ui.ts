@@ -9,7 +9,6 @@ import { Deck } from './Deck';
 
 export class UI
 {
-    Deck : Deck;
     cardsEl : HTMLElement;
     placementOverlay : HTMLElement;
     placementCellId : number;
@@ -29,18 +28,17 @@ export class UI
     }
 
     onLevelStart(){
-        this.Deck = new Deck();
         this.cardsEl = window.document.getElementById("cards");
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
 
-        this.renderHand();
+        this.renderHand(new Deck(Tile.many(_Campaign.level.deckTileIds)));
         interact('.card.drag').draggable({
             listeners: {
                 start (event:InteractEvent) {
                     const card = event.target;
                     card.classList.add('dragging');
-                    _Campaign.grid.SetGridValidity(null,Tile.find(Number(card.id)));
+                    _Campaign.grid.SetGridValidity(null,Tile.one(Number(card.id)));
                     document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
                 },
                 move (event:InteractEvent) {
@@ -63,9 +61,8 @@ export class UI
                     const cell = _UI.getCellAtMouse();
                     _UI.setCanPlaceOverlay(null, null);
                     if(_UI.placeTile(cell, Number(card.id))){
-                        _Campaign.level.removeCard(Number(card.id));
+                        _UI.renderHand(new Deck(cell.tile.hand));
                         cell.el.classList.remove('hover');
-
                     }
                     _Campaign.grid.SetGridValidity(true, null);
                 }
@@ -74,21 +71,21 @@ export class UI
         
     }
 
-    renderHand(){
+    renderHand(deck:Deck){
         this.cardsEl.innerHTML = "";
         if(_Campaign.level.complete()){
             this.cardsEl.innerHTML = "";
             this.cardsEl.appendChild(_Menu.Next.el);
             return;
         }
-        this.cardsEl.appendChild(this.Deck.render());
-        [...new Set(_Campaign.level.getHand())].forEach(t => this.cardsEl.appendChild(t.card()));
+        this.cardsEl.appendChild(deck.render());
+        deck.cards.forEach(t => this.cardsEl.appendChild(t.card()));
     }
     
     placeTile(cell:Cell, tileId: number){
         if(!_Campaign.grid || !cell || !tileId){return false;}
         if(cell.el.classList.contains("valid")){
-            cell.placeTile(Tile.find(tileId));
+            cell.placeTile(Tile.one(tileId));
             return true;
         }
         return false;
@@ -111,7 +108,7 @@ export class UI
         }
 
         this.placementOverlay.style.display = 'grid';
-        this.placementOverlay.querySelector("img").src = Tile.find(tileId).imgPath;
+        this.placementOverlay.querySelector("img").src = Tile.one(tileId).imgPath;
         cell.el.appendChild(this.placementOverlay);
         this.placementCellId = cell.id;
     }
