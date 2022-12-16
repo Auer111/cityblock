@@ -1,6 +1,6 @@
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
-import { Tile } from "./Tile";
+import { Tile, TileType } from "./Tile";
 import { TileToCell } from "./TileToCell";
 import { _UI } from "./Ui";
 
@@ -10,7 +10,7 @@ export class Level
     public id: number = _levelIterator++;
     public label:string;
     public hand: Tile[];
-    public deckTileIds:number[] = [];
+    public deckTiles:TileType[] = [];
     public objective:Tile;
     public size: number;
     public cells: TileToCell[];
