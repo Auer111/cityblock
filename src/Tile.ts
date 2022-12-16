@@ -2,7 +2,7 @@ import Utils from "../modules/Utils";
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
 import './extensions'
-import { ResourceType } from "./Resource";
+import { Resource, ResourceType } from "./Resource";
 
 export enum TileType
 {
@@ -74,6 +74,7 @@ export class Tile
             </figure>`
         .ToEl(): 
         `<figure id="${this.type}" class="card locked">
+            <div>${neededResources.map(r => Resource.img(r)).join('')}</div>
             <div class="label">${this.label}</div>
             <end>
                 <img src="${this.imgPath}" />

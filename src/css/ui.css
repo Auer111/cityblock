@@ -124,72 +124,15 @@ end{
   background: #40392d;
   z-index: -1;
 }
-.triangle{
-  
-  transform: skew(0deg, 315deg);
-  position: absolute;
-  width: 0.2em;
-  z-index: 2;
-  border-color: rgb(255 255 255 / 54%);
-  border-style: solid;
-  border-width: 5px 81px 0 0;
-  top: 3.3em;
-}
-.card__type {
-  color: #ffffff;
-  text-transform: uppercase;
-  font-family: "Open Sans Condensed", "Open Sans", helvetica, sans-serif;
-  text-align: end;
-  padding-right: 0.5em;
-  border-radius: 2px;
-}
-.card .count{
-  position: absolute;
-    right: -1em;
-    top: -1em;
-    color: white;
-    background: #0f180d;
-    text-align: center;
-    border-radius: 100%;
-    border: 1px solid black;
-    padding: 0.5em;
-    width: 1em;
-}
-.card .count i{
-  margin-left: -0.1em;
-}
-.card__label {
-  font-size: 10px;
-  text-transform: uppercase;
-  font-weight: 400;
-  display: block;
-  margin-bottom: 3px;
-}
-.card__name {
-  font-family: "Open Sans Condensed", "Open Sans", helvetica, sans-serif;
+.card .resources{
+  line-height: 10em;
   text-align: center;
-  font-size: 1.5em;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-.card__stats {
-  margin: 1em 0;
-  width: 100%;
-}
-.card__stats th {
-  font-family: "Open Sans Condensed", "Open Sans", helvetica, sans-serif;
-  text-align: right;
-  font-weight: 300;
-}
-.card__stats th, .card__stats td {
-  width: 50%;
-  padding: 0.25em 0.5em 0;
-}
-.card__abilities {
-  display: flex;
-  justify-content: space-between;
-}
-.card__ability {
-  margin-top: 1em;
-  flex: 1 0;
+  height: 6em;
+  position: absolute;
+  left: 0;
+  text-align: center;
+  color: white;
+  right: 0;
+  bottom: 0.5em;
+  z-index: 1;
 }
