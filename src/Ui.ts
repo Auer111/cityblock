@@ -69,7 +69,7 @@ export class UI
         });
     }
 
-    render(tile:Tile){
+    render(tile:Tile){     
         this.cardsEl.innerHTML = "";
         if(_Campaign.level.complete()){
             this.cardsEl.innerHTML = "";

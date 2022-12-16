@@ -39,11 +39,12 @@ export class Data
             }),
             new Tile(TileType.HunterShack,{
                 label:"Hunter's Shack",
-                requires: [ResourceType.Wood],
-                requiredNeighbors:[2],
+                imgPath:"Shack.png",
+                requiredNeighbors:[TileType.Forest],
+                produces: [ResourceType.Traps],
             }),
             new Tile(TileType.Blind,{
-                requires: [ResourceType.Wood],
+                requires: [ResourceType.Wood, ResourceType.Traps],
                 placeOn: [TileType.Forest],
                 produces: [ResourceType.Deer]
             }),

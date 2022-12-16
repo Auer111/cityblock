@@ -98,11 +98,19 @@ end{
 }
 .card img{
   width: 100%;
+}
+.card img.tile{
   filter: sepia(1);
   margin-bottom: 2em;
 }
-.card.locked img{
+.card.locked img.tile{
   filter: opacity(0.1);
+}
+.card img.resource{
+  filter: none;
+  backdrop-filter: invert(1);
+  border-radius: 100%;
+  width: 75%;
 }
 .card .label{
   vertical-align: bottom;
@@ -119,6 +127,8 @@ end{
 }
 .card.locked .label{
   color: black;
+  top: 0;
+  line-height: 1em;
 }
 .card .label.bg{
   background: #40392d;

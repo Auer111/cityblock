@@ -69,16 +69,18 @@ export class Tile
                     <div class="label bg">${this.label}</div>
                     <div class="label">${this.label}</div>
                     <end>
-                        <img src="${this.imgPath}" />
+                        <img class="tile" src="${this.imgPath}" />
                     </end>
             </figure>`
         .ToEl(): 
         `<figure id="${this.type}" class="card locked">
-            <div>${neededResources.map(r => Resource.img(r)).join('')}</div>
-            <div class="label">${this.label}</div>
-            <end>
-                <img src="${this.imgPath}" />
-            </end>
+            <div class="resources">
+                ${Resource.img(neededResources[0])}
+            </div>
+            <div class="label">
+                <h1>${this.label}</h1>
+                <sub>Requires ${Resource.label(neededResources[0])}</sub>
+            </div>
         </figure>`
         .ToEl()
     };

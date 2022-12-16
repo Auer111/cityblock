@@ -57,7 +57,9 @@ export class Isometric
     const rect = this.dragEl.getBoundingClientRect();
     
     interact(querySelector).on('tap', function (event) {
-      _UI.render(_UI.getCellAtMouse().tile);
+      const cell = _UI.getCellAtMouse();
+      if(cell !== undefined){_UI.render(cell.tile);}
+      
       event.preventDefault();
     }).draggable({
         modifiers: [
