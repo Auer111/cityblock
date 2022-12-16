@@ -43,7 +43,7 @@ export class Tile
         this.type = type;
         Object.assign(this, init);
         this.label = this.label ?? TileType[this.type];
-        this.imgPath = `./img/${this.imgPath ?? (this.label+'.png')}`;
+        this.imgPath = `./img/tiles/${this.imgPath ?? (this.label+'.png')}`;
     }
 
     static one(type:TileType):Tile
