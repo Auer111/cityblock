@@ -2,41 +2,65 @@ import Utils from "../modules/Utils";
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
 import './extensions'
-import { Resource, TileResource } from "./Resource";
+import { ResourceType } from "./Resource";
 
-let _tileIterator = 0;
+export enum TileType
+{
+    Grass,
+    Camp,
+    Forest,
+    Lumbercamp,
+    Mountian,
+    Quarry,
+    Water,
+    Wheat,
+    Blind,
+    Blacksmith,
+    Lodge,
+    Windmill,
+    Deer,
+    Shack,
+    Hut,
+    House,
+    Farm,
+    Barn,
+    Mill,
+    Sawmill,
+}
+
 export class Tile
 {
-    public id: number = _tileIterator++;
+    public type: TileType;
     public label:string;
     public imgPath: string;
-    public upgradeIds: number[] = [];
-    public placeOn: number[] = [0];
-    public requiredNeighbors:number[] = [];
-    public tileResources: TileResource[] = [];
+    public upgradeTypes: TileType[] = [];
+    public placeOn: TileType[] = [TileType.Grass];
+    public requiredNeighbors:TileType[] = [];
+    public requires: ResourceType[] = [];
+    public produces: ResourceType[] = [];
     public hand:Tile[] = [];
-    public handIds:number[] = [];
     public constructor(init?:Partial<Tile>) {
         Object.assign(this, init);
+        this.label = this.label ?? TileType[this.type];
         this.imgPath = `./img/${this.imgPath ?? (this.label+'.png')}`;
     }
 
-    static one(id:number):Tile
+    static one(type:TileType):Tile
     {
-        return _Data.tiles.find(x => x.id == id);
+        return _Data.tiles.find(x => x.type == type);
     }
-    static many(ids:number[]):Tile[]
+    static many(types:TileType[]):Tile[]
     {
-        return ids.map(i=> Tile.one(i));
+        return types.map(i=> Tile.one(i));
     }
 
-    canPlace(tileId:number):boolean{
-        return this.placeOn.find(t => t === tileId) !== undefined;
+    canPlace(type:TileType):boolean{
+        return this.placeOn.find(t => t === type) !== undefined;
     }
 
     card() : HTMLElement 
     {        
-        return `<figure id="${this.id}" class="card drag">
+        return `<figure id="${this.type}" class="card drag">
                     <div class="label bg">${this.label}</div>
                     <div class="label">${this.label}</div>
                     <end>

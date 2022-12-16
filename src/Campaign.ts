@@ -27,7 +27,7 @@ export class Campaign
         this.level.cells.forEach(T2C=> {
             const gridCell = this.grid.cells.find(c => c.x == T2C.X && c.y == T2C.Y);
             if(gridCell !== undefined){
-                gridCell.placeTile(T2C.Tile);
+                gridCell.placeTile(T2C.type);
             }
         });
 

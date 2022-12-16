@@ -1,8 +1,6 @@
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
-import { Deck } from "./Deck";
-import { TileResource } from "./Resource";
-import { Tile } from "./Tile";
+import { Tile, TileType } from "./Tile";
 import { _UI } from "./Ui";
 
 export class Cell
@@ -15,7 +13,6 @@ export class Cell
     el : HTMLElement;
     parent : HTMLElement;
     needsResourceRefresh : boolean;
-    public tileResources: TileResource[] = [];
     public neighbors : Cell[] = [];
     constructor(id:number,x:number,y:number, gridColumnCount:number, parent:HTMLElement, tile: Tile){
         this.id=id;
@@ -26,40 +23,28 @@ export class Cell
         this.parent = parent;
         this.el = this.render();
         this.parent.appendChild(this.el);
-        this.tileResources = this.tile.tileResources;
     }
 
     //update tile and all neighbors
-    public placeTile = function(tile:Tile) : void
+    public placeTile = function(type:TileType) : void
     {
-        this._setTile(tile);
+        this._setTile(type);
         this.tryUpgrade();
         this.neighbors.forEach((n:Cell) => n.tryUpgrade());
-        console.log(this.neighbors);
     }
 
     //Update tile and rerender
-    _setTile = function(tile:Tile) : void{
-        this.tile = tile;
-        this.tileResources = this.tile.tileResources;
+    _setTile = function(type:TileType) : void{
+        this.tile = Tile.one(type);
         this.el.innerHTML = this.render().innerHTML;
-    }
-
-    
-
-    refreshResourceValues(){
-        if(this.needsResourceRefresh === true){
-            this.needsResourceRefresh = false;
-           
-        }
     }
     
     tryUpgrade(){
         this.needsResourceRefresh = true;
-        this.tile.upgradeIds.forEach(upId => {
+        this.tile.upgradeTypes.forEach(upId => {
             const tile:Tile = Tile.one(upId);
             if(tile !== undefined && this.hasMetNeighborRequirements(tile) === true){
-                this.placeTile(tile);
+                this.placeTile(tile.type);
                 return;
             }
         });
@@ -70,8 +55,8 @@ export class Cell
         if(!tile){return true;}
         let lookingFor = [...tile.requiredNeighbors];
         this.neighbors.forEach(neighbor => {
-            let neighborId = neighbor.tile.id;
-            let remove = lookingFor.findIndex(id => id == neighborId);
+            let neighborType = neighbor.tile.type;
+            let remove = lookingFor.findIndex(i => i == neighborType);
             if(remove != -1){
                 lookingFor.splice(remove,1);
             }

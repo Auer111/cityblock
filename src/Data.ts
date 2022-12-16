@@ -1,107 +1,78 @@
 
-import { Tile } from './Tile';
+import { Tile, TileType } from './Tile';
 import{ Level }from './Level';
 import { TileToCell } from './TileToCell';
-import { Resource, TileResource } from './Resource';
+import { ResourceType } from './Resource';
 export class Data
 {
     tiles : Tile[];
-    resources : Resource[];
+    resources : ResourceType[];
     levels : Level[];
     constructor(){}
 
     seed(){
 
-        this.resources = [
-            new Resource({
-                label:"Wood"
-            }),
-            new Resource({
-                label:"Food"
-            }),
-            new Resource({
-                label:"Stone"
-            })
-        ]
-
         this.tiles = [
-            //0
             new Tile({
-                label:"Grass",
-                handIds:[1,2]
+                type:TileType.Grass,
             }),
-            //1
             new Tile({
-                label:"Camp",
-                upgradeIds:[3,5],
+                type:TileType.Camp,
+                upgradeTypes:[TileType.Lumbercamp,TileType.Quarry],
             }),
-            //2
             new Tile({
-                label:"Forest",
+                type:TileType.Forest,
             }),
-            //3
             new Tile({
-                label:"Lumbercamp",
-                requiredNeighbors:[2],
-                tileResources: [new TileResource(Resource.one(0),2)],
-                handIds:[11,12]
+                type:TileType.Lumbercamp,
+                requiredNeighbors:[TileType.Forest],
+                produces: [ResourceType.Wood],
             }),
-            //4
             new Tile({
-                label:"Mountian",
+                type:TileType.Mountian,
             }),
-            //5
             new Tile({
-                label:"Quarry",
+                type:TileType.Quarry,
                 requiredNeighbors:[4],
             }),
-            //6
             new Tile({
-                label:"Water",
+                type:TileType.Water,
             }),
-            //7
             new Tile({
-                label:"Wheat",
+                type:TileType.Wheat,
             }),
-            //8
             new Tile({
-                label:"Blind",
+                type:TileType.Blacksmith,
             }),
-            //9
             new Tile({
-                label:"Blacksmith"
+                type:TileType.Windmill,
             }),
-            //10
             new Tile({
-                label:"Windmill"
-            }),
-            //11
-            new Tile({
-                label:"Blind",
+                type:TileType.Blind,
                 placeOn: [2],
-                handIds:[12],
-                tileResources: [new TileResource(Resource.one(0),-1), new TileResource(Resource.one(1),1)],
+                produces: [ResourceType.Deer]
             }),
-            //12
             new Tile({
-                label:"Shack",
-                tileResources: [new TileResource(Resource.one(0),-1),new TileResource(Resource.one(1),-1)],
-                handIds:[7,13],
+                type:TileType.Shack,
+                requires: [ResourceType.Wood],
             }),
-            //13
+            new Tile({
+                type:TileType.Lodge,
+                label:"Hunter's Lodge",
+                requires: [ResourceType.Wood],
+                requiredNeighbors:[2],
+            }),
             new Tile({
                 label:"Flax",
             }),
         ]
 
-        this.tiles.forEach(t => t.hand = Tile.many(t.handIds));
-
         this.levels = [
             new Level({
                 label:"Level 1",
                 objective:Tile.one(13),
-                deckTileIds: [1],
-                cells: [new TileToCell(0,1,Tile.one(2))],
+                deckTiles: [TileType.Camp],
+                cells: [new TileToCell(0,1,TileType.Forest)],
                 size:3
             }),
         ]

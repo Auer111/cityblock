@@ -4,7 +4,7 @@ import { _Campaign } from './Campaign';
 import { _Data } from './Data';
 import { Cell } from './cell';
 import { _Menu } from './Menu';
-import { Tile } from './Tile';
+import { Tile, TileType } from './Tile';
 import { Deck } from './Deck';
 
 export class UI
@@ -32,13 +32,13 @@ export class UI
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
 
-        this.render(new Deck(Tile.many(_Campaign.level.deckTileIds)));
+        this.render(new Deck(Tile.many(_Campaign.level.deckTiles)));
         interact('.card.drag').draggable({
             listeners: {
                 start (event:InteractEvent) {
                     const card = event.target;
                     card.classList.add('dragging');
-                    _Campaign.grid.SetGridValidity(null,Tile.one(Number(card.id)));
+                    _Campaign.grid.setValidityForAllCells(null,Tile.one(Number(card.id)));
                     document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
                 },
                 move (event:InteractEvent) {
@@ -64,11 +64,10 @@ export class UI
                         _UI.render(new Deck(cell.tile.hand));
                         cell.el.classList.remove('hover');
                     }
-                    _Campaign.grid.SetGridValidity(true, null);
+                    _Campaign.grid.setValidityForAllCells(true, null);
                 }
             }
         });
-        
     }
 
     render(deck:Deck){
@@ -82,29 +81,26 @@ export class UI
         deck.cards.forEach(t => this.cardsEl.appendChild(t.card()));
     }
     
-    placeTile(cell:Cell, tileId: number){
-        if(!_Campaign.grid || !cell || !tileId){return false;}
+    placeTile(cell:Cell, type:TileType){
+        if(!_Campaign.grid || !cell || !type){return false;}
         if(cell.el.classList.contains("valid")){
-            cell.placeTile(Tile.one(tileId));
+            cell.placeTile(type);
             return true;
         }
         return false;
     }
 
-    setCanPlaceOverlay(cell:Cell, tileId: number){ 
-        
-        if(!_Campaign.grid || !cell || !tileId){
+    setCanPlaceOverlay(cell:Cell, type:TileType){ 
+        if(!_Campaign.grid || !cell || !type){
             this.placementOverlay.style.display = 'none';
             return;
         }
 
-        //did not change cell
-        if(cell.id === this.placementCellId){
-            return;
-        }
-
+        //if did not change cell
+        if(cell.id === this.placementCellId){return;}
+        //hovered over a new cell
         this.placementOverlay.style.display = 'grid';
-        this.placementOverlay.querySelector("img").src = Tile.one(tileId).imgPath;
+        this.placementOverlay.querySelector("img").src = Tile.one(type).imgPath;
         cell.el.appendChild(this.placementOverlay);
         this.placementCellId = cell.id;
     }

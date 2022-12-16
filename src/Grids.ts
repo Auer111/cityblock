@@ -89,11 +89,11 @@ export class Isometric
     });
   }
 
-  SetGridValidity(allValid:boolean|null, tile : Tile|null){
+  setValidityForAllCells(allValid:boolean|null, tile : Tile|null){
     this.cells.forEach(cell => {
 
       const cellValid = (allValid === null 
-        && tile.canPlace(cell.tile.id)
+        && tile.canPlace(cell.tile.type)
         && cell.hasMetNeighborRequirements(tile));
 
       const status = allValid === null ? cellValid : allValid;
