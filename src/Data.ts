@@ -13,58 +13,42 @@ export class Data
     seed(){
 
         this.tiles = [
-            new Tile({
-                type:TileType.Grass,
+            new Tile(TileType.Grass),
+            new Tile(TileType.Water),
+            new Tile(TileType.Forest),
+            new Tile(TileType.Mountian),
+            new Tile(TileType.Wheat),
+            new Tile(TileType.Camp,{
+                autoUpgrades:[TileType.Lumbercamp,TileType.Quarry],
             }),
-            new Tile({
-                type:TileType.Camp,
-                upgradeTypes:[TileType.Lumbercamp,TileType.Quarry],
-            }),
-            new Tile({
-                type:TileType.Forest,
-            }),
-            new Tile({
-                type:TileType.Lumbercamp,
+            new Tile(TileType.Lumbercamp,{
                 requiredNeighbors:[TileType.Forest],
                 produces: [ResourceType.Wood],
             }),
-            new Tile({
-                type:TileType.Mountian,
+            new Tile(TileType.Quarry,{
+                requiredNeighbors:[TileType.Mountian],
+                produces: [ResourceType.Stone],
             }),
-            new Tile({
-                type:TileType.Quarry,
-                requiredNeighbors:[4],
-            }),
-            new Tile({
-                type:TileType.Water,
-            }),
-            new Tile({
-                type:TileType.Wheat,
-            }),
-            new Tile({
-                type:TileType.Blacksmith,
-            }),
-            new Tile({
-                type:TileType.Windmill,
-            }),
-            new Tile({
-                type:TileType.Blind,
-                placeOn: [2],
-                produces: [ResourceType.Deer]
-            }),
-            new Tile({
-                type:TileType.Shack,
+            new Tile(TileType.Shack,{
                 requires: [ResourceType.Wood],
+                autoUpgrades:[TileType.HunterShack]
             }),
-            new Tile({
-                type:TileType.Lodge,
-                label:"Hunter's Lodge",
+            new Tile(TileType.Blacksmith,{
+                requires: [ResourceType.Wood, ResourceType.Stone],
+                produces: [ResourceType.Tools],
+            }),
+            new Tile(TileType.HunterShack,{
+                label:"Hunter's Shack",
                 requires: [ResourceType.Wood],
                 requiredNeighbors:[2],
             }),
-            new Tile({
-                label:"Flax",
+            new Tile(TileType.Blind,{
+                requires: [ResourceType.Wood],
+                placeOn: [TileType.Forest],
+                produces: [ResourceType.Deer]
             }),
+            new Tile(TileType.Windmill),
+            new Tile(TileType.Flax),
         ]
 
         this.levels = [
@@ -72,8 +56,10 @@ export class Data
                 label:"Level 1",
                 objective:Tile.one(13),
                 deckTiles: [TileType.Camp],
-                cells: [new TileToCell(0,1,TileType.Forest)],
-                size:3
+                cells: [
+                    new TileToCell(2,2,TileType.Forest),
+                    new TileToCell(0,1,TileType.Mountian)],
+                size:4
             }),
         ]
     }

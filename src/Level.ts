@@ -1,5 +1,6 @@
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
+import { ResourceType } from "./Resource";
 import { Tile, TileType } from "./Tile";
 import { TileToCell } from "./TileToCell";
 import { _UI } from "./Ui";
@@ -14,6 +15,7 @@ export class Level
     public objective:Tile;
     public size: number;
     public cells: TileToCell[];
+    public resources: ResourceType[] = [];
     public constructor(init?:Partial<Level>) {
         Object.assign(this, init);
     }

@@ -5,7 +5,6 @@ import { _Data } from './Data';
 import { Cell } from './cell';
 import { _Menu } from './Menu';
 import { Tile, TileType } from './Tile';
-import { Deck } from './Deck';
 
 export class UI
 {
@@ -32,7 +31,7 @@ export class UI
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
 
-        this.render(new Deck(Tile.many(_Campaign.level.deckTiles)));
+        this.render(Tile.one(_Campaign.level.deckTiles[0]));
         interact('.card.drag').draggable({
             listeners: {
                 start (event:InteractEvent) {
@@ -61,7 +60,7 @@ export class UI
                     const cell = _UI.getCellAtMouse();
                     _UI.setCanPlaceOverlay(null, null);
                     if(_UI.placeTile(cell, Number(card.id))){
-                        _UI.render(new Deck(cell.tile.hand));
+                        _UI.render(cell.tile);
                         cell.el.classList.remove('hover');
                     }
                     _Campaign.grid.setValidityForAllCells(true, null);
@@ -70,15 +69,18 @@ export class UI
         });
     }
 
-    render(deck:Deck){
+    render(tile:Tile){
         this.cardsEl.innerHTML = "";
         if(_Campaign.level.complete()){
             this.cardsEl.innerHTML = "";
             this.cardsEl.appendChild(_Menu.Next.el);
             return;
         }
-        this.cardsEl.appendChild(deck.render());
-        deck.cards.forEach(t => this.cardsEl.appendChild(t.card()));
+        const tilesForResource = _Data.tiles.filter(t => t.requires.includes(tile.produces[0]));
+        (tilesForResource.length === 0 
+            ? Tile.many(_Campaign.level.deckTiles) 
+            : tilesForResource)
+            .forEach(t => this.cardsEl.appendChild(t.card()));
     }
     
     placeTile(cell:Cell, type:TileType){

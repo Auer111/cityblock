@@ -16,9 +16,10 @@ export enum TileType
     Wheat,
     Blind,
     Blacksmith,
-    Lodge,
+    HunterShack,
     Windmill,
     Deer,
+    Flax,
     Shack,
     Hut,
     House,
@@ -33,13 +34,13 @@ export class Tile
     public type: TileType;
     public label:string;
     public imgPath: string;
-    public upgradeTypes: TileType[] = [];
+    public autoUpgrades: TileType[] = [];
     public placeOn: TileType[] = [TileType.Grass];
     public requiredNeighbors:TileType[] = [];
     public requires: ResourceType[] = [];
     public produces: ResourceType[] = [];
-    public hand:Tile[] = [];
-    public constructor(init?:Partial<Tile>) {
+    public constructor(type: TileType, init?:Partial<Tile>) {
+        this.type = type;
         Object.assign(this, init);
         this.label = this.label ?? TileType[this.type];
         this.imgPath = `./img/${this.imgPath ?? (this.label+'.png')}`;
@@ -60,14 +61,25 @@ export class Tile
 
     card() : HTMLElement 
     {        
-        return `<figure id="${this.type}" class="card drag">
+        const neededResources = this.requires.filter(r => !_Campaign.level.resources.includes(r));
+        const unlocked = neededResources.length == 0;
+
+        return unlocked
+        ? `<figure id="${this.type}" class="card drag">
                     <div class="label bg">${this.label}</div>
                     <div class="label">${this.label}</div>
                     <end>
                         <img src="${this.imgPath}" />
                     </end>
             </figure>`
-        .ToEl();
+        .ToEl(): 
+        `<figure id="${this.type}" class="card locked">
+            <div class="label">${this.label}</div>
+            <end>
+                <img src="${this.imgPath}" />
+            </end>
+        </figure>`
+        .ToEl()
     };
 
     wrappedImg() : HTMLElement

@@ -4,7 +4,6 @@ import { InteractEvent } from "@interactjs/types";
 import Cell from './cell';
 import { Tile } from './Tile';
 import { _UI } from "./Ui";
-import { Deck } from "./Deck";
 
 export class Isometric
 {
@@ -58,7 +57,7 @@ export class Isometric
     const rect = this.dragEl.getBoundingClientRect();
     
     interact(querySelector).on('tap', function (event) {
-      _UI.render(new Deck(_UI.getCellAtMouse().tile.hand));
+      _UI.render(_UI.getCellAtMouse().tile);
       event.preventDefault();
     }).draggable({
         modifiers: [

@@ -37,11 +37,12 @@ export class Cell
     _setTile = function(type:TileType) : void{
         this.tile = Tile.one(type);
         this.el.innerHTML = this.render().innerHTML;
+        _Campaign.level.resources.push(...this.tile.produces);
     }
     
     tryUpgrade(){
         this.needsResourceRefresh = true;
-        this.tile.upgradeTypes.forEach(upId => {
+        this.tile.autoUpgrades.forEach(upId => {
             const tile:Tile = Tile.one(upId);
             if(tile !== undefined && this.hasMetNeighborRequirements(tile) === true){
                 this.placeTile(tile.type);
