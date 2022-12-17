@@ -25,6 +25,7 @@ export enum TileType
     Shack_reaper_wheat,
     Shack_reaper_flax,
     Shack_weaver,
+    Grainery,
     Fallow,
     House,
     Farm,
@@ -78,16 +79,18 @@ export class Tile
         const neededResources = this.requires.filter(r => !_Campaign.level.resources.includes(r));
         const unlocked = neededResources.length == 0;
 
+        const requiredNeighbors = Tile.many(this.requiredNeighbors);
+        const requiredNeighborsAny = Tile.many(this.requiredNeighborsAny);
         return unlocked
         ? `<figure id="${this.type}" class="card drag">
                 <div class="noValidCellsLabel label">
-                    <h3>No Valid Cells</h3>
+                    <h3>No Valid Tiles</h3>
                     <div>
                         <sub>Place on</sub>
                         ${Tile.many(this.placeOn).map(t => `<sub>${t.label}</sub>`)
-                            .join('<br> ')}</div>
-                        <sub>Next to </sub>
-                        ${Tile.many(this.requiredNeighbors).map(t => `<sub>${t.label}</sub>`)
+                            .join('<br><sub>or </sub>')}</div>
+                        ${requiredNeighbors.length > 0 || requiredNeighborsAny.length > 0 ? `<div><sub>Next to</sub>` : ''}
+                        ${requiredNeighbors.map(t => `<sub>${t.label}</sub>`)
                             .join('<br><sub>and </sub>')}
                         ${Tile.many(this.requiredNeighborsAnyDebug).map(t => `<sub>${t.label}</sub>`)
                             .join('<br><sub>or </sub>')}
