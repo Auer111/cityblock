@@ -52,6 +52,7 @@ export class Data
             }),
             new Tile(TileType.Fallow,{
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
+                requiredNeighborsAnyDebug:[TileType.Shack],
                 requires: [ResourceType.Surf],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
             }),

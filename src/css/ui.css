@@ -76,25 +76,9 @@ end{
 .card.locked{
   filter: grayscale(1);
 }
-.deck-bg{
-  position: relative;
-  border: 13px solid;
-  border-image: url('../../img/ui/hex.png') 400 200 round;
-}
 .card.hidden{
   visibility: hidden;
   pointer-events: none;
-}
-.card__caption {
-  background-color: rgba(255, 255, 255, 0.65);
-  position: relative;
-  z-index: -1;
-  --mask: linear-gradient(135deg,#0000 60px,#000 0);
-  -webkit-mask: var(--mask);
-  mask: var(--mask);
-  height: 14em;
-  top: -1em;
-  padding-bottom: 1.8em;
 }
 .card img{
   width: 100%;
@@ -125,7 +109,14 @@ end{
   bottom: 0.5em;
   z-index: 1;
 }
-.card.locked .label{
+
+.card.noValidCells .tile,
+.card.noValidCells .bg{
+  display: none;
+}
+
+.card.locked .label,
+.card.noValidCells .noValidCellsLabel{
   color: black;
   top: 0;
   line-height: 1em;
@@ -146,3 +137,13 @@ end{
   bottom: 0.5em;
   z-index: 1;
 }
+.card.noValidCells{
+  filter: grayscale(1);
+}
+.card .noValidCellsLabel{
+  display: none;
+}
+.card.noValidCells .noValidCellsLabel{
+  display: block;
+}
+

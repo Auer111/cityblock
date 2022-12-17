@@ -42,6 +42,7 @@ export class Tile
     public placeOn: TileType[] = [TileType.Grass];
     public requiredNeighbors:TileType[] = [];
     public requiredNeighborsAny:TileType[] = [];
+    public requiredNeighborsAnyDebug:TileType[] = [];
     public requires: ResourceType[] = [];
     public produces: ResourceType[] = [];
     public constructor(type: TileType, init?:Partial<Tile>) {
@@ -49,6 +50,7 @@ export class Tile
         Object.assign(this, init);
         this.label = this.label ?? TileType[this.type];
         this.imgPath = `./img/tiles/${this.imgPath ?? (this.label+'.png')}`;
+        this.requiredNeighborsAnyDebug ??= this.requiredNeighborsAny;
     }
 
     static one(type:TileType):Tile
@@ -78,11 +80,24 @@ export class Tile
 
         return unlocked
         ? `<figure id="${this.type}" class="card drag">
-                    <div class="label bg">${this.label}</div>
-                    <div class="label">${this.label}</div>
-                    <end>
-                        <img class="tile" src="${this.imgPath}" />
-                    </end>
+                <div class="noValidCellsLabel label">
+                    <h3>No Valid Cells</h3>
+                    <div>
+                        <sub>Place on</sub>
+                        ${Tile.many(this.placeOn).map(t => `<sub>${t.label}</sub>`)
+                            .join('<br> ')}</div>
+                        <sub>Next to </sub>
+                        ${Tile.many(this.requiredNeighbors).map(t => `<sub>${t.label}</sub>`)
+                            .join('<br><sub>and </sub>')}
+                        ${Tile.many(this.requiredNeighborsAnyDebug).map(t => `<sub>${t.label}</sub>`)
+                            .join('<br><sub>or </sub>')}
+                    </div>
+                </div>
+                <div class="label bg">${this.label}</div>
+                <div class="label">${this.label}</div>
+                <end>
+                    <img class="tile" src="${this.imgPath}" />
+                </end>
             </figure>`
         .ToEl(): 
         `<figure id="${this.type}" class="card locked">

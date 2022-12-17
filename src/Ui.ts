@@ -37,7 +37,11 @@ export class UI
                 start (event:InteractEvent) {
                     const card = event.target;
                     card.classList.add('dragging');
-                    _Campaign.grid.setValidityForAllCells(null,Tile.one(Number(card.id)));
+                    const anyValid = _Campaign.grid.setValidityForAllCells(null,Tile.one(Number(card.id)));
+                    if(!anyValid){
+                        card.classList.add('noValidCells');
+                    }
+                    
                     document.querySelectorAll('.cell').forEach(el => el.classList.remove('hover'));
                 },
                 move (event:InteractEvent) {
