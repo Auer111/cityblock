@@ -35,18 +35,27 @@ export class Data
                 autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper],
             }),
             new Tile(TileType.Shack_reaper,{
-                requiredNeighbors:[TileType.Wheat, TileType.Flax],
-                requires: [ResourceType.Wood],
+                requiredNeighbors:[TileType.Fallow],
+                produces: [ResourceType.Reaper],
+                autoUpgrades:[TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
+            }),
+            new Tile(TileType.Shack_reaper_wheat,{
+                requiredNeighbors:[TileType.Wheat],
+            }),
+            new Tile(TileType.Shack_reaper_flax,{
+                requiredNeighbors:[TileType.Flax],
             }),
             new Tile(TileType.Fallow,{
                 requires: [ResourceType.Surf],
             }),
             new Tile(TileType.Wheat,{
-                requiredNeighbors:[TileType.Wheat],
+                placeOn: [TileType.Fallow],
+                requires: [ResourceType.Reaper],
                 produces: [ResourceType.Wheat],
             }),
             new Tile(TileType.Flax,{
                 requiredNeighbors:[TileType.Flax],
+                requires: [ResourceType.Reaper],
                 produces: [ResourceType.Flax],
             }),
 
@@ -75,8 +84,8 @@ export class Data
                 objective:Tile.one(13),
                 deckTiles: [TileType.Camp],
                 cells: [
-                    new TileToCell(2,2,TileType.Forest),
-                    new TileToCell(0,1,TileType.Mountian)],
+                    new TileToCell(3,0,TileType.Forest),
+                    new TileToCell(0,3,TileType.Mountian)],
                 size:4
             }),
         ]

@@ -71,11 +71,11 @@ export class UI
 
     render(tile:Tile){     
         this.cardsEl.innerHTML = "";
-        if(_Campaign.level.complete()){
-            this.cardsEl.innerHTML = "";
-            this.cardsEl.appendChild(_Menu.Next.el);
-            return;
-        }
+        // if(_Campaign.level.complete()){
+        //     this.cardsEl.innerHTML = "";
+        //     this.cardsEl.appendChild(_Menu.Next.el);
+        //     return;
+        // }
         const tilesForResource = _Data.tiles.filter(t => t.requires.includes(tile.produces[0]));
         (tilesForResource.length === 0 
             ? Tile.many(_Campaign.level.deckTiles) 
