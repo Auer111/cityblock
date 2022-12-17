@@ -80,11 +80,24 @@ export class UI
             this.cardsEl.appendChild(_Menu.Next.el);
             return;
         }
-        const tilesFromResource = Tile.fromResources(tile?.produces);
-        (tilesFromResource.length === 0 
+        const resourceFilteredTiles = Tile.fromResources(tile?.produces);
+        let tiles = resourceFilteredTiles.length === 0 
             ? Tile.fromResources(_Campaign.level.resources) 
-            : tilesFromResource)
-            .forEach(t => this.cardsEl.appendChild(t.card()));
+            : resourceFilteredTiles;
+
+        tiles = tiles.filter(t => 
+            this._hasAvilableUpgrade(t) || !this._hasBeenPlaced(t)
+        );
+        tiles.forEach(t => this.cardsEl.appendChild(t.card()));
+    }
+
+    _hasBeenPlaced(tile:Tile){
+        if(tile.canPlaceMultiple){return false;}
+        return _Campaign.level.tiles.includes(tile.type);
+    }
+    _hasAvilableUpgrade(tile:Tile){
+        return tile.autoUpgrades.length === 0 ? false
+        : !tile.autoUpgrades.every(u => _Campaign.level.tiles.includes(u));
     }
     
     placeTile(cell:Cell, type:TileType){
