@@ -7,12 +7,13 @@ import { Resource, ResourceType } from "./Resource";
 export enum TileType
 {
     Grass,
+    Dirt,
+    Water,
     Camp,
     Forest,
     Lumbercamp,
     Mountian,
     Quarry,
-    Water,
     Wheat,
     Blind,
     Blacksmith,
@@ -37,8 +38,10 @@ export enum TileType
 export class Tile
 {
     public type: TileType;
+    public base: TileType = TileType.Grass;
     public label:string;
     public imgPath: string;
+    public basePath: string;
     public autoUpgrades: TileType[] = [];
     public placeOn: TileType[] = [TileType.Grass];
     public requiredNeighbors:TileType[] = [];
@@ -53,6 +56,7 @@ export class Tile
         Object.assign(this, init);
         this.label = this.label ?? TileType[this.type];
         this.imgPath = `./img/tiles/${this.imgPath ?? (this.label+'.png')}`;
+        this.basePath = `./img/tiles/${TileType[this.base]+'.png'}`;
         this.requiredNeighborsAnyDebug ??= this.requiredNeighborsAny;
     }
 
@@ -121,6 +125,7 @@ export class Tile
     {
        return `
        <div class="img-wrapper">
+            ${this.type === this.base ? "" : `<img class="img" src="${this.basePath}" />`}
             <img class="img ${this.label?.toLowerCase()}-animation" src="${this.imgPath}" />
         </div>`.ToEl();
     }

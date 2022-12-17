@@ -14,7 +14,9 @@ export class Data
 
         this.tiles = [
             new Tile(TileType.Grass),
-            new Tile(TileType.Water),
+            new Tile(TileType.Water,{
+                base: TileType.Water
+            }),
             new Tile(TileType.Forest),
             new Tile(TileType.Mountian),
             
@@ -39,15 +41,18 @@ export class Data
             }),
             
             new Tile(TileType.Shack_reaper,{
+                base: TileType.Dirt,
                 requiredNeighbors:[TileType.Fallow],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
                 autoUpgrades:[TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
             }),
             new Tile(TileType.Shack_reaper_wheat,{
+                base: TileType.Dirt,
                 requiredNeighbors:[TileType.Wheat],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Shack_reaper_flax,{
+                base: TileType.Dirt,
                 requiredNeighbors:[TileType.Flax],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
@@ -58,6 +63,7 @@ export class Data
                 produces: [ResourceType.Fabric],
             }),
             new Tile(TileType.Fallow,{
+                base: TileType.Dirt,
                 maxAmount: 2,
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
                 requiredNeighborsAnyDebug:[TileType.Shack],
@@ -65,11 +71,13 @@ export class Data
                 produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Wheat,{
+                base: TileType.Dirt,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Flax,{
+                base: TileType.Dirt,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Surf],
