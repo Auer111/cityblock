@@ -37,7 +37,8 @@ export class Cell
     _setTile = function(type:TileType) : void{
         this.tile = Tile.one(type);
         this.el.innerHTML = this.render().innerHTML;
-        _Campaign.level.resources.push(...this.tile.produces);
+        _Campaign.level.addResources([...this.tile.produces]);
+        _Campaign.level.addTile(type);
     }
     
     tryUpgrade(){

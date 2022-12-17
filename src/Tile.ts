@@ -24,7 +24,7 @@ export enum TileType
     Shack_reaper,
     Shack_reaper_wheat,
     Shack_reaper_flax,
-    Shack_weaver,
+    Weaver,
     Grainery,
     Fallow,
     House,
@@ -46,6 +46,7 @@ export class Tile
     public requiredNeighborsAnyDebug:TileType[] = [];
     public requires: ResourceType[] = [];
     public produces: ResourceType[] = [];
+    public canPlaceMultiple: boolean = false;
     public constructor(type: TileType, init?:Partial<Tile>) {
         this.type = type;
         Object.assign(this, init);

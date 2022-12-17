@@ -15,9 +15,27 @@ export class Level
     public size: number;
     public cells: TileToCell[];
     public resources: ResourceType[] = [];
+    public tiles: TileType[] = [];
     public constructor(init?:Partial<Level>) {
         Object.assign(this, init);
-        //Tile.many(this.startingTiles).forEach(t => t.produces.forEach(r => this.resources.push(r)));
+    }
+
+    addResources(resources:ResourceType[]){
+        resources.forEach(r => this.addResource(r));
+    }
+    addResource(resource:ResourceType){
+        if(!this.resources.includes(resource)){
+            this.resources.push(resource);
+        }
+    }
+
+    addTiles(tiles:TileType[]){
+        tiles.forEach(t => this.addTile(t));
+    }
+    addTile(tile:TileType){
+        if(!this.tiles.includes(tile)){
+            this.tiles.push(tile);
+        }
     }
 
     complete(){

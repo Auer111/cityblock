@@ -34,7 +34,7 @@ export class Data
             new Tile(TileType.Shack,{
                 requires: [ResourceType.Wood],
                 produces: [ResourceType.Surf],
-                autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper,TileType.Shack_weaver],
+                autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper],
             }),
             
             new Tile(TileType.Shack_reaper,{
@@ -50,23 +50,27 @@ export class Data
                 requiredNeighbors:[TileType.Flax],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
-            new Tile(TileType.Shack_weaver,{
+            new Tile(TileType.Weaver,{
                 requiredNeighborsAny:[TileType.Flax, TileType.Shack_reaper_flax],
                 requiredNeighborsAnyDebug:[TileType.Flax],
+                requires:[ResourceType.Flax],
                 produces: [ResourceType.Fabric],
             }),
             new Tile(TileType.Fallow,{
+                canPlaceMultiple: true,
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
                 requiredNeighborsAnyDebug:[TileType.Shack],
                 requires: [ResourceType.Surf],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Wheat,{
+                canPlaceMultiple: true,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Flax,{
+                canPlaceMultiple: true,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Surf],
