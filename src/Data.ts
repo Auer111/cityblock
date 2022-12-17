@@ -20,6 +20,7 @@ export class Data
             
             new Tile(TileType.Camp,{
                 autoUpgrades:[TileType.Lumbercamp,TileType.Quarry],
+                requires: [ResourceType.Humans],
             }),
             new Tile(TileType.Lumbercamp,{
                 requiredNeighbors:[TileType.Forest],
@@ -27,6 +28,7 @@ export class Data
             }),
             new Tile(TileType.Quarry,{
                 requiredNeighbors:[TileType.Mountian],
+                requires: [ResourceType.Tools],
                 produces: [ResourceType.Stone],
             }),
             new Tile(TileType.Shack,{
@@ -34,31 +36,39 @@ export class Data
                 produces: [ResourceType.Surf],
                 autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper],
             }),
+            
             new Tile(TileType.Shack_reaper,{
                 requiredNeighbors:[TileType.Fallow],
-                produces: [ResourceType.Reaper],
+                produces: [ResourceType.Reaper,ResourceType.Surf],
                 autoUpgrades:[TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
             }),
             new Tile(TileType.Shack_reaper_wheat,{
                 requiredNeighbors:[TileType.Wheat],
+                produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Shack_reaper_flax,{
                 requiredNeighbors:[TileType.Flax],
+                produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Fallow,{
+                requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
                 requires: [ResourceType.Surf],
+                produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Wheat,{
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
-                produces: [ResourceType.Wheat],
+                produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Flax,{
-                requiredNeighbors:[TileType.Flax],
+                placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
-                produces: [ResourceType.Flax],
+                produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Surf],
             }),
-
+            new Tile(TileType.Blacksmith,{
+                requires: [ResourceType.Wood,ResourceType.Surf],
+                produces: [ResourceType.Tools],
+            }),
             new Tile(TileType.Shack_hunter,{
                 label:"Hunter's Shack",
                 imgPath:"Shack.png",
@@ -70,23 +80,22 @@ export class Data
                 placeOn: [TileType.Forest],
                 produces: [ResourceType.Deer]
             }),
-            new Tile(TileType.Windmill),
-            new Tile(TileType.Blacksmith,{
-                requires: [ResourceType.Wood, ResourceType.Stone],
-                produces: [ResourceType.Tools],
+            new Tile(TileType.Windmill,{
+                requiredNeighbors:[TileType.Wheat],
+                requires: [ResourceType.Wheat,ResourceType.Flax, ResourceType.Wood, ResourceType.Stone, ResourceType.Tools],
+                produces: [ResourceType.Flour],
             }),
-            
         ]
 
         this.levels = [
             new Level({
-                label:"Level 1",
-                objective:Tile.one(13),
-                deckTiles: [TileType.Camp],
+                label:"Build a windmill",
+                objective:TileType.Windmill,
+                resources: [ResourceType.Humans],
                 cells: [
-                    new TileToCell(3,0,TileType.Forest),
-                    new TileToCell(0,3,TileType.Mountian)],
-                size:4
+                    new TileToCell(2,0,TileType.Forest),
+                    new TileToCell(0,2,TileType.Mountian)],
+                size:3
             }),
         ]
     }

@@ -40,6 +40,7 @@ export class Tile
     public autoUpgrades: TileType[] = [];
     public placeOn: TileType[] = [TileType.Grass];
     public requiredNeighbors:TileType[] = [];
+    public requiredNeighborsAny:TileType[] = [];
     public requires: ResourceType[] = [];
     public produces: ResourceType[] = [];
     public constructor(type: TileType, init?:Partial<Tile>) {
@@ -56,6 +57,13 @@ export class Tile
     static many(types:TileType[]):Tile[]
     {
         return types.map(i=> Tile.one(i));
+    }
+
+    static fromResources(resources:ResourceType[]):Tile[]{
+        if(resources == null){return [];}
+        return _Data.tiles.filter(t => 
+            t.requires.some(resource =>  resources.includes(resource))
+        );
     }
 
     canPlace(type:TileType):boolean{

@@ -31,7 +31,7 @@ export class UI
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
 
-        this.render(Tile.one(_Campaign.level.deckTiles[0]));
+        this.render(Tile.one(_Campaign.level.startingTiles[0]));
         interact('.card.drag').draggable({
             listeners: {
                 start (event:InteractEvent) {
@@ -71,15 +71,15 @@ export class UI
 
     render(tile:Tile){     
         this.cardsEl.innerHTML = "";
-        // if(_Campaign.level.complete()){
-        //     this.cardsEl.innerHTML = "";
-        //     this.cardsEl.appendChild(_Menu.Next.el);
-        //     return;
-        // }
-        const tilesForResource = _Data.tiles.filter(t => t.requires.includes(tile.produces[0]));
-        (tilesForResource.length === 0 
-            ? Tile.many(_Campaign.level.deckTiles) 
-            : tilesForResource)
+        if(_Campaign.level.complete()){
+            this.cardsEl.innerHTML = "";
+            this.cardsEl.appendChild(_Menu.Next.el);
+            return;
+        }
+        const tilesFromResource = Tile.fromResources(tile?.produces);
+        (tilesFromResource.length === 0 
+            ? Tile.fromResources(_Campaign.level.resources) 
+            : tilesFromResource)
             .forEach(t => this.cardsEl.appendChild(t.card()));
     }
     

@@ -54,6 +54,7 @@ export class Cell
     hasMetNeighborRequirements(tile:Tile)
     {
         if(!tile){return true;}
+        let requiredValid = false;
         let lookingFor = [...tile.requiredNeighbors];
         this.neighbors.forEach(neighbor => {
             let neighborType = neighbor.tile.type;
@@ -62,8 +63,21 @@ export class Cell
                 lookingFor.splice(remove,1);
             }
         });
+        requiredValid = lookingFor.length === 0;
 
-        return lookingFor.length === 0;
+        let anyValid = false;
+        if(tile.requiredNeighborsAny.length !== 0){
+            tile.requiredNeighborsAny.forEach(lookingFor => {
+                if(this.neighbors.find(neighbor => neighbor.tile.type == lookingFor) !== undefined){
+                    anyValid = true;
+                }
+            });
+        }
+        else{
+            anyValid = true;
+        }
+        
+        return requiredValid && anyValid;
     }
 
     render() : HTMLElement 
