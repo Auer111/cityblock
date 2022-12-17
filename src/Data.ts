@@ -34,7 +34,7 @@ export class Data
             new Tile(TileType.Shack,{
                 requires: [ResourceType.Wood],
                 produces: [ResourceType.Surf],
-                autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper],
+                autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper,TileType.Shack_weaver],
             }),
             
             new Tile(TileType.Shack_reaper,{
@@ -49,6 +49,11 @@ export class Data
             new Tile(TileType.Shack_reaper_flax,{
                 requiredNeighbors:[TileType.Flax],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
+            }),
+            new Tile(TileType.Shack_weaver,{
+                requiredNeighborsAny:[TileType.Flax, TileType.Shack_reaper_flax],
+                requiredNeighborsAnyDebug:[TileType.Flax],
+                produces: [ResourceType.Fabric],
             }),
             new Tile(TileType.Fallow,{
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
@@ -70,6 +75,12 @@ export class Data
                 requires: [ResourceType.Wood,ResourceType.Surf],
                 produces: [ResourceType.Tools],
             }),
+            new Tile(TileType.Grainery,{
+                requiredNeighborsAny:[TileType.Wheat,TileType.Shack_reaper_wheat],
+                requiredNeighborsAnyDebug:[TileType.Wheat],
+                requires: [ResourceType.Reaper],
+                produces: [ResourceType.Wheat],
+            }),
             new Tile(TileType.Shack_hunter,{
                 label:"Hunter's Shack",
                 imgPath:"Shack.png",
@@ -82,8 +93,8 @@ export class Data
                 produces: [ResourceType.Deer]
             }),
             new Tile(TileType.Windmill,{
-                requiredNeighbors:[TileType.Wheat],
-                requires: [ResourceType.Wheat,ResourceType.Flax, ResourceType.Wood, ResourceType.Stone, ResourceType.Tools],
+                requiredNeighbors:[TileType.Grainery],
+                requires: [ResourceType.Wheat,ResourceType.Fabric, ResourceType.Wood, ResourceType.Stone, ResourceType.Tools],
                 produces: [ResourceType.Flour],
             }),
         ]
@@ -94,9 +105,13 @@ export class Data
                 objective:TileType.Windmill,
                 resources: [ResourceType.Humans],
                 cells: [
-                    new TileToCell(2,0,TileType.Forest),
-                    new TileToCell(0,2,TileType.Mountian)],
-                size:3
+                    new TileToCell(2,0,TileType.Water),
+                    new TileToCell(3,2,TileType.Water),
+                    new TileToCell(2,3,TileType.Water),
+                    new TileToCell(3,3,TileType.Water),
+                    new TileToCell(3,0,TileType.Forest),
+                    new TileToCell(0,3,TileType.Mountian)],
+                size:4
             }),
         ]
     }
