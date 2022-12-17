@@ -41,8 +41,6 @@ end{
 }
 
 #cards{
-  user-select: none;
-  pointer-events: none;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -145,5 +143,18 @@ end{
 }
 .card.noValidCells .noValidCellsLabel{
   display: block;
+}
+/*Filter*/
+#filter{
+  opacity: .5;
+  touch-action: auto;
+  pointer-events: all;
+  padding: 0.2em 1em;
+  position: absolute;
+  top: -2.6em;
+  transform: scale(.75);
+    left: -0.6em;
+  line-height: 1em;
+  background: url('../../img/ui/paper.jpg');
 }
 

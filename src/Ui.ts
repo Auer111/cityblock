@@ -31,13 +31,14 @@ export class UI
         this.placementOverlay = document.body.querySelector("#can-place-overlay");
         this.placementCellId = null;
 
-        this.render(Tile.one(_Campaign.level.startingTiles[0]));
+        this.render(null);
         interact('.card.drag').draggable({
             listeners: {
                 start (event:InteractEvent) {
                     const card = event.target;
+                    const tile = Tile.one(Number(card.id))
                     card.classList.add('dragging');
-                    const anyValid = _Campaign.grid.setValidityForAllCells(null,Tile.one(Number(card.id)));
+                    const anyValid = _Campaign.grid.setValidityForAllCells(null,tile);
                     if(!anyValid){
                         card.classList.add('noValidCells');
                     }
@@ -73,18 +74,43 @@ export class UI
         });
     }
 
-    render(tile:Tile){     
+    render(tile:Tile|null){     
         this.cardsEl.innerHTML = "";
         if(_Campaign.level.complete()){
             this.cardsEl.innerHTML = "";
             this.cardsEl.appendChild(_Menu.Next.el);
             return;
         }
-        const tilesFromResource = Tile.fromResources(tile?.produces);
-        (tilesFromResource.length === 0 
+        if(tile!== null){
+            this.renderFilterEl();
+        }
+        
+        const resourceFilteredTiles = Tile.fromResources(tile?.produces);
+        let tiles = resourceFilteredTiles.length === 0 
             ? Tile.fromResources(_Campaign.level.resources) 
-            : tilesFromResource)
-            .forEach(t => this.cardsEl.appendChild(t.card()));
+            : resourceFilteredTiles;
+
+        tiles = tiles.filter(t => 
+            this._hasAvilableUpgrade(t) || !this._hasReachedMaxPlacement(t)
+        );
+        tiles.forEach(t => this.cardsEl.appendChild(t.card()));
+    }
+    _hasReachedMaxPlacement(tile:Tile){
+        return tile.placedAmount >= tile.maxAmount;
+    }
+    _hasAvilableUpgrade(tile:Tile){
+        return tile.autoUpgrades.length === 0 ? false
+        : !tile.autoUpgrades.every(u => _Campaign.level.tiles.includes(u));
+    }
+
+    renderFilterEl(){
+        const el = `<div id="filter">
+            <i class="fa-solid fa-xmark"></i><span>Clear Filter</span>
+        </div>`.ToEl();
+        el.addEventListener("click",()=>{
+            this.render(null);
+        });
+        this.cardsEl.appendChild(el);
     }
     
     placeTile(cell:Cell, type:TileType){
