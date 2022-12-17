@@ -17,7 +17,7 @@ export class Data
             new Tile(TileType.Water),
             new Tile(TileType.Forest),
             new Tile(TileType.Mountian),
-            new Tile(TileType.Wheat),
+            
             new Tile(TileType.Camp,{
                 autoUpgrades:[TileType.Lumbercamp,TileType.Quarry],
             }),
@@ -31,13 +31,26 @@ export class Data
             }),
             new Tile(TileType.Shack,{
                 requires: [ResourceType.Wood],
-                autoUpgrades:[TileType.HunterShack]
+                produces: [ResourceType.Surf],
+                autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper],
             }),
-            new Tile(TileType.Blacksmith,{
-                requires: [ResourceType.Wood, ResourceType.Stone],
-                produces: [ResourceType.Tools],
+            new Tile(TileType.Shack_reaper,{
+                requiredNeighbors:[TileType.Wheat, TileType.Flax],
+                requires: [ResourceType.Wood],
             }),
-            new Tile(TileType.HunterShack,{
+            new Tile(TileType.Fallow,{
+                requires: [ResourceType.Surf],
+            }),
+            new Tile(TileType.Wheat,{
+                requiredNeighbors:[TileType.Wheat],
+                produces: [ResourceType.Wheat],
+            }),
+            new Tile(TileType.Flax,{
+                requiredNeighbors:[TileType.Flax],
+                produces: [ResourceType.Flax],
+            }),
+
+            new Tile(TileType.Shack_hunter,{
                 label:"Hunter's Shack",
                 imgPath:"Shack.png",
                 requiredNeighbors:[TileType.Forest],
@@ -49,7 +62,11 @@ export class Data
                 produces: [ResourceType.Deer]
             }),
             new Tile(TileType.Windmill),
-            new Tile(TileType.Flax),
+            new Tile(TileType.Blacksmith,{
+                requires: [ResourceType.Wood, ResourceType.Stone],
+                produces: [ResourceType.Tools],
+            }),
+            
         ]
 
         this.levels = [

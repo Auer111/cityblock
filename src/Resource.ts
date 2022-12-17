@@ -2,6 +2,7 @@ import { _Data } from "./Data";
 
 export enum ResourceType
 {
+    Surf,
     Shelter,
     Wood,
     Fish,
@@ -10,6 +11,8 @@ export enum ResourceType
     Tools,
     Deer,
     Traps,
+    Wheat,
+    Flax
 }
 
 export class Resource
