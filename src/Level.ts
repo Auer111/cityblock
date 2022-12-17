@@ -10,18 +10,18 @@ export class Level
 {
     public id: number = _levelIterator++;
     public label:string;
-    public hand: Tile[];
-    public deckTiles:TileType[] = [];
-    public objective:Tile;
+    public startingTiles:TileType[] = [];
+    public objective:TileType;
     public size: number;
     public cells: TileToCell[];
     public resources: ResourceType[] = [];
     public constructor(init?:Partial<Level>) {
         Object.assign(this, init);
+        //Tile.many(this.startingTiles).forEach(t => t.produces.forEach(r => this.resources.push(r)));
     }
 
     complete(){
-        const gridHasTile = _Campaign?.grid?.cells.find(c=>c.tile === this.objective);
+        const gridHasTile = _Campaign?.grid?.cells.find(c=>c.tile.type === this.objective);
         return gridHasTile !== undefined && gridHasTile !== null;
     }
 }
