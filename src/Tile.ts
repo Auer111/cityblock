@@ -24,6 +24,7 @@ export enum TileType
     Shack_reaper,
     Shack_reaper_wheat,
     Shack_reaper_flax,
+    Shack_weaver,
     Fallow,
     House,
     Farm,
