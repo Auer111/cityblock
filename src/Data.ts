@@ -24,11 +24,12 @@ export class Data
             }),
             new Tile(TileType.Lumbercamp,{
                 requiredNeighbors:[TileType.Forest],
+                requires: [ResourceType.Humans],
                 produces: [ResourceType.Wood],
             }),
             new Tile(TileType.Quarry,{
                 requiredNeighbors:[TileType.Mountian],
-                requires: [ResourceType.Tools],
+                requires: [ResourceType.Tools,ResourceType.Humans],
                 produces: [ResourceType.Stone],
             }),
             new Tile(TileType.Shack,{
@@ -57,20 +58,18 @@ export class Data
                 produces: [ResourceType.Fabric],
             }),
             new Tile(TileType.Fallow,{
-                canPlaceMultiple: true,
+                maxAmount: 2,
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
                 requiredNeighborsAnyDebug:[TileType.Shack],
                 requires: [ResourceType.Surf],
                 produces: [ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Wheat,{
-                canPlaceMultiple: true,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Surf],
             }),
             new Tile(TileType.Flax,{
-                canPlaceMultiple: true,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Surf],

@@ -46,7 +46,8 @@ export class Tile
     public requiredNeighborsAnyDebug:TileType[] = [];
     public requires: ResourceType[] = [];
     public produces: ResourceType[] = [];
-    public canPlaceMultiple: boolean = false;
+    public maxAmount: number = 1;
+    public placedAmount: number = 0;
     public constructor(type: TileType, init?:Partial<Tile>) {
         this.type = type;
         Object.assign(this, init);

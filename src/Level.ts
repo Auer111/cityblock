@@ -38,6 +38,17 @@ export class Level
         }
     }
 
+    removeTile(tile:TileType){
+        this.removeObject(this.tiles, tile);
+    }
+
+    removeObject<T>(arr: T[], obj: T): void {
+    let index = arr.indexOf(obj);
+        if (index > -1) {
+            arr.splice(index, 1);
+        }
+    }
+
     complete(){
         const gridHasTile = _Campaign?.grid?.cells.find(c=>c.tile.type === this.objective);
         return gridHasTile !== undefined && gridHasTile !== null;

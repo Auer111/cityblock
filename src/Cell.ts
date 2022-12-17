@@ -39,6 +39,7 @@ export class Cell
         this.el.innerHTML = this.render().innerHTML;
         _Campaign.level.addResources([...this.tile.produces]);
         _Campaign.level.addTile(type);
+        this.tile.placedAmount++;
     }
     
     tryUpgrade(){
