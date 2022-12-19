@@ -105,6 +105,7 @@ export class Tile
                 <div class="label bg">${this.label}</div>
                 <div class="label">${this.label}</div>
                 <end>
+                    <img class="tile base" src="${this.basePath}" />
                     <img class="tile" src="${this.imgPath}" />
                 </end>
             </figure>`

@@ -85,6 +85,9 @@ end{
   filter: sepia(1);
   margin-bottom: 2em;
 }
+.card img.tile.base{
+  margin-bottom: -200%;
+}
 .card.locked img.tile{
   filter: opacity(0.1);
 }
