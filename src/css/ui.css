@@ -58,8 +58,8 @@ end{
 
 .card{
   padding: 0.5em;
-  margin: -2em;
-  width: 12em;
+  margin: min(-3vw,-3vh);
+  width: max(20vw,20vh);
   min-width: 12em;
   font-family: "Open Sans", Helvetica, sans-serif;
   transform: scale(.6);
@@ -67,7 +67,7 @@ end{
   box-shadow: 0px 5px 20px -10px #111111;
   user-select: none;
   pointer-events: all;
-  height: 16em;
+  height: max(25vw,25vh);
   background: url('../../img/ui/paper.jpg');
   background-size: 100%;
 }
@@ -83,7 +83,7 @@ end{
 }
 .card img.tile{
   filter: sepia(1);
-  margin-bottom: 2em;
+  margin-bottom: max(22vw, 17vh);
 }
 .card img.tile.base{
   margin-bottom: -200%;
@@ -99,9 +99,10 @@ end{
 }
 .card .label{
   vertical-align: bottom;
-  line-height: 10em;
+  line-height: max(10vw,10vh);
+  font-size: max(2vw,2vh);
+  height: max(10vw,10vh);
   text-align: center;
-  height: 6em;
   position: absolute;
   left: 0;
   text-align: center;

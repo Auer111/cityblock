@@ -36,25 +36,25 @@ export class Data
             }),
             new Tile(TileType.Shack,{
                 requires: [ResourceType.Wood],
-                produces: [ResourceType.Surf],
+                produces: [ResourceType.Serf],
                 autoUpgrades:[TileType.Shack_hunter, TileType.Shack_reaper],
             }),
             
             new Tile(TileType.Shack_reaper,{
                 base: TileType.Dirt,
                 requiredNeighbors:[TileType.Fallow],
-                produces: [ResourceType.Reaper,ResourceType.Surf],
+                produces: [ResourceType.Reaper,ResourceType.Serf],
                 autoUpgrades:[TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
             }),
             new Tile(TileType.Shack_reaper_wheat,{
                 base: TileType.Dirt,
                 requiredNeighbors:[TileType.Wheat],
-                produces: [ResourceType.Reaper,ResourceType.Surf],
+                produces: [ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Shack_reaper_flax,{
                 base: TileType.Dirt,
                 requiredNeighbors:[TileType.Flax],
-                produces: [ResourceType.Reaper,ResourceType.Surf],
+                produces: [ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Weaver,{
                 requiredNeighborsAny:[TileType.Flax, TileType.Shack_reaper_flax],
@@ -67,23 +67,23 @@ export class Data
                 maxAmount: 2,
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
                 requiredNeighborsAnyDebug:[TileType.Shack],
-                requires: [ResourceType.Surf],
-                produces: [ResourceType.Reaper,ResourceType.Surf],
+                requires: [ResourceType.Serf],
+                produces: [ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Wheat,{
                 base: TileType.Dirt,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
-                produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Surf],
+                produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Flax,{
                 base: TileType.Dirt,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
-                produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Surf],
+                produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Blacksmith,{
-                requires: [ResourceType.Wood,ResourceType.Surf],
+                requires: [ResourceType.Wood,ResourceType.Serf],
                 produces: [ResourceType.Tools],
             }),
             new Tile(TileType.Grainery,{

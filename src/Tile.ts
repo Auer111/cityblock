@@ -104,10 +104,10 @@ export class Tile
                 </div>
                 <div class="label bg">${this.label}</div>
                 <div class="label">${this.label}</div>
-                <end>
+                <center>
                     <img class="tile base" src="${this.basePath}" />
                     <img class="tile" src="${this.imgPath}" />
-                </end>
+                </center>
             </figure>`
         .ToEl(): 
         `<figure id="${this.type}" class="card locked">

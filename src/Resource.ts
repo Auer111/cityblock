@@ -4,7 +4,7 @@ export enum ResourceType
 {
     Locked,
     Humans,
-    Surf,
+    Serf,
     Reaper,
     Shelter,
     Wood,
