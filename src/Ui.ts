@@ -93,6 +93,7 @@ export class UI
         tiles = tiles.filter(t => 
             this._hasAvilableUpgrade(t) || !this._hasReachedMaxPlacement(t)
         );
+        tiles = _Campaign.level.filterExcluded(tiles);
         tiles.forEach(t => this.cardsEl.appendChild(t.card()));
     }
     _hasReachedMaxPlacement(tile:Tile){

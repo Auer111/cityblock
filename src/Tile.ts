@@ -7,6 +7,17 @@ import { Resource, ResourceType } from "./Resource";
 export enum TileType
 {
     Grass,
+    Grass_path_left,
+    Grass_path_leftdown,
+    Grass_path_leftright,
+    Grass_path_up,
+    Grass_path_updown,
+    Grass_path_upleft,
+    Grass_path_upright,
+    Grass_path_right,
+    Grass_path_rightdown,
+    Grass_path_down,
+    Grass_path_all,
     Dirt,
     Water,
     Camp,
@@ -18,7 +29,6 @@ export enum TileType
     Blind,
     Blacksmith,
     Windmill,
-    Deer,
     Flax,
     Shack,
     Shack_hunter,
@@ -39,6 +49,8 @@ export class Tile
 {
     public type: TileType;
     public base: TileType = TileType.Grass;
+    public roadAccess: boolean = true;
+    public roadRender: boolean = true;
     public label:string;
     public imgPath: string;
     public basePath: string;
@@ -126,7 +138,7 @@ export class Tile
     {
        return `
        <div class="img-wrapper">
-            ${this.type === this.base ? "" : `<img class="img" src="${this.basePath}" />`}
+            ${this.type === this.base ? "" : `<img class="img base" src="${this.basePath}" />`}
             <img class="img ${this.label?.toLowerCase()}-animation" src="${this.imgPath}" />
         </div>`.ToEl();
     }

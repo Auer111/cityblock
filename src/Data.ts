@@ -13,21 +13,27 @@ export class Data
     seed(){
 
         this.tiles = [
-            new Tile(TileType.Grass),
-            new Tile(TileType.Water,{
-                base: TileType.Water
+            new Tile(TileType.Grass,{
+                roadAccess: false
             }),
-            new Tile(TileType.Forest),
-            new Tile(TileType.Mountian),
-            
+            new Tile(TileType.Water,{
+                base: TileType.Water,
+                roadAccess: false
+            }),
+            new Tile(TileType.Forest,{
+                roadAccess: false
+            }),
+            new Tile(TileType.Mountian,{
+                roadAccess: false
+            }),
             new Tile(TileType.Camp,{
+                requiredNeighborsAny:[TileType.Forest, TileType.Mountian],
                 autoUpgrades:[TileType.Lumbercamp,TileType.Quarry],
                 requires: [ResourceType.Humans],
             }),
             new Tile(TileType.Lumbercamp,{
                 requiredNeighbors:[TileType.Forest],
-                requires: [ResourceType.Humans],
-                produces: [ResourceType.Wood],
+                produces:[ResourceType.Wood]
             }),
             new Tile(TileType.Quarry,{
                 requiredNeighbors:[TileType.Mountian],
@@ -42,17 +48,20 @@ export class Data
             
             new Tile(TileType.Shack_reaper,{
                 base: TileType.Dirt,
+                roadRender: false,
                 requiredNeighbors:[TileType.Fallow],
                 produces: [ResourceType.Reaper,ResourceType.Serf],
                 autoUpgrades:[TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
             }),
             new Tile(TileType.Shack_reaper_wheat,{
                 base: TileType.Dirt,
+                roadRender: false,
                 requiredNeighbors:[TileType.Wheat],
                 produces: [ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Shack_reaper_flax,{
                 base: TileType.Dirt,
+                roadRender: false,
                 requiredNeighbors:[TileType.Flax],
                 produces: [ResourceType.Reaper,ResourceType.Serf],
             }),
@@ -64,6 +73,7 @@ export class Data
             }),
             new Tile(TileType.Fallow,{
                 base: TileType.Dirt,
+                roadRender: false,
                 maxAmount: 2,
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
                 requiredNeighborsAnyDebug:[TileType.Shack],
@@ -72,12 +82,14 @@ export class Data
             }),
             new Tile(TileType.Wheat,{
                 base: TileType.Dirt,
+                roadRender: false,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Flax,{
                 base: TileType.Dirt,
+                roadRender: false,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
                 produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Serf],
@@ -122,7 +134,8 @@ export class Data
                     new TileToCell(3,3,TileType.Water),
                     new TileToCell(3,0,TileType.Forest),
                     new TileToCell(0,3,TileType.Mountian)],
-                size:4
+                size:4,
+                exclude:[TileType.Barn,TileType.Blind]
             }),
         ]
     }

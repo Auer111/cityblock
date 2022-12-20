@@ -1,7 +1,7 @@
 import "./css/grid.css"
 import interact from 'interactjs'
 import { InteractEvent } from "@interactjs/types";
-import Cell from './cell';
+import Cell, { Direction } from './cell';
 import { Tile } from './Tile';
 import { _UI } from "./Ui";
 
@@ -33,7 +33,7 @@ export class Isometric
           row.classList.add("row");
           for(let y = 0; y < this.cols; y++){
               if(i >= this.cells.length){ break outer; }
-              this.cells[i] = new Cell(i,x,y,this.cols,row,tileDatas[i]);
+              this.cells[i] = new Cell(i,x,y,this.cols,row,tileDatas[i],this.rows*this.cols);
               i++;
           }
           grid.prepend(row);
@@ -107,12 +107,13 @@ export class Isometric
     return anyValid;
   }
 
-  getNeighborCells(cell:Cell){
-    var dirs = [[0,1],[-1,0],[0,-1],[1,0]];
-    let neighbors = [];
+  getNeighborCells(cell:Cell):Map<Direction,Cell>{
+    var dirs = [Direction.left,Direction.up,Direction.right,Direction.down];
+    let neighbors = new Map<Direction,Cell>;
     for (let i = 0; i < dirs.length; i++) {
-        if(this.canGetNeightborCell(cell, dirs[i][0], dirs[i][1])){
-          neighbors.push(this.getNeightborCell(cell, dirs[i][0], dirs[i][1]));
+        const offset = Cell.DirectionOffset(dirs[i]);
+        if(this.canGetNeightborCell(cell, offset[0], offset[1])){
+          neighbors.set(dirs[i], this.getNeightborCell(cell,  offset[0], offset[1]));
         }
     }
     return neighbors;

@@ -3,6 +3,13 @@ import { _Data } from "./Data";
 import { Tile, TileType } from "./Tile";
 import { _UI } from "./Ui";
 
+export enum Direction{
+    left,
+    up,
+    right,
+    down
+}
+
 export class Cell
 {
     id:number;
@@ -13,16 +20,25 @@ export class Cell
     el : HTMLElement;
     parent : HTMLElement;
     needsResourceRefresh : boolean;
-    public neighbors : Cell[] = [];
-    constructor(id:number,x:number,y:number, gridColumnCount:number, parent:HTMLElement, tile: Tile){
+    public neighbors : Map<Direction,Cell> = new Map();
+    constructor(id:number,x:number,y:number, gridColumnCount:number, parent:HTMLElement, tile: Tile, gridTotalCells:number){
         this.id=id;
         this.x = x;
         this.y = y;
         this.gridColumnCount = gridColumnCount;
         this.tile = tile;
         this.parent = parent;
-        this.el = this.render();
+        this.el = this.render(gridTotalCells);
         this.parent.appendChild(this.el);
+    }
+
+    public static DirectionOffset(dir: Direction){
+        switch (dir){
+            case Direction.left: return [1,0];
+            case Direction.up: return [0,1];
+            case Direction.right: return [-1,0];
+            case Direction.down: return [0,-1];
+        }
     }
 
     //update tile and all neighbors
@@ -37,9 +53,47 @@ export class Cell
     _setTile = function(type:TileType) : void{
         this.tile = Tile.one(type);
         this.el.innerHTML = this.render().innerHTML;
+        this._setBaseRoads(true);
         _Campaign.level.addResources([...this.tile.produces]);
         _Campaign.level.addTile(type);
+        
         this.tile.placedAmount++;
+    }
+
+    _setBaseRoads(updateNeighbors:boolean){
+        
+        const left = this.neighbors.get(Direction.left)?.tile.roadAccess ?? false;
+        const up = this.neighbors.get(Direction.up)?.tile.roadAccess ?? false;
+        const right = this.neighbors.get(Direction.right)?.tile.roadAccess ?? false;
+        const down = this.neighbors.get(Direction.down)?.tile.roadAccess ?? false;
+
+        let baseType = this.tile.base;
+        if(this.tile.roadRender){
+            if(left && up && right && down){baseType = TileType.Grass_path_all;}
+            else if(left && right){ baseType = TileType.Grass_path_leftright;}
+            else if(up && down){baseType = TileType.Grass_path_updown;}
+            else if(up && left){baseType = TileType.Grass_path_upleft;}
+            else if(up && right){baseType = TileType.Grass_path_upright;}
+            else if(down && left){baseType = TileType.Grass_path_leftdown;}
+            else if(down && right){baseType = TileType.Grass_path_rightdown;}
+            else if(left){baseType = TileType.Grass_path_left;}
+            else if(up){baseType = TileType.Grass_path_up;}
+            else if(right){baseType = TileType.Grass_path_right;}
+            else if(down){baseType = TileType.Grass_path_down;}
+    
+            const imgBase = this.el.querySelector('.base') as HTMLImageElement;
+            if(imgBase){
+                imgBase.src = `./img/tiles/${TileType[baseType]+'.png'}`;
+            }
+        }
+        
+        if(updateNeighbors){
+            if(left){this.neighbors.get(Direction.left)._setBaseRoads(false);}
+            if(right){this.neighbors.get(Direction.right)._setBaseRoads(false);}
+            if(up){this.neighbors.get(Direction.up)._setBaseRoads(false);}
+            if(down){this.neighbors.get(Direction.down)._setBaseRoads(false);}
+        }
+        
     }
     
     tryUpgrade(){
@@ -70,7 +124,7 @@ export class Cell
         let anyValid = false;
         if(tile.requiredNeighborsAny.length !== 0){
             tile.requiredNeighborsAny.forEach(lookingFor => {
-                if(this.neighbors.find(neighbor => neighbor.tile.type == lookingFor) !== undefined){
+                if([...this.neighbors.values()].find(neighbor => neighbor.tile.type == lookingFor) !== undefined){
                     anyValid = true;
                 }
             });
@@ -82,7 +136,7 @@ export class Cell
         return requiredValid && anyValid;
     }
 
-    render() : HTMLElement 
+    render(cellCount: number) : HTMLElement 
     {
         if(this.tile === undefined){
             debugger;
@@ -93,8 +147,8 @@ export class Cell
         if(this.x === this.gridColumnCount - 1 && this.y === 0){
             cell.classList.add("grid-left");
         }
-
-        cell.style.zIndex = String(1000 - this.x - this.y);
+        cell.style.zIndex = String(Math.pow(cellCount,2) - this.x - this.y);
+        
         cell.insertAdjacentHTML('beforeend',`
         <div class="overlay">
             <div>
@@ -102,6 +156,8 @@ export class Cell
             </div>
         </div>
         ${this.tile.wrappedImg().outerHTML}`);
+
+        const base = cell.querySelector(".base") as HTMLImageElement;
 
         return cell;
     }

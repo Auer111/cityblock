@@ -15,9 +15,17 @@ export class Level
     public size: number;
     public cells: TileToCell[];
     public resources: ResourceType[] = [];
+    public exclude: TileType[] = [];
     public tiles: TileType[] = [];
     public constructor(init?:Partial<Level>) {
         Object.assign(this, init);
+    }
+
+    filterExcluded(types:Tile[]){
+        this.exclude.forEach(t => {
+            this.removeObject(types, Tile.one(t));
+        });
+        return types;
     }
 
     addResources(resources:ResourceType[]){
