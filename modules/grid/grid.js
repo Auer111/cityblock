@@ -11,6 +11,8 @@ export class Isometric{
         this.cellSize = 76;
     }
 
+    static scale = 1;
+
     render(){
         let grid = document.createElement("div");
         grid.classList.add("grid");
@@ -66,7 +68,24 @@ export class Isometric{
         this.dragEl.style.touchAction = 'auto';
         const rect = this.dragEl.getBoundingClientRect();
 
-        interact(querySelector).draggable({
+        interact(querySelector).gesturable({
+            listeners: {
+              start (event) {
+                clearTimeout(resetTimeout)
+                scaleElement.classList.remove('reset')
+              },
+              move (event) {
+                var currentScale = event.scale * Isometric.scale
+                scaleElement.style.transform = 'scale(' + currentScale + ')'
+              },
+              end (event) {
+                resetTimeout = setTimeout(reset, 1000)
+                Isometric.scale = Isometric.scale * event.scale
+                scaleElement.classList.add('reset')
+              }
+            }
+          })
+        .draggable({
             modifiers: [
               interact.modifiers.restrictRect({
                 restriction: {
