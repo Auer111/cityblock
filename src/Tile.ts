@@ -3,6 +3,7 @@ import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
 import './extensions'
 import { Resource, ResourceType } from "./Resource";
+import { TimesOfDay, _TimeOfDay } from "./TimeOfDay";
 
 export enum TileType
 {
@@ -18,6 +19,10 @@ export enum TileType
     Grass_path_rightdown,
     Grass_path_down,
     Grass_path_all,
+    Grass_path_allleft,
+    Grass_path_allup,
+    Grass_path_allright,
+    Grass_path_alldown,
     Dirt,
     Water,
     Camp,
@@ -52,8 +57,6 @@ export class Tile
     public roadAccess: boolean = true;
     public roadRender: boolean = true;
     public label:string;
-    public imgPath: string;
-    public basePath: string;
     public autoUpgrades: TileType[] = [];
     public placeOn: TileType[] = [TileType.Grass];
     public requiredNeighbors:TileType[] = [];
@@ -67,9 +70,14 @@ export class Tile
         this.type = type;
         Object.assign(this, init);
         this.label = this.label ?? TileType[this.type];
-        this.imgPath = `./img/tiles/${this.imgPath ?? (this.label+'.png')}`;
-        this.basePath = `./img/tiles/${TileType[this.base]+'.png'}`;
         this.requiredNeighborsAnyDebug ??= this.requiredNeighborsAny;
+    }
+
+    getImgPath(){
+        return `./img/tiles/${TimesOfDay[_TimeOfDay.time].toLowerCase()}/${TileType[this.type]}.png`;
+    }
+    getBaseImgPath(){
+        return `./img/tiles/${TimesOfDay[_TimeOfDay.time].toLowerCase()}/${TileType[this.base]}.png`;
     }
 
     static one(type:TileType):Tile
@@ -117,8 +125,8 @@ export class Tile
                 <div class="label bg">${this.label}</div>
                 <div class="label">${this.label}</div>
                 <center>
-                    <img class="tile base" src="${this.basePath}" />
-                    <img class="tile" src="${this.imgPath}" />
+                    <img class="tile base" src="${this.getBaseImgPath()}" />
+                    <img class="tile" src="${this.getImgPath()}" />
                 </center>
             </figure>`
         .ToEl(): 
@@ -138,8 +146,8 @@ export class Tile
     {
        return `
        <div class="img-wrapper">
-            ${this.type === this.base ? "" : `<img class="img base" src="${this.basePath}" />`}
-            <img class="img ${this.label?.toLowerCase()}-animation" src="${this.imgPath}" />
+            ${this.type === this.base ? "" : `<img class="img base" src="${this.getBaseImgPath()}" />`}
+            <img class="img building ${this.label?.toLowerCase()}-animation" src="${this.getImgPath()}" />
         </div>`.ToEl();
     }
 

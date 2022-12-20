@@ -5,6 +5,7 @@ import { _Data } from './Data';
 import { Cell } from './cell';
 import { _Menu } from './Menu';
 import { Tile, TileType } from './Tile';
+import { TimeOfDay, TimesOfDay, _TimeOfDay } from './TimeOfDay';
 
 export class UI
 {
@@ -79,6 +80,12 @@ export class UI
         if(_Campaign.level.complete()){
             this.cardsEl.innerHTML = "";
             this.cardsEl.appendChild(_Menu.Next.el);
+
+            _TimeOfDay.SetTimeOfDay(TimesOfDay.Night);
+            _Campaign.grid.cells.forEach(cell => {
+                cell.placeTile(cell.tile.type);
+            });
+            
             return;
         }
         if(tile!== null){
@@ -133,7 +140,7 @@ export class UI
         if(cell.id === this.placementCellId){return;}
         //hovered over a new cell
         this.placementOverlay.style.display = 'grid';
-        this.placementOverlay.querySelector("img").src = Tile.one(type).imgPath;
+        this.placementOverlay.querySelector("img").src = Tile.one(type).getImgPath();
         cell.el.appendChild(this.placementOverlay);
         this.placementCellId = cell.id;
     }

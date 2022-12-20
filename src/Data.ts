@@ -106,7 +106,6 @@ export class Data
             }),
             new Tile(TileType.Shack_hunter,{
                 label:"Hunter's Shack",
-                imgPath:"Shack.png",
                 requiredNeighbors:[TileType.Forest],
                 produces: [ResourceType.Traps],
             }),

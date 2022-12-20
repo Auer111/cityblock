@@ -1,6 +1,7 @@
 import { _Campaign } from "./Campaign";
 import { _Data } from "./Data";
 import { Tile, TileType } from "./Tile";
+import { TimesOfDay, _TimeOfDay } from "./TimeOfDay";
 import { _UI } from "./Ui";
 
 export enum Direction{
@@ -70,6 +71,10 @@ export class Cell
         let baseType = this.tile.base;
         if(this.tile.roadRender){
             if(left && up && right && down){baseType = TileType.Grass_path_all;}
+            else if(left && up && down){baseType = TileType.Grass_path_allleft;}
+            else if(left && up && right){baseType = TileType.Grass_path_allup;}
+            else if(up && right && down){baseType = TileType.Grass_path_allright;}
+            else if(left && right && down){baseType = TileType.Grass_path_alldown;}
             else if(left && right){ baseType = TileType.Grass_path_leftright;}
             else if(up && down){baseType = TileType.Grass_path_updown;}
             else if(up && left){baseType = TileType.Grass_path_upleft;}
@@ -83,7 +88,7 @@ export class Cell
     
             const imgBase = this.el.querySelector('.base') as HTMLImageElement;
             if(imgBase){
-                imgBase.src = `./img/tiles/${TileType[baseType]+'.png'}`;
+                imgBase.src = `./img/tiles/${TimesOfDay[_TimeOfDay.time].toLowerCase()}/${TileType[baseType]+'.png'}`;
             }
         }
         
