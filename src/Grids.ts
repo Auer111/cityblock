@@ -4,6 +4,7 @@ import { InteractEvent } from "@interactjs/types";
 import Cell, { Direction } from './cell';
 import { Tile } from './Tile';
 import { _UI } from "./Ui";
+import { _Campaign } from "./Campaign";
 
 export class Isometric
 {
@@ -13,6 +14,8 @@ export class Isometric
   el: HTMLElement;
   dragEl: HTMLElement;
   cellSize : Number;
+  transformStyle: string;
+  transformEl: HTMLElement;
   constructor(rows:number, cols: number, tileDatas: Tile[]){
       this.rows = rows;
       this.cols = cols;
@@ -50,44 +53,55 @@ export class Isometric
       grid.style.marginTop = `${-this.cellSize}px`;
   }
 
+  angleScale = {
+    scale: 1,
+    currentScale: 1
+  }
+
   makeDraggable(querySelector : any){
     this.dragEl = document.querySelector(querySelector);
     this.dragEl.style.pointerEvents = 'all';
     this.dragEl.style.touchAction = 'auto';
     const rect = this.dragEl.getBoundingClientRect();
+
+    interact("#map").gesturable({
+      listeners: {
+        move (event) {
+          _Campaign.grid.angleScale.currentScale = event.scale * _Campaign.grid.angleScale.scale;
+          _Campaign.grid.dragMoveListener(event);
+        },
+        end (event) {
+          _Campaign.grid.angleScale.scale = _Campaign.grid.angleScale.scale * event.scale;
+        }
+      }
+    }).draggable({
+      listeners: { 
+        move : _Campaign.grid.dragMoveListener
+      }
+    });
     
     interact(querySelector).on('tap', function (event) {
       const cell = _UI.getCellAtMouse();
       if(cell !== undefined){_UI.render(cell.tile);}
       
       event.preventDefault();
-    }).draggable({
-        modifiers: [
-          interact.modifiers.restrictRect({
-            restriction: {
-              top: -rect.height / 2, 
-              right: document.scrollingElement.clientWidth + (rect.width / 2), 
-              bottom: document.scrollingElement.clientHeight + (rect.height / 2), 
-              left: -rect.width / 2
-            }
-          })
-        ],
-        listeners: {
-          move (event : InteractEvent) {
-            var target = event.target
-            // keep the dragged position in the data-x/data-y attributes
-            var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-            var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-            
-            // translate the element
-            target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-            
-            // update the posiion attributes
-            target.setAttribute('data-x', String(x))
-            target.setAttribute('data-y', String(y))
-          }
-        }
-    });
+    })
+  }
+
+  dragMoveListener (event : any) {
+    var target = event.target
+    // keep the dragged position in the data-x/data-y attributes
+    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+  
+    // translate the element
+
+    target.style.transform = 'translate(' + x + 'px, ' + y + 'px)' + ' scale(' + _Campaign.grid.angleScale.currentScale + ')';
+    console.log(target.style.transform);
+  
+    // update the posiion attributes
+    target.setAttribute('data-x', x)
+    target.setAttribute('data-y', y)
   }
 
   setValidityForAllCells(allValid:boolean|null, tile : Tile|null):boolean{
