@@ -95,9 +95,7 @@ export class Isometric
     var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
   
     // translate the element
-
     target.style.transform = 'translate(' + x + 'px, ' + y + 'px)' + ' scale(' + _Campaign.grid.angleScale.currentScale + ')';
-    console.log(target.style.transform);
   
     // update the posiion attributes
     target.setAttribute('data-x', x)
