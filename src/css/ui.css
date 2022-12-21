@@ -9,6 +9,12 @@ center{
   place-content: center;
   height: 100%;
 }
+.icon center{
+  filter: drop-shadow(5px 0 0 white) 
+        drop-shadow(0 5px 0 white)
+        drop-shadow(-5px 0 0 white) 
+        drop-shadow(0 -5px 0 white);
+}
 end{
   display: grid;
   place-content: end;
@@ -71,6 +77,12 @@ end{
   background: url('../../img/ui/paper.jpg');
   background-size: 100%;
 }
+.card.icon{
+  box-shadow: none;
+  background: none;
+  bottom: 7.7em;
+  transform: scale(.5);
+}
 .card.locked{
   filter: grayscale(1);
 }
@@ -110,6 +122,9 @@ end{
   right: 0;
   bottom: 0.5em;
   z-index: 1;
+}
+.card.icon .label{
+  bottom: 2em;
 }
 
 .card.noValidCells .tile,

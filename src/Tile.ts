@@ -100,6 +100,18 @@ export class Tile
         return this.placeOn.find(t => t === type) !== undefined;
     }
 
+    icon(){
+        return `
+        <figure id="${this.type}" class="card icon">
+            <div class="label">${this.label}</div>
+            <center>
+                <img class="tile base" src="${this.getBaseImgPath()}" />
+                <img class="tile" src="${this.getImgPath()}" />
+            </center>
+        </figure>
+        `.ToEl();
+    }
+
     card() : HTMLElement 
     {        
         const neededResources = this.requires.filter(r => !_Campaign.level.resources.includes(r));

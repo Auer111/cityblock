@@ -88,18 +88,20 @@ export class UI
             
             return;
         }
-        if(tile!== null){
-            this.renderFilterEl();
+
+        let tiles = tile === null 
+            ? Tile.fromResources(_Campaign.level.resources) 
+            : Tile.fromResources(tile?.produces)
+
+        if(tile){
+            this.cardsEl.appendChild(tile.icon())
+        }
+        else{
+            tiles = tiles.filter(t => 
+                this._hasAvilableUpgrade(t) || !this._hasReachedMaxPlacement(t)
+            );
         }
         
-        const resourceFilteredTiles = Tile.fromResources(tile?.produces);
-        let tiles = resourceFilteredTiles.length === 0 
-            ? Tile.fromResources(_Campaign.level.resources) 
-            : resourceFilteredTiles;
-
-        tiles = tiles.filter(t => 
-            this._hasAvilableUpgrade(t) || !this._hasReachedMaxPlacement(t)
-        );
         tiles = _Campaign.level.filterExcluded(tiles);
         tiles.forEach(t => this.cardsEl.appendChild(t.card()));
     }
@@ -109,16 +111,6 @@ export class UI
     _hasAvilableUpgrade(tile:Tile){
         return tile.autoUpgrades.length === 0 ? false
         : !tile.autoUpgrades.every(u => _Campaign.level.tiles.includes(u));
-    }
-
-    renderFilterEl(){
-        const el = `<div id="filter">
-            <i class="fa-solid fa-xmark"></i><span>Clear Filter</span>
-        </div>`.ToEl();
-        el.addEventListener("click",()=>{
-            this.render(null);
-        });
-        this.cardsEl.appendChild(el);
     }
     
     placeTile(cell:Cell, type:TileType){
