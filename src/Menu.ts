@@ -45,12 +45,7 @@ class Main
 
     render(){
         _Menu.renderSection('main-menu');
-        document.querySelector('#main-menu button').addEventListener('click', ()=>{_Menu.Main.onClickCampaign()});
-
-        const grid = new Isometric(3,3,new Array(9).fill(_Data.tiles[0]));
-
-        document.querySelector('#main-menu .iso').appendChild(grid.el);
-        grid.sizeGrid(grid.el);
+        document.querySelector('#main-menu .btn').addEventListener('click', ()=>{_Menu.Main.onClickCampaign()});
     }
 
     onClickCampaign(){
