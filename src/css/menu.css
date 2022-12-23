@@ -1,7 +1,7 @@
 #main-menu{
   background-image: url('../../img/cityblock.png');
     background-position: center;
-    background-size: 200vh;
+    background-size: max(200vh,100vw);
     height: 100vh;
   }
 #main-menu main{
