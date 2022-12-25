@@ -4,6 +4,7 @@ import { _Data } from "./Data";
 import './extensions'
 import { Resource, ResourceType } from "./Resource";
 import { TimesOfDay, _TimeOfDay } from "./TimeOfDay";
+import { _UI } from "./Ui";
 
 export enum TileType
 {
@@ -101,15 +102,22 @@ export class Tile
     }
 
     icon(){
-        return `
-        <figure id="${this.type}" class="card icon">
+        const el = `
+        <button id="${this.type}" class="card icon">
             <div class="label">${this.label}</div>
             <center>
                 <img class="tile base" src="${this.getBaseImgPath()}" />
                 <img class="tile" src="${this.getImgPath()}" />
             </center>
-        </figure>
+            <div class="label back"><i class="fa-solid fa-chevron-left"></i> back</div>
+        </button>
         `.ToEl();
+
+        el.addEventListener('click',()=>{
+            _UI.render(null);
+        });
+
+        return el;
     }
 
     card() : HTMLElement 

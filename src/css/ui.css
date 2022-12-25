@@ -80,8 +80,8 @@ end{
 .card.icon{
   box-shadow: none;
   background: none;
-  bottom: 7.7em;
-  transform: scale(.5);
+  bottom: max(2vw,2vh);
+  transform: scale(.6);
 }
 .card.locked{
   filter: grayscale(1);
@@ -125,6 +125,10 @@ end{
 }
 .card.icon .label{
   bottom: 2em;
+}
+.card.icon .label.back{
+  bottom: -4em;
+  margin-bottom: 2em;
 }
 
 .card.noValidCells .tile,
