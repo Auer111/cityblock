@@ -47,6 +47,7 @@ export class Data
             }),
             
             new Tile(TileType.Shack_reaper,{
+                label:"Shack",
                 base: TileType.Dirt,
                 roadRender: false,
                 requiredNeighbors:[TileType.Fallow],
@@ -54,12 +55,14 @@ export class Data
                 autoUpgrades:[TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
             }),
             new Tile(TileType.Shack_reaper_wheat,{
+                label:"Shack",
                 base: TileType.Dirt,
                 roadRender: false,
                 requiredNeighbors:[TileType.Wheat],
                 produces: [ResourceType.Reaper,ResourceType.Serf],
             }),
             new Tile(TileType.Shack_reaper_flax,{
+                label:"Shack",
                 base: TileType.Dirt,
                 roadRender: false,
                 requiredNeighbors:[TileType.Flax],
@@ -78,21 +81,21 @@ export class Data
                 requiredNeighborsAny:[TileType.Shack, TileType.Shack_reaper, TileType.Shack_reaper_wheat, TileType.Shack_reaper_flax],
                 requiredNeighborsAnyDebug:[TileType.Shack],
                 requires: [ResourceType.Serf],
-                produces: [ResourceType.Reaper,ResourceType.Serf],
+                produces: [ResourceType.Reaper],
             }),
             new Tile(TileType.Wheat,{
                 base: TileType.Dirt,
                 roadRender: false,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
-                produces: [ResourceType.Wheat,ResourceType.Reaper,ResourceType.Serf],
+                produces: [ResourceType.Wheat],
             }),
             new Tile(TileType.Flax,{
                 base: TileType.Dirt,
                 roadRender: false,
                 placeOn: [TileType.Fallow],
                 requires: [ResourceType.Reaper],
-                produces: [ResourceType.Flax,ResourceType.Reaper,ResourceType.Serf],
+                produces: [ResourceType.Flax],
             }),
             new Tile(TileType.Blacksmith,{
                 requires: [ResourceType.Wood,ResourceType.Serf],
@@ -101,7 +104,7 @@ export class Data
             new Tile(TileType.Grainery,{
                 requiredNeighborsAny:[TileType.Wheat,TileType.Shack_reaper_wheat],
                 requiredNeighborsAnyDebug:[TileType.Wheat],
-                requires: [ResourceType.Reaper],
+                requires: [ResourceType.Wheat],
                 produces: [ResourceType.Wheat],
             }),
             new Tile(TileType.Shack_hunter,{
